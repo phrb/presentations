@@ -1,0 +1,161 @@
+#+TITLE: Exemplos em Assembly
+#+AUTHOR: @@latex: \footnotesize Pedro Bruel, Giuliano Belinassi@@
+#+EMAIL:
+#+DATE:      @@latex: \scriptsize 16 de Set, 2020@@
+#+EXPORT_FILE_NAME: presentation.pdf
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:2 num:t toc:nil @:t \n:nil ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   tex:t latex:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+
+#+STARTUP: beamer
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]
+#+LATEX_HEADER: \mode<beamer>{\usetheme[numbering=fraction, progressbar=none, titleformat=smallcaps, sectionpage=none]{metropolis}}
+
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+#+LATEX_HEADER: \usepackage{sourcecodepro}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+LATEX_HEADER: \usepackage{array}
+#+LATEX_HEADER: \usepackage{listings}
+#+LATEX_HEADER: \usepackage{multirow}
+#+LATEX_HEADER: \usepackage{caption}
+#+LATEX_HEADER: \usepackage{xeCJK}
+#+LATEX_HEADER: \usepackage{graphicx}
+#+LATEX_HEADER: \usepackage[english]{babel}
+#+LATEX_HEADER: \usepackage[scale=2]{ccicons}
+#+LATEX_HEADER: \usepackage{hyperref}
+# #+LATEX_HEADER: \usepackage{url}
+#+LATEX_HEADER: \usepackage{relsize}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{bm}
+#+LATEX_HEADER: \usepackage{wasysym}
+#+LATEX_HEADER: \usepackage{ragged2e}
+#+LATEX_HEADER: \usepackage{textcomp}
+#+LATEX_HEADER: \usepackage{pgfplots}
+#+LATEX_HEADER: \usepackage{appendixnumberbeamer}
+#+LATEX_HEADER: \usepgfplotslibrary{dateplot}
+#+LATEX_HEADER: \definecolor{Base}{HTML}{191F26}
+#+LATEX_HEADER: \definecolor{Adversarial}{HTML}{FF8D6D}
+#+LATEX_HEADER: \definecolor{Benign}{HTML}{01A982}
+#+LATEX_HEADER: \definecolor{Highlight}{HTML}{ffda99}
+# #+LATEX_HEADER: \definecolor{Accent}{HTML}{157FFF}
+#+LATEX_HEADER: \definecolor{Accent}{HTML}{bb0300}
+#+LATEX_HEADER: \setbeamercolor{alerted text}{fg=Accent}
+#+LATEX_HEADER: \setbeamercolor{frametitle}{fg=Base,bg=normal text.bg}
+#+LATEX_HEADER: \setbeamercolor{normal text}{bg=black!2,fg=Base}
+#+LATEX_HEADER: \setsansfont[BoldFont={Source Sans Pro Semibold},Numbers={OldStyle}]{Source Sans Pro}
+#+LATEX_HEADER: \lstdefinelanguage{Julia}%
+#+LATEX_HEADER:   {morekeywords={abstract,struct,break,case,catch,const,continue,do,else,elseif,%
+#+LATEX_HEADER:       end,export,false,for,function,immutable,mutable,using,import,importall,if,in,%
+#+LATEX_HEADER:       macro,module,quote,return,switch,true,try,catch,type,typealias,%
+#+LATEX_HEADER:       while,<:,+,-,::,/},%
+#+LATEX_HEADER:    sensitive=true,%
+#+LATEX_HEADER:    alsoother={$},%
+#+LATEX_HEADER:    morecomment=[l]\#,%
+#+LATEX_HEADER:    morecomment=[n]{\#=}{=\#},%
+#+LATEX_HEADER:    morestring=[s]{"}{"},%
+#+LATEX_HEADER:    morestring=[m]{'}{'},%
+#+LATEX_HEADER: }[keywords,comments,strings]%
+#+LATEX_HEADER: \lstdefinelanguage{dockerfile}{
+#+LATEX_HEADER:   keywords={FROM, RUN, COPY, ADD, ENTRYPOINT, CMD,  ENV, ARG, WORKDIR, EXPOSE, LABEL, USER, VOLUME, STOPSIGNAL, ONBUILD, MAINTAINER},
+#+LATEX_HEADER:   sensitive=false,
+#+LATEX_HEADER:   comment=[l]{\#},
+#+LATEX_HEADER:   morestring=[b]',
+#+LATEX_HEADER:   morestring=[b]"
+#+LATEX_HEADER: }
+#+LATEX_HEADER: \lstdefinelanguage{yaml}{
+#+LATEX_HEADER:   keywords={true,false,null,y,n},
+#+LATEX_HEADER:   ndkeywords={},
+#+LATEX_HEADER:   sensitive=false,
+#+LATEX_HEADER:   comment=[l]{\#},
+#+LATEX_HEADER:   morecomment=[s]{/*}{*/},
+#+LATEX_HEADER:   morestring=[b]',
+#+LATEX_HEADER:   morestring=[b]"
+#+LATEX_HEADER: }
+#+LATEX_HEADER: \lstset{ %
+#+LATEX_HEADER:   backgroundcolor={},
+#+LATEX_HEADER:   basicstyle=\ttfamily\scriptsize,
+#+LATEX_HEADER:   breakatwhitespace=true,
+#+LATEX_HEADER:   breaklines=true,
+#+LATEX_HEADER:   captionpos=n,
+#+LATEX_HEADER:   commentstyle=\color{Accent},
+# #+LATEX_HEADER:   escapeinside={\%*}{*)},
+#+LATEX_HEADER:   extendedchars=true,
+#+LATEX_HEADER:   frame=n,
+#+LATEX_HEADER:   keywordstyle=\color{Accent},
+#+LATEX_HEADER:   rulecolor=\color{black},
+#+LATEX_HEADER:   showspaces=false,
+#+LATEX_HEADER:   showstringspaces=false,
+#+LATEX_HEADER:   showtabs=false,
+#+LATEX_HEADER:   stepnumber=2,
+#+LATEX_HEADER:   stringstyle=\color{gray},
+#+LATEX_HEADER:   tabsize=2,
+#+LATEX_HEADER: }
+#+LATEX_HEADER: \renewcommand*{\UrlFont}{\ttfamily\smaller[2]\relax}
+#+LATEX_HEADER: \graphicspath{{../../img/}}
+#+LATEX_HEADER: \addtobeamertemplate{block begin}{}{\justifying}
+
+#+LATEX_HEADER: \captionsetup[figure]{labelformat=empty}
+
+* Setup                                            :B_ignoreheading:noexport:
+  :PROPERTIES:
+  :BEAMER_env: ignoreheading
+  :END:
+  #+HEADER: :results output :exports none :eval no-export
+  #+BEGIN_SRC emacs-lisp
+  (setq-local org-latex-pdf-process (list "latexmk -xelatex %f"))
+  #+END_SRC
+
+  #+RESULTS:
+
+* Introdução
+** Roteiro
+*** Objetivo
+    - Desenvolver mais familiaridade com o processo de compilação e com seus produtos
+    - Para isso, veremos  exemplos com linguagens de alto-nível,  Makefiles, e com o
+      /shell/ do Linux
+*** Tópicos dos Exemplos
+    1. Gerando assembly com Julia
+    2. Gerando assembly com GCC e Clang
+    3. Observando otimizações feitas pelo compilador
+*** Repositório no GitHub
+    - Slides e código
+    - Baixe o repositório para acompanhar a aula!
+    - https://github.com/phrb/presentations/tree/master/org/assembly
+** Recursos Adicionais
+*** Grupo na USP: [[https://flusp.ime.usp.br/][FLUSP (FLOSS at USP)]]
+*** Curso no Youtube: [[https://www.youtube.com/playlist?list=PLUl4u3cNGP63VIBQVWguXxZZi0566y7Wf][MIT Performance Engineering for Software Systems]]
+*** Assembly =x64=
+    - Cheat Sheets: [[https://cs.brown.edu/courses/cs033/docs/guides/x64_cheatsheet.pdf][x64]], [[https://devhints.io/makefile][Makefile]]
+    - [[https://www.wiley.com/en-us/Assembly+Language+Step+by+Step%253A+Programming+with+Linux%252C+3rd+Edition+-p-9781118080993][Assembly Language Step-by-Step]], Duntemann
+    - [[https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-instruction-set-reference-manual-325383.pdf][Manual Intel]]
+*** Livros
+    - [[https://www.charlespetzold.com/code/][Code]], Petzold
+    - [[https://nostarch.com/writegreatcode1_2e][Write Great Code]], Hyde
+    - [[https://www.r-5.org/files/books/computers/compilers/writing/Keith_Cooper_Linda_Torczon-Engineering_a_Compiler-EN.pdf][Engineering a Compiler]], Cooper & Torczon
+    - [[https://acs.pub.ro/~cpop/SMPA/Computer%2520Architecture%2520A%2520Quantitative%2520Approach%2520(5th%2520edition).pdf][Computer Architecture]], Hennessy & Patterson
+    - [[https://www.pearson.com/us/higher-education/program/Aho-Compilers-Principles-Techniques-and-Tools-2nd-Edition/PGM167067.html][Compilers]], Aho, Lam, Sethi, Ullman
+** Gerando Assembly com Julia
+*** A linguagem Julia
+   - Compilação *Just-in-Time* usando o LLVM
+   - Podemos olhar o código que será executado com a função =code_native=
+*** Exemplos
+    1. Gerando código para *tipos diferentes*: =examples/julia/simple.jl=
+    2. *``Mágicas''* do compilador? =examples/julia/arithmetic.jl=
+** Gerando Assembly com GCC e Clang
+*** Compilação Interativa
+    1. [[https://godbolt.org/][Compiler Explorer]]
+    2. Usando um script: =examples/interactive_compilation/watch_asm.sh=
+    3. Pode funcionar pra qualquer linguagem
+** Observando Otimizações do Compilador
+*** Exemplos fornecidos pelo *Giuliano*!
+    1. (Des)complicando o GCC: =examples/gcc_subprograms/LEIAME.txt=
+    2. Soma de PA: =examples/arithmetic_progression/LEIAME.txt=
+    3. $sin(atan(x))$: =examples/sinatan_optimize/LEIAME.txt=

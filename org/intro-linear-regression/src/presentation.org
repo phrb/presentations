@@ -1,0 +1,346 @@
+#+STARTUP: overview indent inlineimages logdrawer
+#+TITLE:     Introduction to Linear Regression
+#+AUTHOR:    \footnotesize Pedro Bruel \newline \scriptsize \emph{phrb@ime.usp.br}
+#+EMAIL:     phrb@ime.usp.br
+#+DATE:      \scriptsize \today
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:2 num:t toc:nil @:t \n:nil ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   tex:t latex:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+EXPORT_FILE_NAME: intro-linear-regression.pdf
+#+LINK_UP:
+#+LINK_HOME:
+
+#+STARTUP: beamer
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]
+#+LATEX_HEADER: \mode<beamer>{\usetheme[numbering=fraction, progressbar=none, titleformat=smallcaps, sectionpage=none]{metropolis}}
+
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+#+LATEX_HEADER: \usepackage{sourcecodepro}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+LATEX_HEADER: \usepackage{array}
+#+LATEX_HEADER: \usepackage{listings}
+#+LATEX_HEADER: \usepackage{graphicx}
+#+LATEX_HEADER: \usepackage[english]{babel}
+#+LATEX_HEADER: \usepackage[scale=2]{ccicons}
+#+LATEX_HEADER: \usepackage{url}
+#+LATEX_HEADER: \usepackage{relsize}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{bm}
+#+LATEX_HEADER: \usepackage{wasysym}
+#+LATEX_HEADER: \usepackage{ragged2e}
+#+LATEX_HEADER: \usepackage{textcomp}
+#+LATEX_HEADER: \usepackage{pgfplots}
+#+LATEX_HEADER: \usepackage{multirow}
+#+LATEX_HEADER: \usepgfplotslibrary{dateplot}
+#+LATEX_HEADER: \definecolor{Base}{HTML}{191F26}
+#+LATEX_HEADER: \definecolor{Highlight}{HTML}{ffda99}
+#+LATEX_HEADER: \definecolor{Accent}{HTML}{bb0300}
+#+LATEX_HEADER: \setbeamercolor{alerted text}{fg=Accent}
+#+LATEX_HEADER: \setbeamercolor{frametitle}{bg=Base}
+#+LATEX_HEADER: \setbeamercolor{normal text}{bg=black!2,fg=Base}
+#+LATEX_HEADER: \setsansfont[BoldFont={Source Sans Pro Semibold},Numbers={OldStyle}]{Source Sans Pro}
+#+LATEX_HEADER: \lstdefinelanguage{Julia}%
+#+LATEX_HEADER:   {morekeywords={abstract,struct,break,case,catch,const,continue,do,else,elseif,%
+#+LATEX_HEADER:       end,export,false,for,function,immutable,mutable,using,import,importall,if,in,%
+#+LATEX_HEADER:       macro,module,quote,return,switch,true,try,catch,type,typealias,%
+#+LATEX_HEADER:       while,<:,+,-,::,/},%
+#+LATEX_HEADER:    sensitive=true,%
+#+LATEX_HEADER:    alsoother={$},%
+#+LATEX_HEADER:    morecomment=[l]\#,%
+#+LATEX_HEADER:    morecomment=[n]{\#=}{=\#},%
+#+LATEX_HEADER:    morestring=[s]{"}{"},%
+#+LATEX_HEADER:    morestring=[m]{'}{'},%
+#+LATEX_HEADER: }[keywords,comments,strings]%
+#+LATEX_HEADER: \lstset{ %
+#+LATEX_HEADER:   backgroundcolor={},
+#+LATEX_HEADER:   basicstyle=\ttfamily\scriptsize,
+#+LATEX_HEADER:   breakatwhitespace=true,
+#+LATEX_HEADER:   breaklines=true,
+#+LATEX_HEADER:   captionpos=n,
+#+LATEX_HEADER:   commentstyle=\color{Accent},
+# #+LATEX_HEADER:   escapeinside={\%*}{*)},
+#+LATEX_HEADER:   extendedchars=true,
+#+LATEX_HEADER:   frame=n,
+#+LATEX_HEADER:   keywordstyle=\color{Accent},
+#+LATEX_HEADER:   language=R,
+#+LATEX_HEADER:   rulecolor=\color{black},
+#+LATEX_HEADER:   showspaces=false,
+#+LATEX_HEADER:   showstringspaces=false,
+#+LATEX_HEADER:   showtabs=false,
+#+LATEX_HEADER:   stepnumber=2,
+#+LATEX_HEADER:   stringstyle=\color{gray},
+#+LATEX_HEADER:   tabsize=2,
+#+LATEX_HEADER: }
+#+LATEX_HEADER: \renewcommand*{\UrlFont}{\ttfamily\smaller\relax}
+#+LATEX_HEADER: \graphicspath{{../../img/}}
+#+LATEX_HEADER: \addtobeamertemplate{block begin}{}{\justifying}
+
+* Setup                                            :B_ignoreheading:noexport:
+  :PROPERTIES:
+  :BEAMER_env: ignoreheading
+  :END:
+  #+HEADER: :results output :exports none
+  #+BEGIN_SRC emacs-lisp
+  (setq-local org-latex-pdf-process (list "latexmk -xelatex %f"))
+  #+END_SRC
+
+  #+RESULTS:
+
+* Introduction
+** Describing Experimental Data in Computer Science
+*** A Performance Optimization Problem                        :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    - A *program* with *parameters* $X \in \mathcal{X}$
+    - A *performance metric* $f: \mathcal{X} \mapsto \mathbb{R}$
+    - What is the $X_*$ that *minimizes* $f(\cdot)$?
+
+**** Dealing with Experimental Data                                 :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     - We can't measure $f(\cdot)$ *precisely*:
+       - Interference from network, other programs, OS, random fluctuations, \dots
+     - Fortunately, we can *model* $f(\cdot)$:
+       - *Linear models*
+       - Neural networks
+       - \dots
+
+*** Some Experimental Data                                            :BMCOL:
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+#+begin_SRC R :results graphics output :exports results :session *R* :file "../../../img/intro-linear-regression-experimental-data.pdf" :width 12 :height 12 :eval no-export
+library(latex2exp)
+library(ggplot2)
+library(dplyr)
+
+f <- function(X) {
+  return((0.2 * X) + (4 / X) + (0.5 * runif(length(X))))
+}
+
+sample_f <- function(X, id) {
+  return(data.frame(X = X, Y = f(X), repetition = id))
+}
+
+X <- seq(1, 10)
+
+df <- bind_rows(sample_f(X, 1),
+                sample_f(X, 2),
+                sample_f(X, 3),
+                sample_f(X, 4))
+
+fake_experiment <- ggplot(df, aes(x = as.factor(X),
+                                  y = Y)) +
+  scale_color_brewer(palette = "Set2") +
+  scale_x_discrete() +
+  xlab(TeX("$X$")) +
+  ylab(TeX("$f(X)$")) +
+  ylim(1.6, 4.8) +
+  labs(color = "Repetition") +
+  theme_bw(base_size = 36) +
+  theme(legend.position = c(0.68, 0.96),
+        legend.direction = "horizontal",
+        legend.background = element_rect(fill = "transparent"))
+
+fake_experiment +
+  geom_point(size = 5, aes(color = as.factor(repetition))) +
+  theme(legend.position = c(0.68, 0.96),
+        legend.direction = "horizontal",
+        legend.background = element_rect(fill = "transparent"))
+#+end_SRC
+
+#+ATTR_LATEX: :width \columnwidth
+#+RESULTS:
+[[file:../../../img/intro-linear-regression-experimental-data.pdf]]
+
+** Describing Experimental Data in Computer Science
+*** A Statistical Linear Model for $f(X)$                     :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    #+latex: \vspace{0.2em}
+    \[
+    \mathbf{Y} = \mathcal{M}(\mathbf{X})\theta(\mathbf{X}) + \boldsymbol{\varepsilon}
+    \]
+
+    #+latex: \only<1>{
+    Where, for *$n$ experiments* and *$k$ parameters*:
+    - $\mathbf{X} \in \mathcal{X}$: explanatory variables
+    - $\mathbf{Y} \in \mathbb{R}^{n\times{}1}$: response, or explained variable
+    - $\mathcal{M}: \mathcal{X} \mapsto \mathbb{R}^{n\times{}k}$: model matrix
+    - $\theta: \mathcal{X} \mapsto \mathbb{R}^{k\times{}1}$: model parameters
+    - $\boldsymbol{\varepsilon} \in \mathbb{R}^{n\times{}1}$: model error
+    #+latex: }
+    #+latex: \only<2>{
+    Where, for *$40$ experiments* and *$1$ parameter*:
+    - $\mathbf{X} \in \mathcal{X}$: $\{\mathbf{x}_j, \; \mathbf{x}_j = (1,\dots,10)\}_{j = 1,\dots,4}$
+    - $\mathbf{Y} \in \mathbb{R}^{40\times{}1}$: $\{y_i, \; y_i = f(\mathbf{X}_i)\}_{i = 1,\dots,40}$
+    - $\mathcal{M}: \mathcal{X} \mapsto \mathbb{R}^{40\times{}1}$: $\mathbf{1}^{40\times{}1}$
+    - $\theta: \mathcal{X} \mapsto \mathbb{R}^{1\times{}1}$: $\theta_0$
+    - $\boldsymbol{\varepsilon} \in \mathbb{R}^{40\times{}1}$: $\mathbf{Y} - \mathcal{M}(\mathbf{X})\theta(\mathbf{X})$
+    #+latex: }
+    #+latex: \only<3>{
+    Where, for *$40$ experiments* and *$2$ parameters*:
+    - $\mathbf{X} \in \mathcal{X}$: $\{\mathbf{x}_j, \; \mathbf{x}_j = (1,\dots,10)\}_{j = 1,\dots,4}$
+    - $\mathbf{Y} \in \mathbb{R}^{40\times{}1}$: $\{y_i, \; y_i = f(\mathbf{X}_i)\}_{i = 1,\dots,40}$
+    - $\mathcal{M}: \mathcal{X} \mapsto \mathbb{R}^{40\times{}2}$: $\left[ \mathbf{1}^{40\times{}1} \; | \; \mathbf{X} \right]$
+    - $\theta: \mathcal{X} \mapsto \mathbb{R}^{2\times{}1}$: $[\theta_{0}, \theta_{1}]$
+    - $\boldsymbol{\varepsilon} \in \mathbb{R}^{40\times{}1}$: $\mathbf{Y} - \mathcal{M}(\mathbf{X})\theta(\mathbf{X})$
+    #+latex: }
+    #+latex: \only<4>{
+    Where, for *$40$ experiments* and *$3$ parameters*:
+    - $\mathbf{X} \in \mathcal{X}$: $\{\mathbf{x}_j, \; \mathbf{x}_j = (1,\dots,10)\}_{j = 1,\dots,4}$
+    - $\mathbf{Y} \in \mathbb{R}^{40\times{}1}$: $\{y_i, \; y_i = f(\mathbf{X}_i)\}_{i = 1,\dots,40}$
+    - $\mathcal{M}: \mathcal{X} \mapsto \mathbb{R}^{40\times{}2}$: $\left[ \mathbf{1}^{40\times{}1} \; | \; \mathbf{X} \; | \; \{x^{2}, \; x \in \mathbf{X}\} \right]$
+    - $\theta: \mathcal{X} \mapsto \mathbb{R}^{2\times{}1}$: $[\theta_{0}, \theta_{1}, \theta_{2}]$
+    - $\boldsymbol{\varepsilon} \in \mathbb{R}^{40\times{}1}$: $\mathbf{Y} - \mathcal{M}(\mathbf{X})\theta(\mathbf{X})$
+    #+latex: }
+    #+latex: \only<5>{
+    Where, for *$40$ experiments* and *$3$ parameters*:
+    - $\mathbf{X} \in \mathcal{X}$: $\{\mathbf{x}_j, \; \mathbf{x}_j = (1,\dots,10)\}_{j = 1,\dots,4}$
+    - $\mathbf{Y} \in \mathbb{R}^{40\times{}1}$: $\{y_i, \; y_i = f(\mathbf{X}_i)\}_{i = 1,\dots,40}$
+    - $\mathcal{M}: \mathcal{X} \mapsto \mathbb{R}^{40\times{}2}$: $\left[ \mathbf{1}^{40\times{}1} \; | \; \mathbf{X} \; | \; \{\frac{1}{x}^{}, \; x \in \mathbf{X}\} \right]$
+    - $\theta: \mathcal{X} \mapsto \mathbb{R}^{2\times{}1}$: $[\theta_{0}, \theta_{1}, \theta_{2}]$
+    - $\boldsymbol{\varepsilon} \in \mathbb{R}^{40\times{}1}$: $\mathbf{Y} - \mathcal{M}(\mathbf{X})\theta(\mathbf{X})$
+    #+latex: }
+    #+latex: \only<6>{
+    Where, for *$40$ experiments* and *$3$ parameters*:
+    - $\mathbf{X} \in \mathcal{X}$: $\{\mathbf{x}_j, \; \mathbf{x}_j = (1,\dots,10)\}_{j = 1,\dots,4}$
+    - $\mathbf{Y} \in \mathbb{R}^{40\times{}1}$: $\{y_i, \; y_i = f(\mathbf{X}_i)\}_{i = 1,\dots,40}$
+    - $\mathcal{M}: \mathcal{X} \mapsto \mathbb{R}^{40\times{}2}$: $\left[ \mathbf{1}^{40\times{}1} \; | \; \mathbf{X} \; | \; \{\frac{1}{x}^{}, \; x \in \mathbf{X}\} \right]$
+    - $\theta: \mathcal{X} \mapsto \mathbb{R}^{2\times{}1}$: $[\theta_{0}, \theta_{1}, \theta_{2}]$
+    - @@latex: \colorbox{Highlight}{$\boldsymbol{\varepsilon} \in \mathbb{R}^{40\times{}1}$: $\mathbf{Y} - \mathcal{M}(\mathbf{X})\theta(\mathbf{X})$}@@
+    #+latex: }
+
+*** Some Experimental Data                                            :BMCOL:
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+#+latex: \only<1>{
+#+begin_SRC R :results graphics output :exports results :session *R* :file "../../../img/intro-linear-regression-experimental-data-nomodel.pdf" :width 12 :height 12 :eval no-export
+    library(latex2exp)
+    library(ggplot2)
+    library(dplyr)
+
+    fake_experiment +
+      geom_point(size = 5)
+#+end_SRC
+
+#+ATTR_LATEX: :width \columnwidth
+#+RESULTS:
+[[file:../../../img/intro-linear-regression-experimental-data-nomodel.pdf]]
+#+latex: }
+
+#+latex: \only<2>{
+#+begin_SRC R :results graphics output :exports results :session *R* :file "../../../img/intro-linear-regression-experimental-data-const-model.pdf" :width 12 :height 12 :eval no-export
+    library(latex2exp)
+    library(ggplot2)
+    library(dplyr)
+
+    fake_experiment +
+      geom_point(size = 5) +
+      geom_smooth(aes(x = as.numeric(X), y = Y),
+                  method = "lm",
+                  formula = "y ~ 1",
+                  color = "red") +
+      annotate("text",
+               size = 14,
+               x = 4.5,
+               y = 4.25,
+            label = TeX("$f(X) = \\theta_0 + \\epsilon$"))
+#+end_SRC
+
+#+ATTR_LATEX: :width \columnwidth
+#+RESULTS:
+[[file:../../../img/intro-linear-regression-experimental-data-const-model.pdf]]
+#+latex: }
+
+#+latex: \only<3>{
+#+begin_SRC R :results graphics output :exports results :session *R* :file "../../../img/intro-linear-regression-experimental-data-lin-model.pdf" :width 12 :height 12 :eval no-export
+    library(latex2exp)
+    library(ggplot2)
+    library(dplyr)
+
+    fake_experiment +
+      geom_point(size = 5) +
+      geom_smooth(aes(x = as.numeric(X), y = Y),
+                  method = "lm",
+                  formula = "y ~ x",
+                  color = "red") +
+      annotate("text",
+               size = 14,
+               x = 4.5,
+               y = 4.25,
+            label = TeX("$f(X) = \\theta_0 + \\theta_1X + \\epsilon$"))
+#+end_SRC
+
+#+ATTR_LATEX: :width \columnwidth
+#+RESULTS:
+[[file:../../../img/intro-linear-regression-experimental-data-lin-model.pdf]]
+#+latex: }
+
+#+latex: \only<4>{
+#+begin_SRC R :results graphics output :exports results :session *R* :file "../../../img/intro-linear-regression-experimental-data-quad-model.pdf" :width 12 :height 12 :eval no-export
+    library(latex2exp)
+    library(ggplot2)
+    library(dplyr)
+
+    fake_experiment +
+      geom_point(size = 5) +
+      geom_smooth(aes(x = as.numeric(X), y = Y),
+                  method = "lm",
+                  formula = "y ~ x + I(x ^ 2)",
+                  color = "red") +
+      annotate("text",
+               size = 14,
+               x = 4.5,
+               y = 4.25,
+            label = TeX("$f(X) = \\theta_0 + \\theta_1X + \\theta_2X^2 + \\epsilon$"))
+#+end_SRC
+
+#+ATTR_LATEX: :width \columnwidth
+#+RESULTS:
+[[file:../../../img/intro-linear-regression-experimental-data-quad-model.pdf]]
+#+latex: }
+
+#+latex: \only<5->{
+#+begin_SRC R :results graphics output :exports results :session *R* :file "../../../img/intro-linear-regression-experimental-data-full-model.pdf" :width 12 :height 12 :eval no-export
+library(latex2exp)
+library(ggplot2)
+library(dplyr)
+
+fake_experiment +
+  geom_point(size = 5) +
+  geom_smooth(aes(x = as.numeric(X), y = Y),
+              method = "lm",
+              formula = "y ~ x + I(1 / x)",
+              color = "red") +
+  annotate("text",
+           size = 14,
+           x = 4.5,
+           y = 4.25,
+        label = TeX("$f(X) = \\theta_0 + \\theta_1X + \\theta_2\\left(\\frac{1}{X}\\right)  + \\epsilon$"))
+#+end_SRC
+
+#+ATTR_LATEX: :width \columnwidth
+#+RESULTS:
+[[file:../../../img/intro-linear-regression-experimental-data-full-model.pdf]]
+#+latex: }
+
+* Ending Title :B_ignoreheading:
+  :PROPERTIES:
+  :BEAMER_env: ignoreheading
+  :END:
+  #+LATEX: \maketitle

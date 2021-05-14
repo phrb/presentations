@@ -1,0 +1,180 @@
+% Created 2020-09-16 Wed 18:37
+% Intended LaTeX compiler: pdflatex
+\documentclass[10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
+
+\usepackage{booktabs}
+\mode<beamer>{\usetheme[numbering=fraction, progressbar=none, titleformat=smallcaps, sectionpage=none]{metropolis}}
+\usepackage{sourcecodepro}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{xeCJK}
+\usepackage{graphicx}
+\usepackage[english]{babel}
+\usepackage[scale=2]{ccicons}
+\usepackage{hyperref}
+\usepackage{relsize}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{wasysym}
+\usepackage{ragged2e}
+\usepackage{textcomp}
+\usepackage{pgfplots}
+\usepackage{appendixnumberbeamer}
+\usepgfplotslibrary{dateplot}
+\definecolor{Base}{HTML}{191F26}
+\definecolor{Adversarial}{HTML}{FF8D6D}
+\definecolor{Benign}{HTML}{01A982}
+\definecolor{Highlight}{HTML}{ffda99}
+\definecolor{Accent}{HTML}{bb0300}
+\setbeamercolor{alerted text}{fg=Accent}
+\setbeamercolor{frametitle}{fg=Base,bg=normal text.bg}
+\setbeamercolor{normal text}{bg=black!2,fg=Base}
+\setsansfont[BoldFont={Source Sans Pro Semibold},Numbers={OldStyle}]{Source Sans Pro}
+\lstdefinelanguage{Julia}%
+{morekeywords={abstract,struct,break,case,catch,const,continue,do,else,elseif,%
+end,export,false,for,function,immutable,mutable,using,import,importall,if,in,%
+macro,module,quote,return,switch,true,try,catch,type,typealias,%
+while,<:,+,-,::,/},%
+sensitive=true,%
+alsoother={$},%
+morecomment=[l]\#,%
+morecomment=[n]{\#=}{=\#},%
+morestring=[s]{"}{"},%
+morestring=[m]{'}{'},%
+}[keywords,comments,strings]%
+\lstdefinelanguage{dockerfile}{
+keywords={FROM, RUN, COPY, ADD, ENTRYPOINT, CMD,  ENV, ARG, WORKDIR, EXPOSE, LABEL, USER, VOLUME, STOPSIGNAL, ONBUILD, MAINTAINER},
+sensitive=false,
+comment=[l]{\#},
+morestring=[b]',
+morestring=[b]"
+}
+\lstdefinelanguage{yaml}{
+keywords={true,false,null,y,n},
+ndkeywords={},
+sensitive=false,
+comment=[l]{\#},
+morecomment=[s]{/*}{*/},
+morestring=[b]',
+morestring=[b]"
+}
+\lstset{ %
+backgroundcolor={},
+basicstyle=\ttfamily\scriptsize,
+breakatwhitespace=true,
+breaklines=true,
+captionpos=n,
+commentstyle=\color{Accent},
+extendedchars=true,
+frame=n,
+keywordstyle=\color{Accent},
+rulecolor=\color{black},
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+stepnumber=2,
+stringstyle=\color{gray},
+tabsize=2,
+}
+\renewcommand*{\UrlFont}{\ttfamily\smaller[2]\relax}
+\graphicspath{{../../img/}}
+\addtobeamertemplate{block begin}{}{\justifying}
+\captionsetup[figure]{labelformat=empty}
+\usetheme{default}
+\author{ \footnotesize Pedro Bruel, Giuliano Belinassi}
+\date{ \scriptsize 16 de Set, 2020}
+\title{Exemplos em Assembly}
+\hypersetup{
+ pdfauthor={ \footnotesize Pedro Bruel, Giuliano Belinassi},
+ pdftitle={Exemplos em Assembly},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.1 (Org mode 9.2.5)},
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+
+\section{Introdução}
+\label{sec:org85bea16}
+\begin{frame}[label={sec:orgcfa47c4}]{Roteiro}
+\begin{block}{Objetivo}
+\begin{itemize}
+\item Desenvolver mais familiaridade com o processo de compilação e com seus produtos
+\item Para isso, veremos  exemplos com linguagens de alto-nível,  Makefiles, e com o
+\emph{shell} do Linux
+\end{itemize}
+\end{block}
+\begin{block}{Tópicos dos Exemplos}
+\begin{enumerate}
+\item Gerando assembly com Julia
+\item Gerando assembly com GCC e Clang
+\item Observando otimizações feitas pelo compilador
+\end{enumerate}
+\end{block}
+\begin{block}{Repositório no GitHub}
+\begin{itemize}
+\item Slides e código
+\item Baixe o repositório para acompanhar a aula!
+\item \url{https://github.com/phrb/presentations/tree/master/org/assembly}
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org737b093},fragile]{Recursos Adicionais}
+ \begin{block}{Grupo na USP: \href{https://flusp.ime.usp.br/}{FLUSP (FLOSS at USP)}}
+\end{block}
+\begin{block}{Curso no Youtube: \href{https://www.youtube.com/playlist?list=PLUl4u3cNGP63VIBQVWguXxZZi0566y7Wf}{MIT Performance Engineering for Software Systems}}
+\end{block}
+\begin{block}{Assembly \texttt{x64}}
+\begin{itemize}
+\item Cheat Sheets: \href{https://cs.brown.edu/courses/cs033/docs/guides/x64\_cheatsheet.pdf}{x64}, \href{https://devhints.io/makefile}{Makefile}
+\item \href{https://www.wiley.com/en-us/Assembly+Language+Step+by+Step\%3A+Programming+with+Linux\%2C+3rd+Edition+-p-9781118080993}{Assembly Language Step-by-Step}, Duntemann
+\item \href{https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-instruction-set-reference-manual-325383.pdf}{Manual Intel}
+\end{itemize}
+\end{block}
+\begin{block}{Livros}
+\begin{itemize}
+\item \href{https://www.charlespetzold.com/code/}{Code}, Petzold
+\item \href{https://nostarch.com/writegreatcode1\_2e}{Write Great Code}, Hyde
+\item \href{https://www.r-5.org/files/books/computers/compilers/writing/Keith\_Cooper\_Linda\_Torczon-Engineering\_a\_Compiler-EN.pdf}{Engineering a Compiler}, Cooper \& Torczon
+\item \href{https://acs.pub.ro/\~cpop/SMPA/Computer\%20Architecture\%20A\%20Quantitative\%20Approach\%20(5th\%20edition).pdf}{Computer Architecture}, Hennessy \& Patterson
+\item \href{https://www.pearson.com/us/higher-education/program/Aho-Compilers-Principles-Techniques-and-Tools-2nd-Edition/PGM167067.html}{Compilers}, Aho, Lam, Sethi, Ullman
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org28e9ac1},fragile]{Gerando Assembly com Julia}
+ \begin{block}{A linguagem Julia}
+\begin{itemize}
+\item Compilação \alert{Just-in-Time} usando o LLVM
+\item Podemos olhar o código que será executado com a função \texttt{code\_native}
+\end{itemize}
+\end{block}
+\begin{block}{Exemplos}
+\begin{enumerate}
+\item Gerando código para \alert{tipos diferentes}: \texttt{examples/julia/simple.jl}
+\item \alert{``Mágicas''} do compilador? \texttt{examples/julia/arithmetic.jl}
+\end{enumerate}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org76af1ed},fragile]{Gerando Assembly com GCC e Clang}
+ \begin{block}{Compilação Interativa}
+\begin{enumerate}
+\item \href{https://godbolt.org/}{Compiler Explorer}
+\item Usando um script: \texttt{examples/interactive\_compilation/watch\_asm.sh}
+\item Pode funcionar pra qualquer linguagem
+\end{enumerate}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orgf965b9a},fragile]{Observando Otimizações do Compilador}
+ \begin{block}{Exemplos fornecidos pelo \alert{Giuliano}!}
+\begin{enumerate}
+\item (Des)complicando o GCC: \texttt{examples/gcc\_subprograms/LEIAME.txt}
+\item Soma de PA: \texttt{examples/arithmetic\_progression/LEIAME.txt}
+\item \(sin(atan(x))\): \texttt{examples/sinatan\_optimize/LEIAME.txt}
+\end{enumerate}
+\end{block}
+\end{frame}
+\end{document}

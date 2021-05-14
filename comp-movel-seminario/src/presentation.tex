@@ -1,0 +1,109 @@
+% To generate 16:9 slides, use the following line:
+% \documentclass[10pt, compress, aspectratio=169]{beamer}
+
+\documentclass[10pt, compress]{beamer}
+
+\usetheme[numbering=fraction, progressbar=none, titleformat=smallcaps, sectionpage=none]{metropolis}
+
+\usepackage{sourcecodepro}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage[english]{babel}
+\usepackage[scale=2]{ccicons}
+\usepackage{url}
+\usepackage{relsize}
+\usepackage{wasysym}
+\usepackage{caption}
+
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+\definecolor{Base}{HTML}{191F26}
+\definecolor{Accent}{HTML}{157FFF}
+
+\setbeamercolor{alerted text}{fg=Accent}
+\setbeamercolor{frametitle}{bg=Base}
+
+\setsansfont[BoldFont={Source Sans Pro Semibold},
+              Numbers={OldStyle}]{Source Sans Pro}
+
+\lstset{ %
+  backgroundcolor={},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=true,
+  breaklines=true,
+  captionpos=n,
+  commentstyle=\color{Accent},
+  escapeinside={\%*}{*)},
+  extendedchars=true,
+  frame=n,
+  keywordstyle=\color{Accent},
+  language=C++,
+  rulecolor=\color{black},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  stepnumber=2,
+  stringstyle=\color{gray},
+  tabsize=2,
+  keywords={thrust,plus,device_vector, copy,transform,begin,end, copyin,
+  copyout, acc, \_\_global\_\_, void, int, float, main, threadIdx, blockIdx,
+  blockDim, if, else, malloc, NULL, cudaMalloc, cudaMemcpy, cudaSuccess,
+  cudaGetLastError, cudaDeviceSynchronize, cudaFree, cudaMemcpyDeviceToHost,
+  cudaMemcpyHostToDevice, const, data, independent, kernels, loop,
+  fprintf, stderr, cudaGetErrorString, EXIT_FAILURE, for, dim3},
+  otherkeywords={::, \#pragma, \#include, <<<,>>>, \&, \*, +, -, /, [, ], >, <}
+}
+
+\renewcommand*{\UrlFont}{\ttfamily\smaller\relax}
+
+\graphicspath{{../img/}}
+
+\title{3D Real-time Indoor Localization via Broadband Nonlinear Backscatter}
+\author{\footnotesize Lucas Morais \\ {\scriptsize \emph{morais.lucas.h@gmail.com}} \\
+\footnotesize Lucas Kanashiro \\ {\scriptsize \emph{lkd@ime.usp.br}} \\
+\footnotesize Pedro Bruel \\ {\scriptsize \emph{phrb@ime.usp.br}}}
+\institute{\includegraphics[height=2cm]{imelogo}\\[0.2cm] Instituto de Matemática e Estatística \\ Universidade de São Paulo}
+\date{\scriptsize \today}
+
+\begin{document}
+
+\maketitle
+
+\part{1}
+
+\section*{Slides}
+\begin{frame}
+    \frametitle{Slides}
+    \begin{center}
+        \includegraphics[width=.18\textwidth]{github}
+    \end{center}
+    Os \textit{slides} estão no \alert{GitHub}:
+
+    \begin{itemize}
+        \item \url{github.com/phrb/comp-movel-seminario}
+    \end{itemize}
+\end{frame}
+
+\section*{Roteiro}
+\begin{frame}
+    \frametitle{Roteiro}
+    \setbeamertemplate{section in toc}[sections numbered]
+    \tableofcontents[hideallsubsections,part=1]
+    \tableofcontents[hideallsubsections,part=2]
+    \tableofcontents[hideallsubsections,part=3]
+\end{frame}
+
+\input{part1}
+
+\part{2}
+\input{part2}
+
+\part{3}
+\input{part3}
+
+\maketitle
+
+\end{document}

@@ -1,0 +1,56 @@
+\newcolumntype{K}{>{\centering\arraybackslash}m{3cm}}
+\newcommand{\specialcell}[2][c]{%
+  \begin{tabular}[#1]{@{}K@{}}#2\end{tabular}}
+
+\begin{table}[htpb]
+    \centering
+    \tiny
+    \begin{tabular}{@{}KKKK@{}}
+        \toprule
+        {\bf Sistema} & {\bf Domínio} & {\bf Método de Busca} \\ \midrule
+        \specialcell{\tiny \bf ATLAS} & 
+        \specialcell{\tiny Álgebra Linear (Matrizes Densas)} & 
+        \specialcell{\tiny Exaustivo} \\ \midrule
+        \specialcell{\tiny \bf Code Perforation} & 
+        \specialcell{\tiny Compilador} & 
+        \specialcell{\tiny Exaustivo e Simulated Annealing} \\ \midrule
+        \specialcell{\tiny \bf FFTW} & 
+        \specialcell{\tiny Transformada Rápida de Fourier} & 
+        \specialcell{\tiny Exaustivo e Progração Dinâmica} \\ \midrule
+        \specialcell{\tiny \bf OSKI} & 
+        \specialcell{\tiny Álgebra Linear (Matrizes Esparsas)} & 
+        \specialcell{\tiny Exaustivo e Heurísticas} \\ \midrule
+        \specialcell{\tiny \bf Active Harmony} & 
+        \specialcell{\tiny Ambiente de Execução} & 
+        \specialcell{\tiny Nelder-Mead} \\ \midrule
+        \specialcell{\tiny \bf PATUS} & 
+        \specialcell{\tiny Computação Estêncil} & 
+        \specialcell{\tiny Nelder-Mead e Evolucionário} \\ \midrule
+        \specialcell{\tiny \bf SPIRAL} & 
+        \specialcell{\tiny Algoritmos para DSP} & 
+        \specialcell{\tiny Pareto Active Learning} \\ \midrule
+        \specialcell{\tiny \bf Dynamic Knobs} & 
+        \specialcell{\tiny Ambiente de Execução} & 
+        \specialcell{\tiny Control Theory} \\ \midrule
+        \specialcell{\tiny \bf MilepostGCC / cTunning} & 
+        \specialcell{\tiny Compilador} & 
+        \specialcell{\tiny Variáveis Aleatórias e Banco de Dados} \\ \midrule
+        \specialcell{\tiny \bf SEEC / Heartbeats} & 
+        \specialcell{\tiny Ambiente de Execução} & 
+        \specialcell{\tiny Control Theory} \\ \midrule
+        \specialcell{\tiny \bf INSIEME} & 
+        \specialcell{\tiny Compilador} & 
+        \specialcell{\tiny Differential Evolution} \\ \midrule
+        \specialcell{\tiny \bf StreamJIT} & 
+        \specialcell{\tiny Compilador Comensal (Dataflow)} & 
+        \specialcell{\tiny OpenTuner} \\ \midrule
+        \specialcell{\tiny \bf Petabricks} & 
+        \specialcell{\tiny Linguagem de Programação} & 
+        \specialcell{\tiny Bottom-Up Evolutionary} \\ \midrule
+        \specialcell{\tiny \bf OpenTuner(*)} & 
+        \specialcell{\tiny Autotuning Framework} & 
+        \specialcell{\tiny Vários} \\ \bottomrule
+    \end{tabular}
+    \caption{Sistemas para Autotuning.}
+    \label{tab:sched}
+\end{table}

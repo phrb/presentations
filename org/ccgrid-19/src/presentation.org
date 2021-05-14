@@ -1,0 +1,666 @@
+#+TITLE: Autotuning under Tight Budget Constraints:
+#+TITLE: @@latex: \\@@
+#+TITLE: A Design of Experiments Approach
+#+AUTHOR: @@latex: \footnotesize \textbf{\alert{Pedro Bruel$^{*}$}},@@
+#+AUTHOR: @@latex: Steven Quinito Masnada, Brice Videau, Arnaud Legrand, Jean-Marc Vincent, Alfredo Goldman@@
+#+EMAIL:     phrb@ime.usp.br
+#+DATE:      @@latex: \scriptsize \textit{phrb@ime.usp.br} \\[1em] \textit{Universidade de São Paulo, Brazil} \\ \textit{Université Grenoble Alpes, France}@@
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:2 num:t toc:nil @:t \n:nil ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   tex:t latex:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+
+#+STARTUP: beamer
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]
+#+LATEX_HEADER: \mode<beamer>{\usetheme[numbering=fraction, progressbar=none, titleformat=smallcaps, sectionpage=none]{metropolis}}
+
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+#+LATEX_HEADER: \usepackage{sourcecodepro}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+LATEX_HEADER: \usepackage{array}
+#+LATEX_HEADER: \usepackage{listings}
+#+LATEX_HEADER: \usepackage{graphicx}
+#+LATEX_HEADER: \usepackage[english]{babel}
+#+LATEX_HEADER: \usepackage[scale=2]{ccicons}
+#+LATEX_HEADER: \usepackage{url}
+#+LATEX_HEADER: \usepackage{relsize}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{bm}
+#+LATEX_HEADER: \usepackage{wasysym}
+#+LATEX_HEADER: \usepackage{ragged2e}
+#+LATEX_HEADER: \usepackage{textcomp}
+#+LATEX_HEADER: \usepackage{pgfplots}
+#+LATEX_HEADER: \usepgfplotslibrary{dateplot}
+#+LATEX_HEADER: \definecolor{Base}{HTML}{191F26}
+#+LATEX_HEADER: \definecolor{Highlight}{HTML}{ffda99}
+# #+LATEX_HEADER: \definecolor{Accent}{HTML}{157FFF}
+# #+LATEX_HEADER: \definecolor{Accent}{HTML}{790700}
+#+LATEX_HEADER: \definecolor{Accent}{HTML}{bb0300}
+#+LATEX_HEADER: \setbeamercolor{alerted text}{fg=Accent}
+#+LATEX_HEADER: \setbeamercolor{frametitle}{bg=Base}
+#+LATEX_HEADER: \setbeamercolor{normal text}{bg=black!2,fg=Base}
+#+LATEX_HEADER: \setsansfont[BoldFont={Source Sans Pro Semibold},Numbers={OldStyle}]{Source Sans Pro}
+#+LATEX_HEADER: \lstdefinelanguage{Julia}%
+#+LATEX_HEADER:   {morekeywords={abstract,struct,break,case,catch,const,continue,do,else,elseif,%
+#+LATEX_HEADER:       end,export,false,for,function,immutable,mutable,using,import,importall,if,in,%
+#+LATEX_HEADER:       macro,module,quote,return,switch,true,try,catch,type,typealias,%
+#+LATEX_HEADER:       while,<:,+,-,::,/},%
+#+LATEX_HEADER:    sensitive=true,%
+#+LATEX_HEADER:    alsoother={$},%
+#+LATEX_HEADER:    morecomment=[l]\#,%
+#+LATEX_HEADER:    morecomment=[n]{\#=}{=\#},%
+#+LATEX_HEADER:    morestring=[s]{"}{"},%
+#+LATEX_HEADER:    morestring=[m]{'}{'},%
+#+LATEX_HEADER: }[keywords,comments,strings]%
+#+LATEX_HEADER: \lstset{ %
+#+LATEX_HEADER:   backgroundcolor={},
+#+LATEX_HEADER:   basicstyle=\ttfamily\scriptsize,
+#+LATEX_HEADER:   breakatwhitespace=true,
+#+LATEX_HEADER:   breaklines=true,
+#+LATEX_HEADER:   captionpos=n,
+#+LATEX_HEADER:   commentstyle=\color{Accent},
+# #+LATEX_HEADER:   escapeinside={\%*}{*)},
+#+LATEX_HEADER:   extendedchars=true,
+#+LATEX_HEADER:   frame=n,
+#+LATEX_HEADER:   keywordstyle=\color{Accent},
+#+LATEX_HEADER:   language=R,
+#+LATEX_HEADER:   rulecolor=\color{black},
+#+LATEX_HEADER:   showspaces=false,
+#+LATEX_HEADER:   showstringspaces=false,
+#+LATEX_HEADER:   showtabs=false,
+#+LATEX_HEADER:   stepnumber=2,
+#+LATEX_HEADER:   stringstyle=\color{gray},
+#+LATEX_HEADER:   tabsize=2,
+#+LATEX_HEADER: }
+#+LATEX_HEADER: \renewcommand*{\UrlFont}{\ttfamily\smaller\relax}
+#+LATEX_HEADER: \graphicspath{{../../img/}}
+#+LATEX_HEADER: \addtobeamertemplate{block begin}{}{\justifying}
+
+* Setup                                            :B_ignoreheading:noexport:
+  :PROPERTIES:
+  :BEAMER_env: ignoreheading
+  :END:
+  #+HEADER: :results output :exports none :eval no-export
+  #+BEGIN_SRC emacs-lisp
+  (setq-local org-latex-pdf-process (list "latexmk -xelatex %f"))
+  #+END_SRC
+
+  #+RESULTS:
+
+* Autotuning
+** Autotuning: Optimizing Program Configurations
+*** Architectures for High Performance Computing              :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+
+    #+ATTR_LATEX: width=\columnwidth
+    #+ATTR_ORG: :width 600
+    [[../../../img/architectures.png]]
+
+    How to write *efficient code* for each of these?
+
+**** Autotuning                                                     :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+     #+LATEX: \vspace{.2cm}
+
+     The process of *automatically finding* a *configuration* of a program that
+     optimizes an *objective*
+
+*** Configurations                                            :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_COL: 0.5
+    :END:
+
+    - Program Configuration
+      - Algorithm, block size, $\dots$
+    - Source code transformation
+      - Loop unrolling, tiling, rotation $\dots$
+    - Compiler configuration
+      - =-O2=, vectorization, $\dots$
+    - $\dots$
+
+     #+LATEX: \vspace{-.2cm}
+
+**** Objectives                                                     :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+     - Execution time
+     - Memory & power consumption
+     - $\dots$
+
+** Autotuning: Search Spaces
+*** Search Spaces                                            :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.4
+    :BEAMER_env: block
+    :END:
+
+    #+LATEX: \vspace{.2cm}
+
+    Represent the *effect* of all possible
+    *configurations* on the *objectives*
+
+    Can be difficult to explore, with multiple *local optima*
+    and *undefined regions*
+
+*** Illustration                                                      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :END:
+    #+BEGIN_CENTER
+    #+ATTR_LATEX: width=.95\columnwidth
+    #+ATTR_ORG: :width 400
+    [[../../../img/seymour2008comparison.pdf]]
+
+    *Unrolling*, *blocking* and *Mflops/s* for *matrix multiplication*
+
+    #+LATEX: \vspace{.1cm}
+
+    #+LATEX: \scriptsize{Seymour K, You H, Dongarra J. A comparison of search heuristics for empirical code optimization. InCLUSTER 2008 Oct 1 (pp. 421-429)}
+    #+END_CENTER
+
+** Autotuning: Exploring Search Spaces
+*** Issue 1: *Exponential Growth*                             :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+
+     #+LATEX: \vspace{.2cm}
+
+     *Simple factors* can generate *large spaces*:
+
+     - 30 *boolean* factors \rightarrow $2^{30}$ combinations
+
+**** Issue 2: *Geometry* :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     - *Discrete* or *continous* factors
+     - *``Smoothness''*
+     - *Interactions* between factors
+
+*** Issue 3: *Measurement Time*                               :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+
+     #+LATEX: \vspace{.2cm}
+
+     - *Compile* time:
+       - Industrial *FPGA* applications
+       - *Hardware/software codesign*
+     - *Execution* time:
+       - *Benchmark* vs. *real applications*
+** Autotuning: Multiple Approaches
+*** Popular Approaches                                        :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    #+LATEX: \footnotesize
+    - \colorbox{red!25}{Exhaustive}
+    - \colorbox{green!25}{Meta-Heuristics}
+    - \colorbox{cyan!25}{Machine Learning}
+    #+LATEX: \normalsize
+
+    #+LATEX: \vspace{-.4cm}
+
+    #+LATEX: \input{latex/popular_approaches.tex}
+
+*** Main Issues                                               :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    - These approaches *assume*:
+      - A *large number of function evaluations*
+      - Seach space *``smoothness''*
+      - Good solutions are *reachable*
+    - After optimizing:
+      - *Learn ``nothing''* about the search space
+      - *Can't explain* why optimizations work
+**** Our Approach                                                   :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+     - *Design of Experiments* (*DoE*)
+* Design of Experiments
+** Design of Experiments: An Example on Agriculture
+*** Crop Yield Example                                                :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.55
+    :END:
+    #+ATTR_LATEX: :width .99\columnwidth
+    [[../../../img/crop_yield_doe_example.pdf]]
+*** Testing *all combinations* is *inviable*                      :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.45
+    :END:
+**** Which combinations to test?                                    :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+     - DoE provides a *selection method*
+     - @@latex: \colorbox{Highlight}{\alert{Parsimony}: decreases experiments}@@
+
+**** Which is the best combination?                                 :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+     - DoE provides an *analysis method*
+     - @@latex: \colorbox{Highlight}{\alert{Transparency}: use statistical tests}@@
+
+** Design of Experiments
+*** Factors, Levels, Experiments & Designs                    :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+
+    #+LATEX: \vspace{.2cm}
+
+    - *Factors*: program *parameters*
+    - *Levels*: possible factor *values*
+    - *Experiment*: setting each factor to a level
+    - *Design*: a *selection* of experiments to *run*
+    -
+      #+latex: \uncover<2>{\alert{Performance model}: guides selection}
+
+**** Analysis :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+    #+LATEX: \vspace{.2cm}
+
+     The *designs* can be used to:
+
+     - *Identify* significant parameters
+     - *Investigate* possible models
+     - \dots
+
+*** Example                                                   :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+
+    #+LATEX: \vspace{-.2cm}
+    #+LATEX: \begin{center}
+
+    A *minimal screening design* for $7$ *2-level factors*:
+
+    #+LATEX: \end{center}
+    #+LATEX: \vspace{-.2cm}
+
+    #+LATEX: \input{latex/plackett_burman.tex}
+    #+LATEX: \vspace{-.2cm}
+
+    #+latex: \uncover<2>{$$response = \theta{} + \alpha{}A + \beta{}B + \gamma{}C + \dots$$}
+
+** Applying Design of Experiments to Autotuning
+*** Design Requirements                                       :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.45
+    :BEAMER_env: block
+    :END:
+
+    \vspace{.7em}
+    We need designs that:
+
+    - *Maximize* the amount of information, that is, the *quality of our estimates*
+    - Minimize function evaluations (*Measurement Time*)
+    - Support a large number of factors (*Exponential Growth*)
+    - Support numerical and categorical factors (*Geometry*)
+
+*** Our Approach                                              :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.55
+    :BEAMER_env: block
+    :END:
+    - *D-Optimal  designs*
+      - Minimize *variance* of *regression coefficient estimators*
+      - Supports different factor *types* and *numbers*
+    - *Linear model* and *analysis of variance* (*ANOVA*)
+    - *User input* to guide optimization
+    - @@latex: \colorbox{Highlight}{\alert{Parsimony} \& \alert{Transparency}}@@
+
+**** Validation                                                     :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     - *Source code transformation*:
+       - *GPU Laplacian* kernel
+       - HPC kernels from the *SPAPT benchmark*
+
+** D-Optimal Designs: A Simple Example in R
+*** Search Space                                              :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    #+LATEX: % \(\mathbf{X} = \{x_1 = \{1, 2, 3, 4, 5\}, x_2 = \{"A", "B", "C"\}\}\)
+    - Factors & Levels:
+        #+LATEX: \begin{align*}
+        #+LATEX:     \mathbf{X} = (x_1 = & \; (1, 2, 3, 4, 5), \\
+        #+LATEX:                   x_2 = & \; (``A", ``B", ``C"))
+        #+LATEX: \end{align*}
+    - Model: \(\mathbf{Y} = \mathbf{X}\bm{\beta} + \bm{\varepsilon}\)
+
+*** Ordinary Least Squares Estimator $\bm{\hat{\beta}}$           :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    #+BEGIN_CENTER latex
+    \begin{equation*}
+    \bm{\hat{\beta}} = \left(\bm{X}^{\intercal}\bm{X}\right)^{-1}\bm{X}^{\intercal}\bm{Y}
+    \end{equation*}
+    #+END_CENTER
+
+  #+begin_export latex
+  \begin{center}
+  \colorbox{Highlight}{\parbox[c]{0.8\columnwidth}{\centering The \alert{variance} of $\bm{\hat{\beta}}$ is proportional to \\
+      the \alert{covariance matrix} $\left(\bm{X}^{\intercal}\bm{X}\right)^{-1}$}}
+  \end{center}
+  #+end_export
+
+** D-Optimal Designs: A Simple Example in R
+*** Source code in =R=                                          :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.7
+    :END:
+
+    #+LATEX: \vspace{-.2cm}
+
+    #+HEADER: :results output :session *R* :exports code
+    #+BEGIN_SRC R
+    library(DoE.base)
+    library(AlgDesign)
+
+    samples <- fac.design(nfactors = 2,
+                          nlevels = c(5, 3),
+                          factor.names = list(x1 = 1:5,
+                                              x2 = c("A", "B", "C")))
+
+    output <- optFederov(~ x1 + x2,
+                         samples,
+                         nTrials = 7)
+    #+END_SRC
+
+    #+RESULTS:
+    :
+    : creating full factorial with 15 runs ...
+
+**** Optimality Criteria                                            :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+      - *D*: *determinant*, minimizes generalized variance of $\bm{\hat{\beta}}$
+      - *A*: *trace*, average variance of $\bm{\hat{\beta}}$
+      - \dots
+
+
+*** Output                                                    :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.3
+    :END:
+
+    #+LATEX: \vspace{-.2cm}
+    #+LATEX: \scriptsize
+
+    #+HEADER: :results output :session *R* :exports results
+    #+BEGIN_SRC R
+    output[c("D", "design")]
+    #+END_SRC
+
+    #+RESULTS:
+    #+begin_example
+    $D
+    [1] 0.1797856
+
+    $design
+       x1 x2
+    1   1  B
+    3   2  A
+    4   3  A
+    7   5  B
+    9   4  B
+    12  1  A
+    15  3  C
+    #+end_example
+
+
+    #+LATEX: \normalsize
+
+** Comparing Sampling Strategies
+   #+BEGIN_CENTER
+   #+ATTR_LATEX: :width .72\textwidth
+   [[../../../img/sampling_comparison.pdf]]
+   #+END_CENTER
+* A Transparent and Parsimonious DoE Approach to Autotuning
+** A Design of Experiments Approach to Autotuning
+   #+BEGIN_CENTER
+   #+ATTR_LATEX: :width .74\linewidth
+   #+ATTR_ORG: :width 400
+   [[../../../img/doe_anova_strategy.pdf]]
+
+   #+LATEX: \vspace{-.2cm}
+   #+END_CENTER
+* Results on a GPU Laplacian Kernel
+** GPU Laplacian Kernel: A Motivating Example
+*** Search Problem                                            :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+
+    - Relatively *small valid search space*
+    - *Completely evaluated*
+    - Known *global optimum*
+    - *Budget* of *125 points*
+
+*** Initial Model                                             :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+
+    #+LATEX: \footnotesize
+    #+LATEX: \begin{align*}
+    #+LATEX:    cost = & \; y\_component\_number + 1 / y\_component\_number \; + \\
+    #+LATEX:           & \; vector\_length + lws\_y + 1 / lws\_y \; + \\
+    #+LATEX:           & \; load\_overlap + temporary\_size \; + \\
+    #+LATEX:           & \; elements\_number + 1 / elements\_number \; + \\
+    #+LATEX:           & \; threads\_number + 1 / threads\_number
+    #+LATEX: \end{align*}
+    #+LATEX: \normalsize
+
+*** Results                                                 :B_ignoreheading:
+    :PROPERTIES:
+    :BEAMER_env: ignoreheading
+    :END:
+    #+HEADER: :file ../../../img/comparison_histogram.pdf :width 7 :height 8
+    #+BEGIN_SRC R :results output graphics :exports none :session *R* :eval no-export
+    library(ggplot2)
+    library(plyr)
+
+    df_all_methods <- read.csv("../data/complete_1000.csv", strip.white = T, header = T)
+
+    df_all_methods$method <- factor(df_all_methods$method, levels = c("RS","LHS","GS","GSR","GA","LM", "LMB", "LMBT", "RQ", "DOPT", "DLM", "DLMT"))
+
+    df_all_methods <- df_all_methods[df_all_methods$method %in% c("RS","LHS","GS","GSR","GA","LM", "DLMT"), ]
+
+    df_mean = ddply(df_all_methods,.(method), summarize,
+                    mean = mean(slowdown))
+
+    df_median = ddply(df_all_methods,.(method), summarize,
+                      median = median(slowdown))
+
+    df_err = ddply(df_all_methods,.(method), summarize,
+                  mean = mean(slowdown), err = 2 * sd(slowdown) / sqrt(length(slowdown)))
+
+    df_max = ddply(df_all_methods,.(method), summarize, max = max(slowdown))
+
+    ggplot(df_all_methods ) +
+        facet_grid(method~.) +
+        theme_bw(base_size = 18) +
+        coord_cartesian(xlim = c(.9, 4), ylim = c(0, 1000)) +
+        geom_histogram(aes(slowdown), binwidth = .05, fill = "gray48") +
+        geom_curve(data = df_max, aes(x = max + .1, y = 500, xend = max, yend = 5), arrow = arrow(length = unit(0.05, "npc")), curvature = 0.3) +
+        geom_text( aes(x = max+.2, y = 550, label = "max"), data = df_max ) +
+        geom_rect(data = df_err, aes(xmin = mean-err, xmax = mean + err, ymin = 0, ymax = 1000, fill = "red"), alpha = 0.3) +
+        geom_vline( aes(xintercept = median), df_median, color = "darkgreen", linetype = 3 ) +
+        geom_vline( aes(xintercept = mean), df_mean, color = "red", linetype = 2 ) +
+        labs(y = "Frequency", x = "Slowdown compared to Optimum") +
+        scale_fill_discrete(name = "",breaks = c("red"), labels = c("Mean error")) +
+        ggtitle("") +
+        theme(legend.position = "none")
+    #+END_SRC
+
+    #+RESULTS:
+    [[file:../../../img/comparison_histogram.pdf]]
+
+    #+LATEX: \vspace{-.3cm}
+
+    #+begin_export latex
+    \uncover<2>{
+    \begin{center}
+      \colorbox{Highlight}{\parbox[c]{0.72\textwidth}{\centering We were  \alert{always close to
+            the optimum} and used \alert{half of the budget}}}
+    \end{center}
+    }
+    #+end_export
+
+    #+LATEX: \vspace{-.3cm}
+
+    #+BEGIN_CENTER
+    #+ATTR_LATEX: :width .88\columnwidth
+    #+ATTR_ORG: :width 400
+    [[../../../img/comparison_histogram.pdf]]
+    #+END_CENTER
+* Results on the SPAPT Benchmark
+** SPAPT: Search Problems in Automatic Performance Tuning
+*** Search Problem                                            :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.41
+    :BEAMER_env: block
+    :END:
+
+    - *Orio*:
+      - *Source code transformations*
+      - brnorris03.github.io/Orio
+    - *Baseline*: =gcc -O3=, no transformations
+    - *Random sampling* (*RS*) vs. *D-Optimal* approach (*DLMT*)
+    - *10 repetitions*: measure *speedup* and *time-to-solution*
+    - Out of *16 kernels*:
+      - 3 with *no impact*
+      - 6 with *similar performance gain*
+      - @@latex: \colorbox{Highlight}{7 with \alert{similar gain found faster}}@@
+*** Search Space                                              :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.59
+    :END:
+
+    #+latex: \vspace{-0.4cm}
+
+    #+BEGIN_CENTER
+    #+ATTR_LATEX: :booktabs t :align llll :font \scriptsize :float t :placement [t]
+    #+NAME: tab:spapt_apps
+    |-------------+---------------------------------+---------+--------------|
+    | Kernel      | Operation                       | Factors | Size         |
+    |-------------+---------------------------------+---------+--------------|
+    | =atax=        | Matrix transp. & vector mult.   |      18 | $2.6 \times 10^{16}$ |
+    | =dgemv3=      | Scalar, vector & matrix mult.   |      49 | $3.8 \times 10^{36}$ |
+    | =gemver=      | Vector mult. & matrix add.      |      24 | $2.6 \times 10^{22}$ |
+    | =gesummv=     | Scalar, vector, & matrix mult.  |      11 | $5.3 \times 10^{9}$  |
+    | =hessian=     | Hessian computation             |       9 | $3.7 \times 10^{7}$  |
+    | =mm=          | Matrix multiplication           |      13 | $1.2 \times 10^{12}$ |
+    | =mvt=         | Matrix vector product & transp. |      12 | $1.1 \times 10^{9}$  |
+    | =tensor=      | Tensor matrix mult.             |      20 | $1.2 \times 10^{19}$ |
+    | =trmm=        | Triangular matrix operations    |      25 | $3.7 \times 10^{23}$ |
+    | =bicg=        | Subkernel of BiCGStab           |      13 | $3.2 \times 10^{11}$ |
+    | =lu=          | LU decomposition                |      14 | $9.6 \times 10^{12}$ |
+    | =adi=         | Matrix sub., mult., & div.      |      20 | $6.0 \times 10^{15}$ |
+    | =jacobi=      | 1-D Jacobi computation          |      11 | $5.3 \times 10^{9}$  |
+    | =seidel=      | Matrix factorization            |      15 | $1.3 \times 10^{14}$ |
+    | =stencil3d=   | 3-D stencil computation         |      29 | $9.7 \times 10^{27}$ |
+    | =correlation= | Correlation computation         |      21 | $4.5 \times 10^{17}$ |
+    |-------------+---------------------------------+---------+--------------|
+
+    #+LATEX: \scriptsize{Balaprakash P, Wild SM, Norris B. SPAPT: Search problems in automatic performance tuning. Procedia Comp. Sci. 2012 Jan 1;9:1959-68.}
+    #+END_CENTER
+
+** SPAPT: Search Problems in Automatic Performance Tuning
+   #+BEGIN_CENTER
+   #+ATTR_LATEX: :width .7\linewidth
+   [[../../../img/iteration_best_comparison.pdf]]
+   #+END_CENTER
+
+   #+BEGIN_CENTER
+   #+ATTR_LATEX: :width .7\linewidth
+   [[../../../img/split_histograms.pdf]]
+   #+END_CENTER
+** Conclusion
+*** Future Work                                                     :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+    - Explore *tailored models* for each application
+    - Leverage *user input* and *analysis*
+    - Apply our approach to:
+      - *industrial-level FPGA applications*
+      - *hardware/software codesign*
+
+** Conclusion
+*** Takeway                                                         :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+
+    #+LATEX: \vspace{.2cm}
+
+    #+begin_export latex
+    \begin{center}
+    \colorbox{Highlight}{\parbox[c]{0.8\textwidth}{\centering The   \alert{DoE   approach}   is
+        \alert{parsimonious},   \alert{transparent},   and   \alert{effective}   for
+        \alert{autotuning}}}
+    \end{center}
+    #+end_export
+
+    #+begin_export latex
+    \begin{center}
+    \colorbox{Highlight}{\parbox[c]{0.54\textwidth}{\centering \alert{Souce code \& data} at \alert{github.com/phrb/ccgrid19}}}
+    \end{center}
+    #+end_export
+
+* Ending Title :B_ignoreheading:
+  :PROPERTIES:
+  :BEAMER_env: ignoreheading
+  :END:
+  #+LATEX: \maketitle

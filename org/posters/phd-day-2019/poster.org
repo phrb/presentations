@@ -1,0 +1,746 @@
+#+TITLE: Autotuning under Tight Budget Constraints:
+#+TITLE: @@latex: \\[0.3em]@@ A Transparent Design of Experiments Approach
+#+AUTHOR:    Pedro Bruel - phrb@ime.usp.br
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:1 num:t toc:nil @:t \n:nil ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   tex:t latex:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+#+STARTUP: beamer
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [11pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]
+
+#+LATEX_HEADER: \renewcommand\maketitle{}
+#+LATEX_HEADER: \input{configuration}
+
+#+LATEX_HEADER: \pgfdeclareimage[height=\paperheight,width=\paperwidth]{overlay_image}{../../../img/polaris.pdf}
+#+LATEX_HEADER: \usebackgroundtemplate{\tikz\node[inner sep=0] {\pgfuseimage{overlay_image}};}
+
+* Setup                                            :B_ignoreheading:noexport:
+  :PROPERTIES:
+  :BEAMER_env: ignoreheading
+  :END:
+  #+HEADER: :results output :exports none :eval no-export
+  #+BEGIN_SRC emacs-lisp
+  (setq-local org-latex-pdf-process (list "latexmk -xelatex %f"))
+  #+END_SRC
+
+  #+RESULTS:
+* Generating Figures                               :B_ignoreheading:noexport:
+  :PROPERTIES:
+  :BEAMER_env: ignoreheading
+  :END:
+** SPAPT
+*** Cloning/Pulling the Repository
+    #+HEADER: :results output :eval no-export
+    #+BEGIN_SRC shell
+    git clone https://github.com/phrb/dlmt_spapt_experiments.git || (cd dlmt_spapt_experiments && git pull)
+    #+END_SRC
+
+    #+RESULTS:
+*** Histograms and Iterations Plots
+**** Loading Data
+     #+HEADER: :results output :session *R* :eval no-export
+     #+BEGIN_SRC R
+     library(ggplot2)
+     library(plyr)
+     library(dplyr)
+     library(reshape2)
+     library(openssl)
+     library(RColorBrewer)
+     library(extrafont)
+
+     data_dir <- "dlmt_spapt_experiments/data/results"
+     target_dirs <- list.dirs(path = data_dir, full.names = FALSE, recursive = FALSE)
+     data <- NULL
+
+     read.csv.iterations.cost <- function(csv_file) {
+         data <- read.csv(csv_file, header = TRUE)
+
+         data$experiment_id <- rep(sha1(csv_file), nrow(data))
+         data_baseline <- data[data$baseline == "True", "cost_mean"]
+         data$cost_baseline <- rep(data_baseline, nrow(data))
+         data$speedup <- data_baseline / data$cost_mean
+         data$max_run_speedup <- rep(max(data$speedup), nrow(data))
+         data$min_run_cost <- rep(min(data$cost_mean), nrow(data))
+
+         data <- data[data$baseline == "False", ]
+         data <- data[data$correct_result == "True", ]
+
+         data$best_iteration <- rep(as.numeric(rownames(data[data$speedup == max(data$speedup), ])), nrow(data))
+         data$points <- rep(nrow(data), nrow(data))
+
+         return(data)
+     }
+
+     for (target_dir in target_dirs) {
+         target_path <- paste(data_dir, "/", target_dir, "/", sep = "")
+
+         csv_files <- list.files(path = target_path, pattern = "search_space.csv", recursive = TRUE)
+         if (length(csv_files) != 0) {
+             csv_files <- paste0(target_path, csv_files)
+
+             info <- file.info(csv_files)
+             non_empty <- rownames(info[info$size != 0, ])
+             csv_files <- csv_files[csv_files %in% non_empty]
+             target_data <- lapply(csv_files, read.csv.iterations.cost)
+             target_data <- bind_rows(target_data)
+             target_data <- target_data[, c("cost_mean", "experiment_id", "technique", "cost_baseline", "min_run_cost", "best_iteration")]
+             target_data$application <- rep(target_dir, nrow(target_data))
+
+             if (is.null(data)) {
+                 data <- target_data
+             } else {
+                 data <- bind_rows(data, target_data)
+             }
+         }
+     }
+
+     plot_data <- data %>%
+                  distinct(experiment_id, .keep_all = TRUE) %>%
+                  group_by(application) %>%
+                  mutate(mean_cost_baseline = mean(cost_baseline)) %>%
+                  ungroup()
+
+     plot_data <- plot_data %>%
+                  distinct(experiment_id, .keep_all = TRUE) %>%
+                  group_by(application, technique) %>%
+                  mutate(label_center_x = mean(cost_mean)) %>%
+                  mutate(label_center_y = mean(best_iteration)) %>%
+                  ungroup()
+
+     complete_plot_data <- plot_data
+     #+END_SRC
+
+     #+RESULTS:
+     #+begin_example
+
+     Attaching package: ‘dplyr’
+
+     The following objects are masked from ‘package:plyr’:
+
+         arrange, count, desc, failwith, id, mutate, rename, summarise,
+         summarize
+
+     The following objects are masked from ‘package:stats’:
+
+         filter, lag
+
+     The following objects are masked from ‘package:base’:
+
+         intersect, setdiff, setequal, union
+
+     There were 50 or more warnings (use warnings() to see the first 50)
+     #+end_example
+**** Back-to-back Histograms
+     #+HEADER: :results graphics output :session *R* :eval no-export
+     #+HEADER: :file ../../../img/split_histograms.pdf
+     #+HEADER: :width 18 :height 6.5
+     #+BEGIN_SRC R
+     library(grid)
+     library(gtable)
+
+     hist_data <- data
+
+     hist_data <- hist_data %>%
+                  group_by(application) %>%
+                  mutate(mean_cost_baseline = mean(cost_baseline)) %>%
+                  ungroup()
+
+     hist_data <- hist_data %>% subset(application %in% c("hessian", "dgemv3", "bicgkernel"))
+
+     hist_data$facet <- factor(hist_data$application, levels = c("hessian", "dgemv3", "bicgkernel"))
+
+     hist_data$header <- rep(NA, nrow(hist_data))
+
+     hist_data[hist_data$facet %in% c("hessian"), "header"] <- "A"
+     hist_data[hist_data$facet %in% c("dgemv3"), "header"] <- "B"
+     hist_data[hist_data$facet %in% c("bicgkernel"), "header"] <- "C"
+
+     hist_data$header <- factor(hist_data$header, levels = c("A", "B", "C"))
+
+     levels(hist_data$facet) <- c("[0] hessian",
+                                  "[=] dgemv3",
+                                  "[+] bicgkernel")
+
+     hist_data <- hist_data[hist_data$cost_mean < 12, ]
+
+     nbins <- 42
+
+     columns <- 3
+     base_size <- 38
+
+     p1 <- ggplot(hist_data) +
+            facet_wrap(facet ~ ., scale = "free", ncol = columns) +
+            #facet_wrap(facet ~ ., ncol = 6) +
+            xlim(0, NA) +
+            geom_histogram(data = subset(hist_data, technique == "DLMT"), aes(x = cost_mean, y = ..count.., fill = technique), bins = nbins) +
+            geom_histogram(data = subset(hist_data, technique == "RS"), aes(x = cost_mean, y = -..count.., fill = technique), bins = nbins) +
+            #scale_x_log10(labels = scales::trans_format("log10", scales::math_format(10^.x))) +
+            ggtitle("") +
+            xlab("Cost in Seconds") +
+            ylab("Count") +
+            scale_size_manual("", values = 0.45) +
+            guides(fill = guide_legend(reverse = TRUE)) +
+            geom_vline(aes(xintercept = mean_cost_baseline, size = "-O3"), linetype = 8, color = "black") +
+            coord_flip() +
+            theme_bw(base_size = base_size) +
+            theme(legend.position = "bottom",
+                  legend.direction = "horizontal",
+                  legend.title = element_blank(),
+                  text = element_text(family = "serif"),
+                  strip.background = element_rect(fill = "white"),
+                  axis.text.x = element_blank(),
+                  axis.ticks.x = element_blank(),
+                  plot.margin = unit(c(0.1, 0.1, 0.1, 0.1), "cm")
+                  )  +
+            #scale_fill_brewer(palette = "Set1")
+            scale_fill_grey(start = 0.3, end = 0.7)
+
+     dummy <- ggplot(data = hist_data, aes(x = cost_mean, y = cost_mean)) +
+                     facet_wrap(facet ~ ., scale = "free", ncol = columns) +
+                     geom_rect(aes(fill = header), xmin = -Inf, xmax = Inf,
+                                                   ymin = -Inf, ymax = Inf) +
+                     coord_flip() +
+                     theme_minimal(base_size = base_size) +
+                     theme(text = element_text(family = "serif"),
+                           #strip.background = element_rect(fill = "white"),
+                           legend.position = "bottom",
+                           legend.direction = "horizontal",
+                           legend.title = element_blank(),
+                           axis.text.x = element_blank(),
+                           axis.ticks.x = element_blank(),
+                           plot.margin = unit(c(0.1, 0.1, 0.1, 0.1), "cm")
+                           )  +
+                     scale_fill_brewer(palette = "Pastel2", direction = -1)
+                     #scale_fill_grey()
+
+     g1 <- ggplotGrob(p1)
+     g2 <- ggplotGrob(dummy)
+
+     gtable_select <- function (x, ...)
+     {
+       matches <- c(...)
+       x$layout <- x$layout[matches, , drop = FALSE]
+       x$grobs <- x$grobs[matches]
+       x
+     }
+
+     panels <- grepl(pattern = "panel", g2$layout$name)
+     strips <- grepl(pattern = "strip-t", g2$layout$name)
+     g2$layout$t[panels] <- g2$layout$t[panels] - 1
+     g2$layout$b[panels] <- g2$layout$b[panels] - 1
+
+     new_strips <- gtable_select(g2, panels | strips)
+     #grid.newpage()
+     grid.draw(new_strips)
+
+     gtable_stack <- function(g1, g2){
+       g1$grobs <- c(g1$grobs, g2$grobs)
+       g1$layout <- transform(g1$layout, z = z - max(z), name = "g2")
+       g1$layout <- rbind(g1$layout, g2$layout)
+       g1
+     }
+
+     new_plot <- gtable_stack(g1, new_strips)
+     #grid.newpage()
+     grid.draw(new_plot)
+     #+END_SRC
+
+     #+RESULTS:
+     [[file:../../../img/split_histograms.pdf]]
+**** Iterations where best was found
+     #+HEADER: :results graphics output :session *R* :exports none :eval no-export
+     #+HEADER: :file ../../../img/iteration_best_comparison.pdf
+     #+HEADER: :width 18 :height 6.5
+     #+BEGIN_SRC R
+     library(grid)
+     library(gtable)
+     library(ggrepel)
+     library(utf8)
+
+     it_data <- complete_plot_data
+
+     it_data <- it_data %>% subset(application %in% c("hessian", "dgemv3", "bicgkernel"))
+
+     it_data$facet <- factor(it_data$application, levels = c("hessian",
+                                                             "dgemv3",
+                                                             "bicgkernel"))
+
+     it_data$header <- rep(NA, nrow(it_data))
+
+     it_data[it_data$facet %in% c("hessian"), "header"] <- "A"
+     it_data[it_data$facet %in% c("dgemv3"), "header"] <- "B"
+     it_data[it_data$facet %in% c("bicgkernel"), "header"] <- "C"
+
+     it_data$header <- factor(it_data$header, levels = c("A", "B", "C"))
+
+     levels(it_data$facet) <- c("[0] hessian",
+                                "[=] dgemv3",
+                                "[+] bicgkernel")
+
+     columns <- 3
+     base_size <- 38
+
+     p1 <- ggplot(it_data, aes(min_run_cost, best_iteration, color = technique)) +
+         facet_wrap(facet ~ ., scale = "free", ncol = columns) +
+         stat_ellipse(type = "t", linetype = 13, size = 1.3) +
+         geom_point(size = 4, pch = 19) +
+         geom_vline(aes(xintercept = mean_cost_baseline, size = "-O3"), linetype = 8, color = "black") +
+         #scale_x_log10(limits = c(1e-2, 1e1), labels = scales::trans_format("log10", scales::math_format(10^.x))) +
+         #scale_x_log10(labels = scales::trans_format("log10", scales::math_format(10^.x))) +
+         scale_y_continuous(limits = c(-10, 400), breaks = c(0, 200, 400)) +
+         scale_size_manual("", values = 0.45) +
+         xlim(0, NA) +
+         #annotation_logticks(sides = "b", size = 2) +
+         ggtitle("") +
+         ylab("Iteration with Best") +
+         xlab("Best Cost in Seconds") +
+         guides(color = guide_legend(reverse = TRUE)) +
+         theme_bw(base_size = base_size) +
+         theme(legend.position = "bottom",
+               legend.direction = "horizontal",
+               legend.title = element_blank(),
+               text = element_text(family = "serif"),
+               strip.background = element_rect(fill = "white"),
+               plot.margin = unit(c(0.1, 0.1, 0.1, 0.1), "cm"))  +
+         scale_color_grey(start = 0.3, end = 0.7)
+
+     dummy <- ggplot(data = it_data, aes(x = min_run_cost, y = best_iteration)) +
+                     facet_wrap(facet ~ ., scale = "free", ncol = columns) +
+                     geom_rect(aes(fill = header), xmin = -Inf, xmax = Inf,
+                                                   ymin = -Inf, ymax = Inf) +
+                     theme_minimal(base_size = base_size) +
+                     theme(text = element_text(family = "serif"),
+                           legend.position = "bottom",
+                           legend.direction = "horizontal",
+                           legend.title = element_blank(),
+                           plot.margin = unit(c(0.1, 0.1, 0.1, 0.1), "cm")
+                           )  +
+                     scale_fill_brewer(palette = "Pastel2", direction = -1)
+                     #scale_fill_grey()
+
+     g1 <- ggplotGrob(p1)
+     g2 <- ggplotGrob(dummy)
+
+     gtable_select <- function (x, ...)
+     {
+       matches <- c(...)
+       x$layout <- x$layout[matches, , drop = FALSE]
+       x$grobs <- x$grobs[matches]
+       x
+     }
+
+     panels <- grepl(pattern = "panel", g2$layout$name)
+     strips <- grepl(pattern = "strip-t", g2$layout$name)
+     g2$layout$t[panels] <- g2$layout$t[panels] - 1
+     g2$layout$b[panels] <- g2$layout$b[panels] - 1
+
+     new_strips <- gtable_select(g2, panels | strips)
+     #grid.newpage()
+     grid.draw(new_strips)
+
+     gtable_stack <- function(g1, g2){
+       g1$grobs <- c(g1$grobs, g2$grobs)
+       g1$layout <- transform(g1$layout, z = z - max(z), name = "g2")
+       g1$layout <- rbind(g1$layout, g2$layout)
+       g1
+     }
+
+     new_plot <- gtable_stack(g1, new_strips)
+     #grid.newpage()
+     grid.draw(new_plot)
+     #+END_SRC
+
+     #+RESULTS:
+     [[file:../../../img/iteration_best_comparison.pdf]]
+** GPU Laplacian Kernel
+*** Cloning/Pulling the Repository
+    #+HEADER: :results output :eval no-export
+    #+BEGIN_SRC shell
+    git clone https://github.com/phrb/dopt_anova_experiments.git || (cd dopt_anova_experiments && git pull)
+    #+END_SRC
+
+    #+RESULTS:
+
+*** Generate pdf
+    #+HEADER: :file ../../../img/comparison_histogram.pdf :exports none :width 12 :height 3.2 :eval no-export
+    #+BEGIN_SRC R :results output graphics  :session *R*
+    library(ggplot2)
+    library(plyr)
+    library(extrafont)
+
+    df_all_methods <- read.csv("./dopt_anova_experiments/data/complete_1000.csv", strip.white = T, header = T)
+    df_all_methods$method <- factor(df_all_methods$method, levels = c("RS","LHS","GS","GSR","GA","LM", "LMB", "LMBT", "RQ", "DOPT", "DLM", "DLMT"))
+    df_all_methods <- subset(df_all_methods, method %in% c("RS", "LHS", "GS", "GSR", "GA", "LM", "DLMT"))
+
+    df_mean = ddply(df_all_methods,.(method), summarize,
+                    mean = mean(slowdown))
+
+    df_median = ddply(df_all_methods,.(method), summarize,
+                      median = median(slowdown))
+
+    df_err = ddply(df_all_methods,.(method), summarize,
+                  mean = mean(slowdown), err = 2 * sd(slowdown) / sqrt(length(slowdown)))
+
+    df_max = ddply(df_all_methods,.(method), summarize, max = max(slowdown))
+
+    ggplot(df_all_methods) +
+      theme_bw(base_size = 22) +
+      facet_grid(. ~ method) +
+      #coord_cartesian(xlim = c(.9, 4), ylim = c(0, 1000)) +
+      ylim(0, 10000) +
+      xlim(.9, 4) +
+      geom_histogram(aes(slowdown), binwidth = .1, fill = "black") +
+      scale_y_continuous(breaks = c(0, 1000), labels = c("0", "10³")) +
+      geom_curve(data = df_max, aes(x = max + .2, y = 500, xend = max, yend = 5), arrow = arrow(length = unit(0.05, "npc")), curvature = 0.15) +
+      geom_text(aes(x = max + .2, y = 650, label = "max"), data = df_max) +
+      geom_rect(data = df_err, aes(xmin = mean-err, xmax = mean + err, ymin = 0, ymax = 1000, fill = "red"), alpha = 0.3) +
+      #geom_vline(aes(xintercept = median), df_median, color = "darkgreen", linetype = 3) +
+      geom_vline(aes(xintercept = mean), df_mean, color = "red", linetype = 2) +
+      labs(y = "Count", x = "Slowdown") +
+      scale_fill_discrete(name = "", breaks = c("red"), labels = c("Mean error")) +
+      ggtitle("") +
+      theme(legend.position = "none",
+            text = element_text(family="serif"),
+            strip.background = element_rect(fill = "white")) +
+      coord_flip()
+    #+END_SRC
+
+    #+RESULTS:
+    [[file:../../../img/comparison_histogram.pdf]]
+* Main Frame                                                :B_ignoreheading:
+  :PROPERTIES:
+  :BEAMER_env: ignoreheading
+  :END:
+  #+LATEX: \begin{frame}
+** Main Column                                                        :BMCOL:
+   :PROPERTIES:
+   :BEAMER_col: 0.89
+   :END:
+*** Author Line                                             :B_ignoreheading:
+    :PROPERTIES:
+    :BEAMER_env: ignoreheading
+    :END:
+    #+begin_export latex
+    \vspace{-0.2em}
+    \begin{center}
+      {\normalsize
+        \textit{\alert{Pedro Bruel}$^{1,3}$, Steven Quinito Masnada$^{2}$, Brice
+        Videau$^{3}$, Arnaud Legrand$^{3}$, Jean-Marc Vincent$^{3}$, Alfredo Goldman$^{1}$}
+      }
+    \end{center}
+    \vspace{-0.8em}
+    #+end_export
+*** Row 1                                                   :B_ignoreheading:
+    :PROPERTIES:
+    :BEAMER_env: ignoreheading
+    :END:
+**** Column A                                                         :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.48
+     :BEAMER_opt: t
+     :END:
+***** Autotuning: Optimizing Program Configurations
+      :PROPERTIES:
+      :BEAMER_env: block
+      :END:
+      #+ATTR_LATEX: :width .9\columnwidth
+      #+ATTR_ORG: :width 400
+      [[../../../img/architectures.png]]
+
+      - How to write *efficient code* for each of these?
+      - We can use *autotuning*: the process of *automatically
+        finding* a *configuration* of a program that optimizes an
+        *objective*
+
+***** Strategies for Exploring Search Spaces                        :B_block:
+      :PROPERTIES:
+      :BEAMER_env: block
+      :END:
+****** Left                                                           :BMCOL:
+       :PROPERTIES:
+       :BEAMER_col: 0.59
+       :END:
+       #+LATEX: \vspace{0.45em}
+       #+LATEX: {\tiny
+       #+LATEX: \input{latex/popular_approaches.tex}
+       #+LATEX: }
+       #+BEGIN_CENTER
+       #+LATEX: {\tiny
+       \colorbox{red!25}{Exhaustive},
+       \colorbox{green!25}{Meta-Heuristics},
+       \colorbox{cyan!25}{Machine Learning}
+       #+LATEX: }
+       #+LATEX: \vspace{.5em}
+       #+END_CENTER
+
+****** Right                                                          :BMCOL:
+       :PROPERTIES:
+       :BEAMER_col: 0.39
+       :END:
+       Assumptions:
+       #+LATEX: \vspace{0.3em}
+       - *Many measurements*, *``smoothness''*, *reachable solutions*
+       #+LATEX: \vspace{0.3em}
+       After optimizing:
+       #+LATEX: \vspace{0.3em}
+       - *Learn ``nothing''*, *can't explain choices*
+**** Column B                                                         :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.48
+     :BEAMER_opt: t
+     :END:
+***** Autotuning: Search Spaces are Hard to Explore                 :B_block:
+      :PROPERTIES:
+      :BEAMER_env: block
+      :END:
+      #+ATTR_LATEX: :width .7\columnwidth :placement [t]
+      [[../../../img/seymour2008comparison.pdf]]
+
+      #+BEGIN_CENTER
+      #+LATEX: {\footnotesize
+      *Unrolling*, *blocking* and *Mflops/s* for *matrix multiplication*
+      #+LATEX: }
+
+      #+LATEX: \tiny{Seymour K, You H, Dongarra J. A comparison of search heuristics for \\ empirical code optimization. InCLUSTER 2008 Oct 1 (pp. 421-429)}
+      #+LATEX: \vspace{1.3em}
+      #+END_CENTER
+
+      - Represent the *effect* of all possible
+        *configurations* on the *objectives*, can be difficult to explore,
+        with multiple *local optima* and *undefined regions*
+      - *Main issues* are *exponential growth*, *geometry*, & *measurement time*
+
+**** End Columns                                            :B_ignoreheading:
+     :PROPERTIES:
+     :BEAMER_env: ignoreheading
+     :END:
+     #+LATEX: \vspace{0.2em}
+     #+LATEX: \rule{\columnwidth}{0.4ex}
+     #+LATEX: \vspace{-2.5em}
+*** Row 2                                                   :B_ignoreheading:
+    :PROPERTIES:
+    :BEAMER_env: ignoreheading
+    :END:
+**** Column A                                                         :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.48
+     :BEAMER_opt: t
+     :END:
+***** Design of Experiments: Exploration under a Budget             :B_block:
+      :PROPERTIES:
+      :BEAMER_env: block
+      :END:
+****** Before Columns                                       :B_ignoreheading:
+       :PROPERTIES:
+       :BEAMER_env: ignoreheading
+       :END:
+       *Design of Experiments* (*DoE*):
+       #+LATEX: \vspace{1em}
+       - *Factors* are program *parameters*,
+         and *levels* are possible factor *values*
+       - An *experiment* fixes levels,
+         and a *design* is a *selection* of experiments to *run*
+       - A *performance model* is required to *construct designs*
+
+       #+LATEX: \vspace{1em}
+****** Left                                                           :BMCOL:
+       :PROPERTIES:
+       :BEAMER_col: 0.39
+       :END:
+       #+LATEX: {\scriptsize
+       #+LATEX: \input{latex/plackett_burman.tex}
+       #+LATEX: }
+       #+BEGIN_CENTER
+       #+LATEX: {\tiny
+       A *Plackett-Burman* design @@latex:\\[-0.5em]@@ for *7 2-level factors*
+       #+LATEX: }
+       #+END_CENTER
+       #+LATEX: \vspace{0.2em}
+       - *Results*, or *responses*, can be used to
+         identify *relevant parameters* and to *fit a linear regression
+         model*
+****** Right                                                          :BMCOL:
+       :PROPERTIES:
+       :BEAMER_col: 0.59
+       :END:
+
+       #+BEGIN_CENTER
+       #+ATTR_LATEX: :width 0.98\columnwidth
+       [[../../../img/sampling_comparison.pdf]]
+       #+END_CENTER
+
+       - Exploration of a search space using a *fixed budget*
+         of *50 points*, the *red “+”* represents the best point found by
+         each strategy
+**** Column B                                                         :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.48
+     :BEAMER_opt: t
+     :END:
+***** A Transparent Design of Experiments Approach                  :B_block:
+      :PROPERTIES:
+      :BEAMER_env: block
+      :END:
+      #+ATTR_LATEX: :width 0.8\columnwidth
+      [[../../../img/doe_anova_strategy.pdf]]
+
+      #+LATEX: \vspace{1em}
+
+      - An *initial model* is provided by the *user* (steps *1* & *2*)
+      - *Design of Experiments* guides exploration (steps *3* & *4*)
+      - *Significant factors* are identified by *Analysis of Variance (ANOVA)* (steps *5* & *6*)
+      - New fitted model predicts best value for significant factors (steps *7* & *8*)
+
+      #+begin_export latex
+      \begin{center}
+        {\normalsize
+          \colorbox{WinterSkin}{\alert{\vphantom{g}Transparent}: {\small \alert{factor} and \alert{level} selections based on \alert{ANOVA}}} \\[0.2em]
+          \colorbox{WinterSkin}{\alert{Parsimonious}: {\small DoE \alert{decreases measurements}}}
+        }
+      \end{center}
+      #+end_export
+**** End Columns                                            :B_ignoreheading:
+     :PROPERTIES:
+     :BEAMER_env: ignoreheading
+     :END:
+     #+LATEX: \vspace{0.2em}
+     #+LATEX: \rule{\columnwidth}{0.4ex}
+     #+LATEX: \vspace{-2.5em}
+*** Row 3                                                   :B_ignoreheading:
+    :PROPERTIES:
+    :BEAMER_env: ignoreheading
+    :END:
+**** Column A                                                         :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.48
+     :BEAMER_opt: t
+     :END:
+***** A Motivating Result on a GPU Kernel                           :B_block:
+      :PROPERTIES:
+      :BEAMER_env: block
+      :END:
+****** Left                                                           :BMCOL:
+       :PROPERTIES:
+       :BEAMER_col: 0.49
+       :END:
+       - Kernel *factors*:
+       #+LATEX: \vspace{0.6em}
+       #+ATTR_LATEX: :booktabs t :align llp{0.3\columnwidth} :font \tiny :float t
+       |--------------------+-------------------------------+--------------------------------|
+       | Factor             | Levels                        | Short Description              |
+       |--------------------+-------------------------------+--------------------------------|
+       | =vector_length=      | $2^0,\dots,2^4$                     | Size of support arrays         |
+       | =load_overlap=       | \textit{true}, \textit{false} | Load overlaps in vectorization |
+       | =temporary_size=     | $2,4$                         | Byte size of temporary data    |
+       | =elements_number=    | $1,\dots,24$                      | Size of equal data splits      |
+       | =y_component_number= | $1,\dots,6$                       | Loop tile size                 |
+       | =threads_number=     | $2^5,\dots,2^{10}$                    | Size of thread groups          |
+       | =lws_y=              | $2^0,\dots,2^{10}$                    | Block size in $y$ dimension    |
+       |--------------------+-------------------------------+--------------------------------|
+
+****** Right                                                          :BMCOL:
+       :PROPERTIES:
+       :BEAMER_col: 0.49
+       :END:
+       - Initial *performance model*:
+       #+BEGIN_EXPORT latex
+       {\tiny
+         \begin{align}
+           time\_per\_pixel \sim & \; y\_component\_number + \frac{1}{y\_component\_number} \; + \nonumber \\
+           & \; load\_overlap + temporary\_size \; + \nonumber \\
+           & \; vector\_length + lws\_y + \frac{1}{lws\_y} \; + \nonumber \\
+           & \; elements\_number + threads\_number  \; + \nonumber \\
+           & \; \frac{1}{elements\_number} + \frac{1}{threads\_number}\text{.} \nonumber
+         \end{align}
+       }
+       #+END_EXPORT
+
+       - This *simple case* had known *valid search space* and
+         *global optimum*, and *fixed budget*
+****** After Columns                                        :B_ignoreheading:
+       :PROPERTIES:
+       :BEAMER_env: ignoreheading
+       :END:
+
+       #+LATEX: \vspace{1em}
+       #+BEGIN_CENTER
+       #+LATEX: {\small
+       Our approach (*DLMT*) was always *within 1% of the optimum*
+       #+LATEX: }
+       #+END_CENTER
+       #+ATTR_LATEX: :width 0.9\columnwidth
+       [[../../../img/comparison_histogram.pdf]]
+
+       #+ATTR_LATEX: :booktabs t :align p{0.09\columnwidth}p{0.09\columnwidth}p{0.09\columnwidth}p{0.09\columnwidth}p{0.09\columnwidth}p{0.09\columnwidth}p{0.09\columnwidth} :font \tiny :float t
+       |-----------------+--------------------+---------------+---------------------+-------------------+--------------+------------------|
+       | RS              | LHS                | GS            | GSR                 | GA                | LM           | DLMT             |
+       |-----------------+--------------------+---------------+---------------------+-------------------+--------------+------------------|
+       | Random Sampling | Latin Hyper Square | Greedy Search | Greedy with Restart | Generic Algorithm | Linear Model | Our DoE Approach |
+       |-----------------+--------------------+---------------+---------------------+-------------------+--------------+------------------|
+**** Column B                                                         :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.48
+     :BEAMER_opt: t
+     :END:
+***** @@latex: \vphantom{g}@@Extensive Evaluation on the SPAPT Benchmark :B_block:
+      :PROPERTIES:
+      :BEAMER_env: block
+      :END:
+      - *SPAPT* is an *autotuning benchmark* for *CPU kernels*, with *search space sizes*
+        between *$10^7$ and $10^{36}$*
+      - We evaluated *DLMT* on *17 kernels* (*3* shown below)
+        using *the same initial performance model*, and *fixed budget*
+
+      #+LATEX: \vspace{0.3em}
+      #+BEGIN_CENTER
+      #+LATEX: {\small
+      Our approach (*DLMT*) achieved *good speedups* using @@latex:
+      \\[0.3em]@@ a *smaller budget*, while *exploring better
+      configurations*
+      #+LATEX: }
+      #+END_CENTER
+      #+BEGIN_CENTER
+      #+ATTR_LATEX: :width 0.85\columnwidth
+      [[../../../img/iteration_best_comparison.pdf]]
+      #+END_CENTER
+
+      #+BEGIN_CENTER
+      #+ATTR_LATEX: :width 0.85\columnwidth
+      [[../../../img/split_histograms.pdf]]
+      #+END_CENTER
+**** End Columns                                            :B_ignoreheading:
+     :PROPERTIES:
+     :BEAMER_env: ignoreheading
+     :END:
+*** Footer Line                                             :B_ignoreheading:
+    :PROPERTIES:
+    :BEAMER_env: ignoreheading
+    :END:
+    #+begin_export latex
+    \begin{flushleft}
+    \vspace{1.3em}
+      {\small
+        \textit{$^{1}$University of São Paulo, São Paulo, Brazil, with CAPES Funding \\
+          $^{2}$University of Grenoble Alpes, Inria, CNRS, Grenoble INP, LJK 38000 Grenoble, France \\[-0.2em]
+          $^{3}$University of Grenoble Alpes, CNRS, Inria, Grenoble INP, LIG 38000 Grenoble, France
+        }
+      }
+    \end{flushleft}
+    #+end_export
+** Margin Column                                                      :BMCOL:
+   :PROPERTIES:
+   :BEAMER_col: 0.09
+   :END:
+* Closing Main Frame                                        :B_ignoreheading:
+  :PROPERTIES:
+  :BEAMER_env: ignoreheading
+  :END:
+  #+LATEX: \end{frame}

@@ -1,0 +1,121 @@
+% Created 2021-04-29 Thu 12:56
+% Intended LaTeX compiler: pdflatex
+\documentclass[10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
+
+\usepackage{booktabs}
+\mode<beamer>{\usetheme[numbering=fraction, progressbar=none, titleformat=regular, sectionpage=none]{metropolis}}
+\usepackage{sourcecodepro}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{graphicx}
+\usepackage[english]{babel}
+\usepackage[scale=2]{ccicons}
+\usepackage{hyperref}
+\usepackage{relsize}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{ragged2e}
+\usepackage{textcomp}
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+\definecolor{Base}{HTML}{191F26}
+\definecolor{Accent}{HTML}{b10000}
+\setbeamercolor{alerted text}{fg=Accent}
+\setbeamercolor{frametitle}{fg=Accent,bg=White}
+\setbeamercolor{normal text}{bg=black!2,fg=Base}
+\usepackage{newpxtext}
+\usepackage{newpxmath}
+\usefonttheme{serif}
+\usepackage{DejaVuSansMono}
+\lstdefinelanguage{Julia}%
+{morekeywords={abstract,struct,break,case,catch,const,continue,do,else,elseif,%
+end,export,false,for,function,immutable,mutable,using,import,importall,if,in,%
+macro,module,quote,return,switch,true,try,catch,type,typealias,%
+while,<:,+,-,::,/},%
+sensitive=true,%
+alsoother={$},%
+morecomment=[l]\#,%
+morecomment=[n]{\#=}{=\#},%
+morestring=[s]{"}{"},%
+morestring=[m]{'}{'},%
+}[keywords,comments,strings]%
+\lstdefinelanguage{dockerfile}{
+keywords={FROM, RUN, COPY, ADD, ENTRYPOINT, CMD,  ENV, ARG, WORKDIR, EXPOSE, LABEL, USER, VOLUME, STOPSIGNAL, ONBUILD, MAINTAINER},
+sensitive=false,
+comment=[l]{\#},
+morestring=[b]',
+morestring=[b]"
+}
+\lstdefinelanguage{yaml}{
+keywords={true,false,null,y,n},
+ndkeywords={},
+sensitive=false,
+comment=[l]{\#},
+morecomment=[s]{/*}{*/},
+morestring=[b]',
+morestring=[b]"
+}
+\lstset{ %
+backgroundcolor={},
+basicstyle=\ttfamily\scriptsize,
+breakatwhitespace=true,
+breaklines=true,
+captionpos=n,
+commentstyle=\color{Accent},
+extendedchars=true,
+frame=n,
+keywordstyle=\color{Accent},
+rulecolor=\color{black},
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+stepnumber=2,
+stringstyle=\color{gray},
+tabsize=2,
+}
+\renewcommand*{\UrlFont}{\ttfamily\smaller\relax}
+\graphicspath{{../../img/}}
+\addtobeamertemplate{block begin}{}{\justifying}
+\captionsetup[figure]{labelformat=empty}
+\makeatletter
+\setlength{\metropolis@titleseparator@linewidth}{1pt}
+\makeatother
+\usetheme{default}
+\author{\footnotesize Pedro Bruel \newline \scriptsize \emph{phrb@ime.usp.br}}
+\date{\scriptsize \today}
+\title{Presentation Stub}
+\begin{document}
+
+\maketitle
+
+\section{Autotuning}
+\label{sec:orgbc2ace9}
+\begin{frame}[label={sec:org2142d26}]{Sample Slide 1}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+\begin{block}{Sample Column/Block A}
+Sample text
+
+\begin{block}{Sample Block 1}
+Sample \alert{text}
+\end{block}
+\end{block}
+\end{column}
+
+\begin{column}{0.5\columnwidth}
+\begin{block}{Sample Column/Block B}
+Sample list:
+
+\begin{itemize}
+\item Sample item 1
+\item Sample item 2
+\end{itemize}
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+\maketitle
+\end{document}

@@ -1,0 +1,4 @@
+Resources on Julia Introspection and Reflection using LLVM:
+
+http://blog.leahhanson.us/post/julia/julia-introspects.html
+https://docs.julialang.org/en/stable/devdocs/reflection/

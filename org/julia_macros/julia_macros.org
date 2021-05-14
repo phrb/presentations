@@ -1,0 +1,1397 @@
+#+STARTUP: overview indent inlineimages logdrawer
+#+TITLE: Julia Metaprogramming and Macros
+#+AUTHOR:      Pedro Bruel
+#+LANGUAGE:    en
+#+TAGS: noexport(n) Stats(S)
+#+TAGS: Teaching(T) R(R) OrgMode(O) Python(P)
+#+TAGS: Book(b) DOE(D) Code(C) NODAL(N) FPGA(F) Autotuning(A) Arnaud(r)
+#+TAGS: ExportableReports(E)
+#+TAGS: FAPESP(f)
+#+TAGS: DataVis(v) PaperReview(W)
+#+EXPORT_SELECT_TAGS: Blog
+#+OPTIONS:   H:3 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+COLUMNS: %25ITEM %TODO %3PRIORITY %TAGS
+#+SEQ_TODO: TODO(t!) STARTED(s!) WAITING(w@) APPT(a!) | DONE(d!) CANCELLED(c!) DEFERRED(f!)
+
+#+LATEX_CLASS_OPTIONS: [a4paper]
+#+LATEX_HEADER: \usepackage[margin=2cm]{geometry}
+#+LATEX_HEADER: \usepackage{sourcecodepro}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+LATEX_HEADER: \usepackage{array}
+#+LATEX_HEADER: \usepackage{colortbl}
+#+LATEX_HEADER: \usepackage{listings}
+#+LATEX_HEADER: \usepackage{algpseudocode}
+#+LATEX_HEADER: \usepackage{algorithm}
+#+LATEX_HEADER: \usepackage{graphicx}
+#+LATEX_HEADER: \usepackage[english]{babel}
+#+LATEX_HEADER: \usepackage[scale=2]{ccicons}
+#+LATEX_HEADER: \usepackage{hyperref}
+#+LATEX_HEADER: \usepackage{relsize}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{bm}
+#+LATEX_HEADER: \usepackage{amsfonts}
+#+LATEX_HEADER: \usepackage{wasysym}
+#+LATEX_HEADER: \usepackage{float}
+#+LATEX_HEADER: \usepackage{ragged2e}
+#+LATEX_HEADER: \usepackage{textcomp}
+#+LATEX_HEADER: \usepackage{pgfplots}
+#+LATEX_HEADER: \usepackage{todonotes}
+#+LATEX_HEADER: \usepgfplotslibrary{dateplot}
+#+LATEX_HEADER: \lstdefinelanguage{Julia}%
+#+LATEX_HEADER:   {morekeywords={abstract,struct,break,case,catch,const,continue,do,else,elseif,%
+#+LATEX_HEADER:       end,export,false,for,function,immutable,mutable,using,import,importall,if,in,%
+#+LATEX_HEADER:       macro,module,quote,return,switch,true,try,catch,type,typealias,%
+#+LATEX_HEADER:       while,<:,+,-,::,/},%
+#+LATEX_HEADER:    sensitive=true,%
+#+LATEX_HEADER:    alsoother={$},%
+#+LATEX_HEADER:    morecomment=[l]\#,%
+#+LATEX_HEADER:    morecomment=[n]{\#=}{=\#},%
+#+LATEX_HEADER:    morestring=[s]{"}{"},%
+#+LATEX_HEADER:    morestring=[m]{'}{'},%
+#+LATEX_HEADER: }[keywords,comments,strings]%
+#+LATEX_HEADER: \lstset{ %
+#+LATEX_HEADER:   backgroundcolor={},
+#+LATEX_HEADER:   basicstyle=\ttfamily\scriptsize,
+#+LATEX_HEADER:   breakatwhitespace=true,
+#+LATEX_HEADER:   breaklines=true,
+#+LATEX_HEADER:   captionpos=n,
+# #+LATEX_HEADER:   escapeinside={\%*}{*)},
+#+LATEX_HEADER:   extendedchars=true,
+#+LATEX_HEADER:   frame=n,
+#+LATEX_HEADER:   language=R,
+#+LATEX_HEADER:   rulecolor=\color{black},
+#+LATEX_HEADER:   showspaces=false,
+#+LATEX_HEADER:   showstringspaces=false,
+#+LATEX_HEADER:   showtabs=false,
+#+LATEX_HEADER:   stepnumber=2,
+#+LATEX_HEADER:   stringstyle=\color{gray},
+#+LATEX_HEADER:   tabsize=2,
+#+LATEX_HEADER: }
+#+LATEX_HEADER: \renewcommand*{\UrlFont}{\ttfamily\smaller\relax}
+
+* Metaprogramming
+- Don't do it without good reason: https://www.youtube.com/watch?v=mSgXWpvQEHE
+  - https://gist.github.com/MikeInnes/8299575
+- Maybe do it like this: https://github.com/JuliaLang/julia/blob/707616df0a22da1b834486f5ea5dff2b6dda15c6/base/math.jl#L91
+  - Create Domain Specific Languages (DSL) and new syntax
+- Docs: https://docs.julialang.org/en/v1/manual/metaprogramming/#Program-representation-1
+
+** Program Representation: Going Meta
+#+begin_SRC julia :eval no-export :exports both :tangle metaprogramming.jl
+prog = "1 + 1"
+println(prog)
+typeof(prog)
+#+end_SRC
+
+#+RESULTS:
+:RESULTS:
+: 1 + 1
+: String
+:END:
+
+#+begin_SRC julia :eval no-export :exports both :tangle metaprogramming.jl
+ex1 = Meta.parse(prog)
+ex1
+#+end_SRC
+
+#+RESULTS:
+: :(1 + 1)
+
+#+begin_SRC julia :eval no-export :exports both :tangle metaprogramming.jl
+typeof(ex1)
+#+end_SRC
+
+#+RESULTS:
+: Expr
+
+#+begin_SRC julia :eval no-export :exports both :tangle metaprogramming.jl
+ex1.head
+dump(ex1)
+#+end_SRC
+
+#+RESULTS:
+: Expr
+:   head: Symbol call
+:   args: Array{Any}((3,))
+:     1: Symbol +
+:     2: Int64 1
+:     3: Int64 1
+
+#+begin_SRC julia :eval no-export :exports both :tangle metaprogramming.jl
+ex1.args
+#+end_SRC
+
+#+RESULTS:
+: 3-element Array{Any,1}:
+:   :+
+:  1
+:  1
+
+#+begin_SRC julia :eval no-export :exports both :tangle metaprogramming.jl
+ex2 = Expr(:call, :+, 1, 1)
+#+end_SRC
+
+#+RESULTS:
+: :(1 + 1)
+
+#+begin_SRC julia :eval no-export :exports both :tangle metaprogramming.jl
+ex1 == ex2
+#+end_SRC
+
+#+RESULTS:
+: true
+
+#+begin_SRC julia :eval no-export :exports both :tangle metaprogramming.jl
+dump(ex2)
+#+end_SRC
+
+#+RESULTS:
+: Expr
+:   head: Symbol call
+:   args: Array{Any}((3,))
+:     1: Symbol +
+:     2: Int64 1
+:     3: Int64 1
+
+#+begin_SRC julia :eval no-export :exports both :tangle metaprogramming.jl
+ex3 = Meta.parse("(4 + 4) / 2")
+#+end_SRC
+
+#+RESULTS:
+: :((4 + 4) / 2)
+
+#+begin_SRC julia :eval no-export :exports both :tangle metaprogramming.jl
+Meta.show_sexpr(ex3)
+#dump(ex3)
+#+end_SRC
+
+#+RESULTS:
+: (:call, :/, (:call, :+, 4, 4), 2)
+
+** Symbols
+#+begin_SRC julia :eval no-export :exports both :tangle symbols.jl
+:foo
+#+end_SRC
+
+#+RESULTS:
+: :foo
+
+#+begin_SRC julia :eval no-export :exports both :tangle symbols.jl
+typeof(:foo)
+#+end_SRC
+
+#+RESULTS:
+: Symbol
+
+#+begin_SRC julia :eval no-export :exports both :tangle symbols.jl
+:foo == Symbol("foo")
+#+end_SRC
+
+#+RESULTS:
+: true
+
+#+begin_SRC julia :eval no-export :exports both :tangle symbols.jl
+Symbol("func", 12) == :func12
+#+end_SRC
+
+#+RESULTS:
+: true
+
+#+begin_SRC julia :eval no-export :exports both :tangle symbols.jl
+Symbol(:var,'_',"sym")
+#+end_SRC
+
+#+RESULTS:
+: :var_sym
+
+* Expressions
+- https://docs.julialang.org/en/v1/manual/metaprogramming/#Expressions-and-evaluation-1
+** Quoting
+#+begin_SRC julia :eval no-export :exports both :tangle expressions.jl
+ex = :(a + b * c + 1)
+#+end_SRC
+
+#+RESULTS:
+: :(a + b * c + 1)
+
+#+begin_SRC julia :eval no-export :exports both :tangle expressions.jl
+typeof(ex)
+#+end_SRC
+
+#+RESULTS:
+: Expr
+
+#+begin_SRC julia :eval no-export :exports both :tangle expressions.jl
+:(a + b*c + 1) ==
+    Meta.parse("a + b*c + 1") ==
+    Expr(:call, :+, :a, Expr(:call, :*, :b, :c), 1)
+#+end_SRC
+
+#+RESULTS:
+: true
+
+#+begin_SRC julia :eval no-export :exports both :tangle expressions.jl
+ex = quote
+    x = 1
+    y = 2
+    x + y
+end
+#+end_SRC
+
+#+RESULTS:
+: quote
+:     #= In[63]:2 =#
+:     x = 1
+:     #= In[63]:3 =#
+:     y = 2
+:     #= In[63]:4 =#
+:     x + y
+: end
+
+#+begin_SRC julia :eval no-export :exports both :tangle expressions.jl
+typeof(ex)
+#+end_SRC
+
+#+RESULTS:
+: Expr
+
+#+begin_SRC julia :eval no-export :exports both :tangle expressions.jl
+:(1 + 3)
+#+end_SRC
+
+#+RESULTS:
+: :(1 + 3)
+
+#+begin_SRC julia :eval no-export :exports both :tangle expressions.jl
+eval(:(1 + 3))
+#+end_SRC
+
+#+RESULTS:
+: 4
+
+#+begin_SRC julia :eval no-export :exports both :tangle expressions.jl
+ex = :(a + b)
+#+end_SRC
+
+#+RESULTS:
+: :(a + b)
+
+#+begin_SRC julia :eval no-export :exports both :tangle expressions.jl
+eval(ex)
+#+end_SRC
+
+#+RESULTS:
+:RESULTS:
+# [goto error]
+: UndefVarError: a not defined
+:
+: Stacktrace:
+:  [1] top-level scope at /home/phrb/.julia/packages/IJulia/DrVMH/src/kernel.jl:52
+:  [2] eval at ./boot.jl:331 [inlined]
+:  [3] eval(::Expr) at ./client.jl:449
+:  [4] top-level scope at In[69]:1
+:END:
+
+#+begin_SRC julia :eval no-export :exports both :tangle expressions.jl
+a = 3; b = 2;
+#+end_SRC
+
+#+RESULTS:
+
+#+begin_SRC julia :eval no-export :exports both :tangle expressions.jl
+eval(ex)
+#+end_SRC
+
+#+RESULTS:
+: 5
+
+#+begin_SRC julia :eval no-export :exports both :tangle expressions.jl
+ex = :(x = 2)
+#+end_SRC
+
+#+RESULTS:
+: :(x = 2)
+
+#+begin_SRC julia :eval no-export :exports both :tangle expressions.jl
+x
+#+end_SRC
+
+#+RESULTS:
+:RESULTS:
+# [goto error]
+: UndefVarError: x not defined
+:
+: Stacktrace:
+:  [1] top-level scope at In[79]:1
+:END:
+
+
+#+begin_SRC julia :eval no-export :exports both :tangle expressions.jl
+eval(ex)
+#+end_SRC
+
+#+RESULTS:
+: 2
+
+#+begin_SRC julia :eval no-export :exports both :tangle expressions.jl
+x
+#+end_SRC
+
+#+RESULTS:
+: 2
+
+#+begin_SRC julia :eval no-export :exports both :tangle expressions.jl
+a = 2;
+#+end_SRC
+
+#+RESULTS:
+
+#+begin_SRC julia :eval no-export :exports both :tangle expressions.jl
+ex = Expr(:call, :+, a, :b)
+#+end_SRC
+
+#+RESULTS:
+: :(2 + b)
+
+#+begin_SRC julia :eval no-export :exports both :tangle expressions.jl
+a = 0; b = 2;
+#+end_SRC
+
+#+RESULTS:
+
+#+begin_SRC julia :eval no-export :exports both :tangle expressions.jl
+eval(ex)
+#+end_SRC
+
+#+RESULTS:
+: 4
+
+** Functions Generating Expressions
+#+begin_SRC julia :eval no-export :exports both :tangle function_expressions.jl
+function math_expr(op, op1, op2)
+    expr = Expr(:call, op, op1, op2)
+    return expr
+end
+#+end_SRC
+
+#+RESULTS:
+: math_expr (generic function with 1 method)
+
+#+begin_SRC julia :eval no-export :exports both :tangle function_expressions.jl
+ex = math_expr(:+, 1, Expr(:call, :*, 6, 5))
+#+end_SRC
+
+#+RESULTS:
+: :(1 + 6 * 5)
+
+#+begin_SRC julia :eval no-export :exports both :tangle function_expressions.jl
+eval(ex)
+#+end_SRC
+
+#+RESULTS:
+: 31
+
+#+begin_SRC julia :eval no-export :exports both :tangle function_expressions.jl
+function make_expr2(op, opr1, opr2)
+    opr1f, opr2f = map(x -> isa(x, Number) ? 2*x : x, (opr1, opr2))
+    retexpr = Expr(:call, op, opr1f, opr2f)
+    return retexpr
+end
+#+end_SRC
+
+#+RESULTS:
+: make_expr2 (generic function with 1 method)
+
+#+begin_SRC julia :eval no-export :exports both :tangle function_expressions.jl
+make_expr2(:+, 1, 3)
+#+end_SRC
+
+#+RESULTS:
+: :(2 + 6)
+
+#+begin_SRC julia :eval no-export :exports both :tangle function_expressions.jl
+ex = make_expr2(:+, 3, Expr(:call, :*, 5, 8))
+#+end_SRC
+
+#+RESULTS:
+: :(6 + 5 * 8)
+
+#+begin_SRC julia :eval no-export :exports both :tangle function_expressions.jl
+eval(ex)
+#+end_SRC
+
+#+RESULTS:
+: 46
+
+* Macros
+- https://docs.julialang.org/en/v1/manual/metaprogramming/#man-macros-1
+** Introduction
+#+begin_SRC julia :eval no-export :exports both :tangle macros.jl
+macro sayhello()
+    return :( println("Hello, world!") )
+end
+#+end_SRC
+
+#+RESULTS:
+: @sayhello (macro with 1 method)
+
+#+begin_SRC julia :eval no-export :exports both :tangle macros.jl
+@sayhello
+#+end_SRC
+
+#+RESULTS:
+: Hello, world!
+
+#+begin_SRC julia :eval no-export :exports both :tangle macros.jl
+macro sayhello(name)
+    return :( println("Hello, ", $name) )
+end
+#+end_SRC
+
+#+RESULTS:
+: @sayhello (macro with 2 methods)
+
+#+begin_SRC julia :eval no-export :exports both :tangle macros.jl
+@sayhello "MAC110"
+#+end_SRC
+
+#+RESULTS:
+: Hello, MAC110
+
+#+begin_SRC julia :eval no-export :exports both :tangle macros.jl
+#ex = macroexpand(Main, :(@sayhello("human")) )
+@macroexpand @macroexpand @sayhello "MAC110"
+#+end_SRC
+
+#+RESULTS:
+: :(Base.macroexpand(Main, $(QuoteNode(:(#= In[109]:2 =# @sayhello "MAC110"))), recursive = true))
+
+** Macro Expand
+#+begin_SRC julia :eval no-export :exports both :tangle macros.jl
+@macroexpand @sayhello "human"
+#+end_SRC
+
+#+RESULTS:
+: :(Main.println("Hello, ", "human"))
+
+#+begin_SRC julia :eval no-export :exports both :tangle macros.jl
+@macroexpand @macroexpand @sayhello "human"
+#+end_SRC
+
+#+RESULTS:
+: :(Base.macroexpand(Main, $(QuoteNode(:(#= In[111]:1 =# @sayhello "human"))), recursive = true))
+
+** Two-Step Evaluation
+#+begin_SRC julia :eval no-export :exports both :tangle macros.jl
+macro twostep(arg)
+    println("I execute at parse time. The argument is: ", arg)
+    return :(println("I execute at runtime. The argument is: ", $arg))
+end
+#+end_SRC
+
+#+RESULTS:
+: @twostep (macro with 1 method)
+
+#+begin_SRC julia :eval no-export :exports both :tangle macros.jl
+ex = macroexpand(Main, :(@twostep :(1, 2, 3)) );
+#+end_SRC
+
+#+RESULTS:
+: I execute at parse time. The argument is: :((1, 2, 3))
+
+#+begin_SRC julia :eval no-export :exports both :tangle macros.jl
+typeof(ex)
+#+end_SRC
+
+#+RESULTS:
+: Expr
+
+#+begin_SRC julia :eval no-export :exports both :tangle macros.jl
+ex
+#+end_SRC
+
+#+RESULTS:
+: :(Main.println("I execute at runtime. The argument is: ", $(Expr(:copyast, :($(QuoteNode(:((1, 2, 3)))))))))
+
+#+begin_SRC julia :eval no-export :exports both :tangle macros.jl
+eval(ex)
+#+end_SRC
+
+#+RESULTS:
+: I execute at runtime. The argument is: (1, 2, 3)
+
+* Some Useful Julia Macros
+** Assert and Test
+- https://docs.julialang.org/en/v1/stdlib/Test/
+#+begin_SRC julia :eval no-export :exports both :tangle assert_test.jl
+using Test
+#+end_SRC
+
+#+RESULTS:
+
+#+begin_SRC julia :eval no-export :exports both :tangle assert_test.jl
+@assert 1 == 1
+#+end_SRC
+
+#+RESULTS:
+
+#+begin_SRC julia :eval no-export :exports both :tangle assert_test.jl
+@assert 1 == 2
+#+end_SRC
+
+#+RESULTS:
+:RESULTS:
+# [goto error]
+: AssertionError: 1 == 2
+:
+: Stacktrace:
+:  [1] top-level scope at In[119]:1
+:END:
+
+#+begin_SRC julia :eval no-export :exports both :tangle assert_test.jl
+@assert 1 == 2 "Very Bad Error"
+#+end_SRC
+
+#+RESULTS:
+:RESULTS:
+# [goto error]
+: AssertionError: Very Bad Error
+:
+: Stacktrace:
+:  [1] top-level scope at In[120]:1
+:END:
+
+#+begin_SRC julia :eval no-export :exports both :tangle assert_test.jl
+@macroexpand @assert 1 == 2 "Very Bad Error"
+#+end_SRC
+
+#+RESULTS:
+: :(if 1 == 2
+:       nothing
+:   else
+:       Base.throw(Base.AssertionError("Very Bad Error"))
+:   end)
+
+#+begin_SRC julia :eval no-export :exports both :tangle assert_test.jl
+@macroexpand @assert 1 == 2
+#+end_SRC
+
+#+RESULTS:
+: :(if 1 == 2
+:       nothing
+:   else
+:       Base.throw(Base.AssertionError("1 == 2"))
+:   end)
+
+#+begin_SRC julia :eval no-export :exports both :tangle assert_test.jl
+@macroexpand @test 1 == 1
+#+end_SRC
+
+#+RESULTS:
+: :(Test.do_test(begin
+:           try
+:               Test.eval_test(Test.Expr(:comparison, 1, ==, 1), Test.Expr(:comparison, $(QuoteNode(1)), :(==), $(QuoteNode(1))), $(QuoteNode(:(#= In[126]:1 =#))), $(QuoteNode(false)))
+:           catch var"#8#_e"
+:               var"#8#_e" isa Test.InterruptException && Test.rethrow()
+:               Test.Threw(var"#8#_e", (Test.Base).catch_stack(), $(QuoteNode(:(#= In[126]:1 =#))))
+:           end
+:       end, $(QuoteNode(:(1 == 1)))))
+
+#+begin_SRC julia :eval no-export :exports both :tangle assert_test.jl
+@testset "Helpful Tests" begin
+    @testset "Tautologies" begin
+        @test 1 == 1
+        @test "a" == "a"
+        @test pi == pi
+    end
+    @testset "Hopefully True" begin
+        @test isapprox(2, 2.0002, atol = 1)
+        @test isapprox(2 + 2, 5, atol = 1)
+        @test isapprox(2 + 2, 3, atol = 2)
+        @test isapprox(1e-10, 2e-9, atol = 1e-8)
+    end
+end
+#+end_SRC
+
+#+RESULTS:
+:RESULTS:
+: [37m[1mTest Summary: | [22m[39m[32m[1mPass  [22m[39m[36m[1mTotal[22m[39m
+: Helpful Tests | [32m   7  [39m[36m    7[39m
+: Test.DefaultTestSet("Helpful Tests", Any[Test.DefaultTestSet("Tautologies", Any[], 3, false), Test.DefaultTestSet("Hopefully True", Any[], 4, false)], 0, false)
+:END:
+
+** Measuring Time and Allocations
+- https://docs.julialang.org/en/v1/manual/profile/#Memory-allocation-analysis-1
+#+begin_SRC julia :eval no-export :exports both :tangle measuring.jl
+@elapsed a = rand(10 ^ 6)
+#+end_SRC
+
+#+RESULTS:
+: 0.01359724
+
+#+begin_SRC julia :eval no-export :exports both :tangle measuring.jl
+@macroexpand @elapsed a = rand(10 ^ 6)
+#+end_SRC
+
+#+RESULTS:
+#+begin_example
+quote
+    #= util.jl:232 =#
+    while false
+        #= util.jl:232 =#
+    end
+    #= util.jl:233 =#
+    local var"#127#t0" = Base.time_ns()
+    #= util.jl:234 =#
+    a = rand(10 ^ 6)
+    (Base.time_ns() - var"#127#t0") / 1.0e9
+end
+#+end_example
+
+#+begin_SRC julia :eval no-export :exports both :tangle measuring.jl
+@allocated a = rand(10 ^ 6)
+#+end_SRC
+
+#+RESULTS:
+: 8000080
+
+#+begin_SRC julia :eval no-export :exports both :tangle measuring.jl
+@macroexpand @allocated a = rand(10 ^ 6)
+#+end_SRC
+
+#+RESULTS:
+#+begin_example
+quote
+    local var"#130#b0" = Base.Ref{Base.Int64}(0)
+    local var"#131#b1" = Base.Ref{Base.Int64}(0)
+    Base.gc_bytes(var"#130#b0")
+    a = rand(10 ^ 6)
+    Base.gc_bytes(var"#131#b1")
+    var"#131#b1"[] - var"#130#b0"[]
+end
+#+end_example
+
+#+begin_SRC julia :eval no-export :exports both :tangle measuring.jl
+@time a = rand(10 ^ 6)
+#+end_SRC
+
+#+RESULTS:
+:RESULTS:
+:   0.008893 seconds (2 allocations: 7.629 MiB)
+#+begin_example
+1000000-element Array{Float64,1}:
+ 0.14164902903027365
+ 0.9616750003663637
+ 0.21741390295590413
+ 0.34688716251031804
+ 0.23620679154201607
+ 0.09466070431642426
+ 0.2532501214593783
+ 0.5998800155045427
+ 0.2984685453112157
+ 0.5966394286000962
+ 0.8221881579392085
+ 0.6105607268530906
+ 0.5389178362125853
+ ⋮
+ 0.5429403011971157
+ 0.23448820490587075
+ 0.22153995611550203
+ 0.4457310170372435
+ 0.16718115169858683
+ 0.5677181003723581
+ 0.3260759196101837
+ 0.9100585750648711
+ 0.9478667295270451
+ 0.0938343247157909
+ 0.6522523461011922
+ 0.10270219492692245
+#+end_example
+:END:
+
+#+begin_SRC julia :eval no-export :exports both :tangle measuring.jl
+@macroexpand @time a = rand(10 ^ 6)
+#+end_SRC
+
+#+RESULTS:
+#+begin_example
+quote
+    #= util.jl:172 =#
+    while false
+        #= util.jl:172 =#
+    end
+    #= util.jl:173 =#
+    local var"#140#stats" = Base.gc_num()
+    #= util.jl:174 =#
+    local var"#142#elapsedtime" = Base.time_ns()
+    #= util.jl:175 =#
+    local var"#141#val" = (a = rand(10 ^ 6))
+    #= util.jl:176 =#
+    var"#142#elapsedtime" = Base.time_ns() - var"#142#elapsedtime"
+    #= util.jl:177 =#
+    local var"#143#diff" = Base.GC_Diff(Base.gc_num(), var"#140#stats")
+    #= util.jl:178 =#
+    Base.time_print(var"#142#elapsedtime", (var"#143#diff").allocd, (var"#143#diff").total_time, Base.gc_alloc_count(var"#143#diff"))
+    #= util.jl:180 =#
+    Base.println()
+    #= util.jl:181 =#
+    var"#141#val"
+end
+#+end_example
+
+#+begin_SRC julia :eval no-export :exports both :tangle measuring.jl
+@timev a = rand(10 ^ 6)
+#+end_SRC
+
+#+RESULTS:
+:RESULTS:
+:   0.003305 seconds (2 allocations: 7.629 MiB)
+: elapsed time (ns): 3304938
+: bytes allocated:   8000080
+: pool allocs:       1
+: malloc() calls:    1
+#+begin_example
+1000000-element Array{Float64,1}:
+ 0.8820442979484615
+ 0.314348363845365
+ 0.6141908947082106
+ 0.5707808145592963
+ 0.21564951194125292
+ 0.055111415687563836
+ 0.933246602793705
+ 0.856641028593675
+ 0.33388044144951134
+ 0.15790787054987065
+ 0.6249363209572203
+ 0.4601851110822224
+ 0.40619081426960735
+ ⋮
+ 0.01288574310045143
+ 0.014020867644595869
+ 0.8614978973292093
+ 0.9847395729358466
+ 0.7998463101378157
+ 0.5404184510560148
+ 0.5630518564782458
+ 0.8226824551595797
+ 0.1850810743260145
+ 0.5046611365968676
+ 0.028999892423407614
+ 0.12621349679314076
+#+end_example
+:END:
+
+#+begin_SRC julia :eval no-export :exports both :tangle measuring.jl
+@macroexpand @timev a = rand(10 ^ 6)
+#+end_SRC
+
+#+RESULTS:
+#+begin_example
+quote
+    #= util.jl:206 =#
+    while false
+        #= util.jl:206 =#
+    end
+    #= util.jl:207 =#
+    local var"#147#stats" = Base.gc_num()
+    #= util.jl:208 =#
+    local var"#149#elapsedtime" = Base.time_ns()
+    #= util.jl:209 =#
+    local var"#148#val" = (a = rand(10 ^ 6))
+    #= util.jl:210 =#
+    var"#149#elapsedtime" = Base.time_ns() - var"#149#elapsedtime"
+    #= util.jl:211 =#
+    Base.timev_print(var"#149#elapsedtime", Base.GC_Diff(Base.gc_num(), var"#147#stats"))
+    #= util.jl:212 =#
+    var"#148#val"
+end
+#+end_example
+** Profiling
+- https://docs.julialang.org/en/v1/manual/profile/
+
+#+begin_SRC julia :eval no-export :exports both :tangle profiling.jl
+function myfunc()
+    A = rand(200, 200, 400)
+    maximum(A)
+end
+#+end_SRC
+
+#+RESULTS:
+: myfunc (generic function with 1 method)
+
+#+begin_SRC julia :eval no-export :exports both :tangle profiling.jl
+myfunc() # run once to force compilation
+#+end_SRC
+
+#+RESULTS:
+: 0.999999984157355
+
+#+begin_SRC julia :eval no-export :exports both :tangle profiling.jl
+using Profile
+#+end_SRC
+
+#+RESULTS:
+
+#+begin_SRC julia :eval no-export :exports both :tangle profiling.jl
+@profile myfunc()
+#+end_SRC
+
+#+RESULTS:
+: 0.9999999294867419
+
+#+begin_SRC julia :eval no-export :exports both :tangle profiling.jl
+@macroexpand @profile myfunc()
+#+end_SRC
+
+#+RESULTS:
+#+begin_example
+quote
+    #= /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Profile/src/Profile.jl:23 =#
+    try
+        #= /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Profile/src/Profile.jl:24 =#
+        var"#152#status" = Profile.start_timer()
+        #= /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Profile/src/Profile.jl:25 =#
+        if var"#152#status" < 0
+            #= /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Profile/src/Profile.jl:26 =#
+            Profile.error(Profile.error_codes[var"#152#status"])
+        end
+        #= /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Profile/src/Profile.jl:28 =#
+        myfunc()
+    finally
+        #= /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Profile/src/Profile.jl:30 =#
+        Profile.stop_timer()
+    end
+end
+#+end_example
+
+#+begin_SRC julia :eval no-export :exports both :tangle profiling.jl
+Profile.print()
+#+end_SRC
+
+#+RESULTS:
+#+begin_example
+Overhead ╎ [+additional indent] Count File:Line; Function
+=========================================================
+   ╎91  @Base/task.jl:358; (::IJulia.var"#15#18")()
+   ╎ 91  @IJulia/src/eventloop.jl:8; eventloop(::ZMQ.Socket)
+   ╎  91  @Base/essentials.jl:711; invokelatest
+   ╎   91  @Base/essentials.jl:712; #invokelatest#1
+   ╎    91  .../execute_request.jl:67; execute_request(::ZMQ.Socket, ...
+   ╎     91  ...SoftGlobalScope.jl:218; softscope_include_string(::Mo...
+ 10╎    ╎ 91  @Base/boot.jl:331; eval
+   ╎    ╎  66  In[146]:2; myfunc()
+   ╎    ╎   66  ...dom/src/Random.jl:277; rand
+   ╎    ╎    66  ...dom/src/Random.jl:289; rand(::Type{Float64}, ::Tup...
+   ╎    ╎     66  ...om/src/Random.jl:288; rand
+   ╎    ╎    ╎ 7   @Base/boot.jl:422; Array
+   ╎    ╎    ╎  7   @Base/boot.jl:416; Array
+  7╎    ╎    ╎   7   @Base/boot.jl:409; Array
+   ╎    ╎    ╎ 59  ...om/src/Random.jl:267; rand!
+   ╎    ╎    ╎  59  ...dom/src/RNGs.jl:512; rand!
+   ╎    ╎    ╎   59  ...dom/src/RNGs.jl:506; _rand!
+   ╎    ╎    ╎    59  ...dom/src/RNGs.jl:494; rand!(::Random.MersenneT...
+   ╎    ╎    ╎     59  ...om/src/RNGs.jl:468; fill_array!
+ 59╎    ╎    ╎    ╎ 59  ...m/src/DSFMT.jl:95; dsfmt_fill_array_close_...
+   ╎    ╎  15  In[146]:3; myfunc()
+   ╎    ╎   15  @Base/reducedim.jl:652; maximum
+   ╎    ╎    15  @Base/reducedim.jl:652; #maximum#587
+   ╎    ╎     15  @Base/reducedim.jl:656; _maximum
+   ╎    ╎    ╎ 15  @Base/reducedim.jl:657; _maximum
+   ╎    ╎    ╎  15  @Base/reducedim.jl:307; mapreduce
+   ╎    ╎    ╎   15  @Base/reducedim.jl:307; #mapreduce#580
+   ╎    ╎    ╎    15  @Base/reducedim.jl:312; _mapreduce_dim
+   ╎    ╎    ╎     15  @Base/reduce.jl:407; _mapreduce(::typeof(ide...
+   ╎    ╎    ╎    ╎ 8   @Base/reduce.jl:577; mapreduce_impl(::typeo...
+  5╎    ╎    ╎    ╎  8   @Base/reduce.jl:545; _fast
+   ╎    ╎    ╎    ╎   3   @Base/float.jl:536; isnan
+  3╎    ╎    ╎    ╎    3   @Base/float.jl:456; !=
+   ╎    ╎    ╎    ╎ 7   @Base/reduce.jl:580; mapreduce_impl(::typeo...
+   ╎    ╎    ╎    ╎  7   @Base/range.jl:597; iterate
+  7╎    ╎    ╎    ╎   7   .../promotion.jl:398; ==
+   ╎460 @Base/task.jl:444; task_done_hook(::Task)
+   ╎ 460 @Base/task.jl:709; wait
+459╎  460 @Base/task.jl:702; poptaskref(::Base.InvasiveLinke...
+Total snapshots: 643
+#+end_example
+
+#+begin_SRC julia :eval no-export :exports both :tangle profiling.jl
+Profile.print(format = :flat, sortedby = :overhead)
+#+end_SRC
+
+#+RESULTS:
+#+begin_example
+ Count  Overhead File                    Line Function
+ =====  ======== ====                    ==== ========
+   460         0 @Base/task.jl            709 wait
+   460         0 @Base/task.jl            444 task_done_hook(::Task)
+    91         0 .../SoftGlobalScope.jl   218 softscope_include_string(::Modu...
+    91         0 .../execute_request.jl    67 execute_request(::ZMQ.Socket, :...
+    91         0 @Base/essentials.jl      712 #invokelatest#1
+    91         0 @Base/essentials.jl      711 invokelatest
+    91         0 ...ia/src/eventloop.jl     8 eventloop(::ZMQ.Socket)
+    91         0 @Base/task.jl            358 (::IJulia.var"#15#18")()
+     7         0 @Base/boot.jl            416 Array
+     7         0 @Base/boot.jl            422 Array
+    66         0 ...andom/src/Random.jl   288 rand
+    66         0 ...andom/src/Random.jl   289 rand(::Type{Float64}, ::Tuple{I...
+    66         0 ...andom/src/Random.jl   277 rand
+    66         0 In[146]                    2 myfunc()
+    59         0 .../Random/src/RNGs.jl   468 fill_array!
+    59         0 .../Random/src/RNGs.jl   494 rand!(::Random.MersenneTwister,...
+    59         0 .../Random/src/RNGs.jl   506 _rand!
+    59         0 .../Random/src/RNGs.jl   512 rand!
+    59         0 ...andom/src/Random.jl   267 rand!
+     7         0 @Base/range.jl           597 iterate
+     7         0 @Base/reduce.jl          580 mapreduce_impl(::typeof(identit...
+    15         0 @Base/reduce.jl          407 _mapreduce(::typeof(identity), ...
+    15         0 @Base/reducedim.jl       312 _mapreduce_dim
+    15         0 @Base/reducedim.jl       307 #mapreduce#580
+    15         0 @Base/reducedim.jl       307 mapreduce
+    15         0 @Base/reducedim.jl       657 _maximum
+    15         0 @Base/reducedim.jl       656 _maximum
+    15         0 @Base/reducedim.jl       652 #maximum#587
+    15         0 @Base/reducedim.jl       652 maximum
+    15         0 In[146]                    3 myfunc()
+     8         0 @Base/reduce.jl          577 mapreduce_impl(::typeof(identit...
+     3         0 @Base/float.jl           536 isnan
+     3         3 @Base/float.jl           456 !=
+     8         5 @Base/reduce.jl          545 _fast
+     7         7 @Base/boot.jl            409 Array
+     7         7 @Base/promotion.jl       398 ==
+    91        10 @Base/boot.jl            331 eval
+    59        59 ...Random/src/DSFMT.jl    95 dsfmt_fill_array_close_open!(::...
+   460       460 @Base/task.jl            702 poptaskref(::Base.InvasiveLinke...
+Total snapshots: 643
+#+end_example
+** Parallel Computing
+- https://docs.julialang.org/en/v1/manual/parallel-computing/
+*** Threads
+#+begin_SRC julia :eval no-export :exports both :tangle threads.jl
+Threads.nthreads()
+#+end_SRC
+
+#+RESULTS:
+: 6
+
+
+#+begin_SRC julia :eval no-export :exports both :tangle threads.jl
+a = zeros(12)
+#+end_SRC
+
+#+RESULTS:
+#+begin_example
+12-element Array{Float64,1}:
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+#+end_example
+
+#+begin_SRC julia :eval no-export :exports both :tangle threads.jl
+Threads.@threads for i = 1:12
+    a[i] = Threads.threadid()
+end
+a
+#+end_SRC
+
+#+RESULTS:
+#+begin_example
+12-element Array{Float64,1}:
+ 1.0
+ 1.0
+ 2.0
+ 2.0
+ 3.0
+ 3.0
+ 4.0
+ 4.0
+ 5.0
+ 5.0
+ 6.0
+ 6.0
+#+end_example
+
+#+begin_SRC julia :eval no-export :exports both :tangle threads.jl
+@macroexpand Threads.@threads for i = 1:12
+    a[i] = Threads.threadid()
+end
+#+end_SRC
+
+#+RESULTS:
+#+begin_example
+quote
+    #= threadingconstructs.jl:25 =#
+    local var"#171#threadsfor_fun"
+    #= threadingconstructs.jl:26 =#
+    let var"#170#range" = 1:12
+        #= threadingconstructs.jl:27 =#
+        function var"#171#threadsfor_fun"(var"#183#onethread" = false)
+            #= threadingconstructs.jl:28 =#
+            var"#175#r" = var"#170#range"
+            #= threadingconstructs.jl:29 =#
+            var"#176#lenr" = Base.Threads.length(var"#175#r")
+            #= threadingconstructs.jl:31 =#
+            if var"#183#onethread"
+                #= threadingconstructs.jl:32 =#
+                var"#177#tid" = 1
+                #= threadingconstructs.jl:33 =#
+                (var"#178#len", var"#179#rem") = (var"#176#lenr", 0)
+            else
+                #= threadingconstructs.jl:35 =#
+                var"#177#tid" = Base.Threads.threadid()
+                #= threadingconstructs.jl:36 =#
+                (var"#178#len", var"#179#rem") = Base.Threads.divrem(var"#176#lenr", Base.Threads.nthreads())
+            end
+            #= threadingconstructs.jl:39 =#
+            if var"#178#len" == 0
+                #= threadingconstructs.jl:40 =#
+                if var"#177#tid" > var"#179#rem"
+                    #= threadingconstructs.jl:41 =#
+                    return
+                end
+                #= threadingconstructs.jl:43 =#
+                (var"#178#len", var"#179#rem") = (1, 0)
+            end
+            #= threadingconstructs.jl:46 =#
+            var"#180#f" = Base.Threads.firstindex(var"#175#r") + (var"#177#tid" - 1) * var"#178#len"
+            #= threadingconstructs.jl:47 =#
+            var"#181#l" = (var"#180#f" + var"#178#len") - 1
+            #= threadingconstructs.jl:49 =#
+            if var"#179#rem" > 0
+                #= threadingconstructs.jl:50 =#
+                if var"#177#tid" <= var"#179#rem"
+                    #= threadingconstructs.jl:51 =#
+                    var"#180#f" = var"#180#f" + (var"#177#tid" - 1)
+                    #= threadingconstructs.jl:52 =#
+                    var"#181#l" = var"#181#l" + var"#177#tid"
+                else
+                    #= threadingconstructs.jl:54 =#
+                    var"#180#f" = var"#180#f" + var"#179#rem"
+                    #= threadingconstructs.jl:55 =#
+                    var"#181#l" = var"#181#l" + var"#179#rem"
+                end
+            end
+            #= threadingconstructs.jl:59 =#
+            for var"#182#i" = var"#180#f":var"#181#l"
+                #= threadingconstructs.jl:60 =#
+                local i = begin
+                            $(Expr(:inbounds, true))
+                            local var"#184#val" = var"#175#r"[var"#182#i"]
+                            $(Expr(:inbounds, :pop))
+                            var"#184#val"
+                        end
+                #= threadingconstructs.jl:61 =#
+                begin
+                    #= In[157]:2 =#
+                    a[i] = Threads.threadid()
+                end
+            end
+        end
+    end
+    #= threadingconstructs.jl:65 =#
+    if Base.Threads.threadid() != 1
+        #= threadingconstructs.jl:67 =#
+        (Base.Threads.Base).invokelatest(var"#171#threadsfor_fun", true)
+    else
+        #= threadingconstructs.jl:69 =#
+        ccall(:jl_threading_run, Base.Threads.Cvoid, (Base.Threads.Any,), var"#171#threadsfor_fun")
+    end
+    #= threadingconstructs.jl:71 =#
+    Base.Threads.nothing
+end
+#+end_example
+
+#+begin_SRC julia :eval no-export :exports both :tangle threads.jl
+a = rand(10 ^ 6)
+#+end_SRC
+
+#+RESULTS:
+#+begin_example
+1000000-element Array{Float64,1}:
+ 0.6655118523474799
+ 0.5970165044571119
+ 0.1629638416158008
+ 0.647839063114608
+ 0.6540598533817377
+ 0.659612715869266
+ 0.8206472155050846
+ 0.831401467236786
+ 0.10430841355902998
+ 0.42333177319862125
+ 0.934120651429245
+ 0.8640413450393665
+ 0.19437775947763325
+ ⋮
+ 0.14947040823226598
+ 0.8377734427797103
+ 0.49159323218528694
+ 0.1758830410480996
+ 0.46881713433806604
+ 0.3124355420925844
+ 0.034629078654121015
+ 0.45651502496181817
+ 0.9407702506532809
+ 0.8610347815501189
+ 0.4745851680303834
+ 0.5258669552620987
+#+end_example
+
+#+begin_SRC julia :eval no-export :exports both :tangle threads.jl
+@timev begin
+    for i = 1:length(a)
+        a[i] = Threads.threadid()
+    end
+end
+#+end_SRC
+
+#+RESULTS:
+:   0.181498 seconds (3.00 M allocations: 61.021 MiB, 42.77% gc time)
+: elapsed time (ns): 181498289
+: gc time (ns):      77627092
+: bytes allocated:   63985056
+: pool allocs:       2998997
+: GC pauses:         1
+: full collections:  1
+
+#+begin_SRC julia :eval no-export :exports both :tangle threads.jl
+@timev begin
+    Threads.@threads for i = 1:length(a)
+        a[i] = Threads.threadid()
+    end
+end
+#+end_SRC
+
+#+RESULTS:
+:   0.034536 seconds (1.02 M allocations: 16.315 MiB)
+: elapsed time (ns): 34536126
+: bytes allocated:   17107663
+: pool allocs:       1020793
+: non-pool GC allocs:3
+*** Processes
+#+begin_SRC julia :eval no-export :exports both :tangle processes.jl
+using Distributed
+#+end_SRC
+
+#+RESULTS:
+
+#+begin_SRC julia :eval no-export :exports both :tangle processes.jl
+nprocs()
+#+end_SRC
+
+#+RESULTS:
+: 1
+
+#+begin_SRC julia :eval no-export :exports both :tangle processes.jl
+addprocs(5)
+#+end_SRC
+
+#+RESULTS:
+: 5-element Array{Int64,1}:
+:  2
+:  3
+:  4
+:  5
+:  6
+
+#+begin_SRC julia :eval no-export :exports both :tangle processes.jl
+nprocs()
+#+end_SRC
+
+#+RESULTS:
+: 6
+
+#+begin_SRC julia :eval no-export :exports both :tangle processes.jl
+function count_heads(n)
+    c::Int = 0
+    for i = 1:n
+        c += rand(Bool)
+    end
+    c
+end
+#+end_SRC
+
+#+RESULTS:
+: count_heads (generic function with 1 method)
+
+#+begin_SRC julia :eval no-export :exports both :tangle processes.jl
+a = @spawnat 2 count_heads(100000000)
+#+end_SRC
+
+#+RESULTS:
+: Future(2, 1, 7, nothing)
+
+#+begin_SRC julia :eval no-export :exports both :tangle processes.jl
+fetch(a)
+#+end_SRC
+
+#+RESULTS:
+:RESULTS:
+# [goto error]
+#+begin_example
+On worker 2:
+UndefVarError: #count_heads not defined
+deserialize_datatype at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Serialization/src/Serialization.jl:1211
+handle_deserialize at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Serialization/src/Serialization.jl:788
+deserialize at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Serialization/src/Serialization.jl:735
+handle_deserialize at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Serialization/src/Serialization.jl:795
+deserialize at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Serialization/src/Serialization.jl:735 [inlined]
+deserialize_global_from_main at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Distributed/src/clusterserialize.jl:160
+#3 at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Distributed/src/clusterserialize.jl:72 [inlined]
+foreach at ./abstractarray.jl:1919
+deserialize at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Distributed/src/clusterserialize.jl:72
+handle_deserialize at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Serialization/src/Serialization.jl:878
+deserialize at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Serialization/src/Serialization.jl:735
+handle_deserialize at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Serialization/src/Serialization.jl:792
+deserialize at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Serialization/src/Serialization.jl:735
+handle_deserialize at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Serialization/src/Serialization.jl:795
+deserialize at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Serialization/src/Serialization.jl:735 [inlined]
+deserialize_msg at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Distributed/src/messages.jl:99
+#invokelatest#1 at ./essentials.jl:712 [inlined]
+invokelatest at ./essentials.jl:711 [inlined]
+message_handler_loop at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Distributed/src/process_messages.jl:185
+process_tcp_streams at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Distributed/src/process_messages.jl:142
+#97 at ./task.jl:358
+
+Stacktrace:
+ [1] #remotecall_fetch#141 at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Distributed/src/remotecall.jl:390 [inlined]
+ [2] remotecall_fetch(::Function, ::Distributed.Worker, ::Distributed.RRID) at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Distributed/src/remotecall.jl:382
+ [3] #remotecall_fetch#144 at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Distributed/src/remotecall.jl:417 [inlined]
+ [4] remotecall_fetch at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Distributed/src/remotecall.jl:417 [inlined]
+ [5] call_on_owner at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Distributed/src/remotecall.jl:490 [inlined]
+ [6] fetch(::Future) at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Distributed/src/remotecall.jl:529
+ [7] top-level scope at In[169]:1
+#+end_example
+:END:
+
+#+begin_SRC julia :eval no-export :exports both :tangle processes.jl
+@everywhere function count_heads(n)
+    c::Int = 0
+    for i = 1:n
+        c += rand(Bool)
+    end
+    c
+end
+#+end_SRC
+
+#+RESULTS:
+
+#+begin_SRC julia :eval no-export :exports both :tangle processes.jl
+a = @spawnat 2 count_heads(100000000)
+#+end_SRC
+
+#+RESULTS:
+: Future(2, 1, 22, nothing)
+
+#+begin_SRC julia :eval no-export :exports both :tangle processes.jl
+fetch(a)
+#+end_SRC
+
+#+RESULTS:
+: 50009462
+
+#+begin_SRC julia :eval no-export :exports both :tangle processes.jl
+b = @spawnat :any count_heads(100000000)
+#+end_SRC
+
+#+RESULTS:
+: Future(2, 1, 21, nothing)
+
+#+begin_SRC julia :eval no-export :exports both :tangle processes.jl
+fetch(a) + fetch(b)
+#+end_SRC
+
+#+RESULTS:
+: 100019744
+
+#+begin_SRC julia :eval no-export :exports both :tangle processes.jl
+nheads = @distributed (+) for i = 1:200000000
+    Int(rand(Bool))
+end
+#+end_SRC
+
+#+RESULTS:
+: 100000159
+
+#+begin_SRC julia :eval no-export :exports both :tangle processes.jl
+a = zeros(100000)
+
+@distributed for i = 1:100000
+    a[i] = i
+end
+#+end_SRC
+
+#+RESULTS:
+: Task (runnable) @0x00007f43f3edceb0
+
+#+begin_SRC julia :eval no-export :exports both :tangle processes.jl
+a
+#+end_SRC
+
+#+RESULTS:
+#+begin_example
+100000-element Array{Float64,1}:
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ ⋮
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+#+end_example
+
+#+begin_SRC julia :eval no-export :exports both :tangle processes.jl
+using SharedArrays
+
+a = SharedArray{Float64}(10)
+
+@distributed for i = 1:10
+    a[i] = i
+end
+
+a
+#+end_SRC
+
+#+RESULTS:
+#+begin_example
+10-element SharedArray{Float64,1}:
+  1.0
+  2.0
+  3.0
+  4.0
+  5.0
+  6.0
+  7.0
+  8.0
+  9.0
+ 10.0
+#+end_example

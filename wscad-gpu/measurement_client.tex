@@ -1,0 +1,28 @@
+\begin{listing}[htpb]
+    \begin{minted}[fontsize=\scriptsize]{python}
+class MeasurementClient(MeasurementDriver):
+    """
+    Reads DesiredResults and requests VMs
+    in the cloud to compute Results.
+    """
+    def __init__(self,
+           measurement_interface,
+           input_manager,
+           **kwargs):
+        super(MeasurementDriver, self).__init__(**kwargs)
+        """
+        Instantiate and configure the VM Measurement 
+        Servers using the GCE interface.
+        """
+
+    def process_all(self):
+        """
+        Process all results in the
+        database, by sending requests to
+        VMs in the cloud and waiting
+        for responses.
+        """
+    \end{minted}
+    \caption{Proposed modifications to \texttt{\footnotesize MeasurementDriver}.}
+    \label{fig:measurement-client}
+\end{listing}

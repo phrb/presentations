@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="645.0072mm"
+   height="225.89917mm"
+   viewBox="0 0 645.00719 225.89918"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.4 5da689c313, 2019-01-14"
+   sodipodi:docname="autotuning_methods_tree.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="1314.7477"
+     inkscape:cy="407.07567"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="20"
+     fit-margin-left="20"
+     fit-margin-right="20"
+     fit-margin-bottom="20"
+     showguides="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1060"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(204.76055,16.537992)">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="80.292915"
+       y="7.0407734"
+       id="text817"><tspan
+         sodipodi:role="line"
+         id="tspan815"
+         x="80.292915"
+         y="7.0407734"
+         style="stroke-width:0.26458332">Minimize f(X) = f^{*}(X) + \varepsilon = m</tspan><tspan
+         sodipodi:role="line"
+         x="80.292915"
+         y="13.362551"
+         style="stroke-width:0.26458332"
+         id="tspan1023">f: X \to \mathbb{R}</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="191.66492"
+       y="38.448547"
+       id="text821"><tspan
+         sodipodi:role="line"
+         id="tspan819"
+         x="191.66492"
+         y="38.448547"
+         style="stroke-width:0.26458332">Construct surrogate estimate \hat{f}(X)</tspan></text>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot823"
+       style="font-style:normal;font-weight:normal;font-size:18.66666603px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="scale(0.26458333)"><flowRegion
+         id="flowRegion825"><rect
+           id="rect827"
+           width="465.71429"
+           height="236.42857"
+           x="270.71429"
+           y="78.948257" /></flowRegion><flowPara
+         id="flowPara829"></flowPara></flowRoot>    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-9.1205063"
+       y="30.003235"
+       id="text821-7"><tspan
+         sodipodi:role="line"
+         id="tspan819-7"
+         x="-9.1205063"
+         y="30.003235"
+         style="stroke-width:0.26458332">Does not construct estimate \hat{f}(X)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="269.91516"
+       y="101.71588"
+       id="text821-5"><tspan
+         sodipodi:role="line"
+         id="tspan819-4"
+         x="269.91516"
+         y="101.71588"
+         style="stroke-width:0.26458332">\hat{f}(X) = \mathcal{GP}(X, K)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="162.20364"
+       y="99.415924"
+       id="text821-5-8-2"><tspan
+         sodipodi:role="line"
+         id="tspan819-4-1-8"
+         x="162.20364"
+         y="99.415924"
+         style="stroke-width:0.26458332">\hat{f}(X) = M(X)\beta + \varepsilon</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="164.22827"
+       y="68.306282"
+       id="text895"><tspan
+         sodipodi:role="line"
+         id="tspan893"
+         x="164.22827"
+         y="68.306282"
+         style="stroke-width:0.26458332">Estimate parameters</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="270.04938"
+       y="70.509285"
+       id="text899"><tspan
+         sodipodi:role="line"
+         id="tspan897"
+         x="270.04938"
+         y="70.509285"
+         style="stroke-width:0.26458332">Sample functions</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-49.967224"
+       y="52.545227"
+       id="text903"><tspan
+         sodipodi:role="line"
+         x="-49.967224"
+         y="52.545227"
+         style="stroke-width:0.26458332"
+         id="tspan925">Reachability of optima</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="128.80191"
+       y="150.1431"
+       id="text907"><tspan
+         sodipodi:role="line"
+         x="128.80191"
+         y="150.1431"
+         style="stroke-width:0.26458332"
+         id="tspan917">Independance of effects</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="169.73158"
+       y="122.21086"
+       id="text911"><tspan
+         sodipodi:role="line"
+         id="tspan909"
+         x="169.73158"
+         y="126.73367"
+         style="stroke-width:0.26458332" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="217.60001"
+       y="149.05832"
+       id="text923"><tspan
+         sodipodi:role="line"
+         id="tspan921"
+         x="217.60001"
+         y="149.05832"
+         style="stroke-width:0.26458332">Homoscedasticity</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="222.63879"
+       y="178.35703"
+       id="text931"><tspan
+         sodipodi:role="line"
+         id="tspan929"
+         x="222.63879"
+         y="178.35703"
+         style="font-weight:bold;stroke-width:0.26458332">OPTIMAL DESIGN</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="127.76678"
+       y="179.67995"
+       id="text935"><tspan
+         sodipodi:role="line"
+         id="tspan933"
+         x="127.76678"
+         y="179.67995"
+         style="font-weight:bold;stroke-width:0.26458332">SCREENING</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="267.99594"
+       y="145.09511"
+       id="text939"><tspan
+         sodipodi:role="line"
+         id="tspan937"
+         x="267.99594"
+         y="145.09511"
+         style="font-weight:bold;stroke-width:0.26458332">GAUSSIAN PROCESS REGRESSION</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="294.83224"
+       y="155.30046"
+       id="text943"><tspan
+         sodipodi:role="line"
+         id="tspan941"
+         x="294.83224"
+         y="159.82327"
+         style="stroke-width:0.26458332" /></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 125.8769,15.071306 35.162614,22.252854"
+       id="path945"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 125.8769,15.071306 82.39881,15.875"
+       id="path949"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 31.004877,34.348091 -25.691552,45.687376"
+       id="path951"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 184.84942,60.358992 232.10789,41.52767 289.15362,62.320589"
+       id="path953"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 291.78159,73.252777 c -0.37799,1.889882 13.60712,19.654761 13.60712,19.654761"
+       id="path957"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 306.54953,107.2975 0.75594,26.45833"
+       id="path959"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 164.071,138.66952 40.99867,-33.2619 32.31021,35.52976"
+       id="path961"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 150.82332,156.05643 -7.18155,15.11905"
+       id="path963"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 240.78166,153.03262 3.02381,17.00893"
+       id="path965"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="43.286797"
+       y="51.043896"
+       id="text969"><tspan
+         sodipodi:role="line"
+         id="tspan967"
+         x="43.286797"
+         y="51.043896"
+         style="font-weight:bold;stroke-width:0.26458332">RANDOM SEARCH</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 31.004877,34.348091 34.017854,8.315476"
+       id="path971"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -29.496607,58.418514 -66.160296,78.829228"
+       id="path973"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="363.11066"
+       y="61.070866"
+       id="text977"><tspan
+         sodipodi:role="line"
+         id="tspan975"
+         x="363.11066"
+         y="61.070866"
+         style="stroke-width:0.26458332">\hat{f}(X) is derivable</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="369.53622"
+       y="109.45182"
+       id="text981"><tspan
+         sodipodi:role="line"
+         id="tspan979"
+         x="369.53622"
+         y="109.45182"
+         style="font-weight:bold;stroke-width:0.26458332">GRADIENT DESCENT</tspan><tspan
+         sodipodi:role="line"
+         x="369.53622"
+         y="115.7736"
+         style="font-weight:bold;stroke-width:0.26458332"
+         id="tspan1007">NELDER-MEAD</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 232.10789,41.527669 384.343,53.545182"
+       id="path987"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-92.650238"
+       y="85.768341"
+       id="text991"><tspan
+         sodipodi:role="line"
+         id="tspan989"
+         x="-92.650238"
+         y="85.768341"
+         style="stroke-width:0.26458332">Close X have close f(X)</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -62.412144,91.060013 40.065475,21.544647"
+       id="path993"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-24.992502"
+       y="123.56597"
+       id="text997"><tspan
+         sodipodi:role="line"
+         id="tspan995"
+         x="-24.992502"
+         y="123.56597"
+         style="stroke-width:0.26458332">Closeness of a &quot;population&quot; of X</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="13.23083"
+       y="155.42668"
+       id="text1001"><tspan
+         sodipodi:role="line"
+         x="13.23083"
+         y="155.42668"
+         style="font-weight:bold;stroke-width:0.26458332"
+         id="tspan1005">GENETIC ALGORITHMS</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 20.137241,131.21722 13.607143,15.49702"
+       id="path1003"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-115.7711"
+       y="189.31294"
+       id="text1019"><tspan
+         sodipodi:role="line"
+         id="tspan1017"
+         x="-115.7711"
+         y="189.31294"
+         style="font-weight:bold;stroke-width:0.26458332">SIMULATED ANNEALING</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -62.412151,91.06001 -17.859314,48.75895"
+       id="path1021"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-123.49113"
+       y="148.69315"
+       id="text1027"><tspan
+         sodipodi:role="line"
+         id="tspan1025"
+         x="-123.49113"
+         y="148.69315"
+         style="stroke-width:0.26458332">Getting worse can help getting better</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -82.598888,152.16764 0.400905,29.26601"
+       id="path1029"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-184.96312"
+       y="150.29675"
+       id="text1033"><tspan
+         sodipodi:role="line"
+         id="tspan1031"
+         x="-184.96312"
+         y="150.29675"
+         style="font-weight:bold;stroke-width:0.26458332">GREEDY SEARCH</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -62.412151,91.06001 -160.24069,142.4123"
+       id="path1035"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 383.37038,69.132003 10.58334,32.316967"
+       id="path1041"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 201.56385,91.810575 185.31087,74.801648 108.7707,91.243612"
+       id="path1047"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="85.761406"
+       y="99.246132"
+       id="text1051"><tspan
+         sodipodi:role="line"
+         id="tspan1049"
+         x="85.761406"
+         y="99.246132"
+         style="stroke-width:0.26458332">\hat{f}(X) is a NN</tspan></text>
+  </g>
+</svg>

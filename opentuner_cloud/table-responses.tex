@@ -1,0 +1,34 @@
+\newcolumntype{K}{>{\centering\arraybackslash}m{8.2cm}}
+\newcommand{\specialcell}[2][c]{%
+  \begin{tabular}[#1]{@{}K@{}}#2\end{tabular}}
+
+\newcolumntype{T}{>{\centering\arraybackslash}m{1.5cm}}
+
+\begin{table}[htpb]
+    \centering
+    \tiny
+    \begin{tabular}{@{}TK@{}}
+        \toprule
+        {\bf Received Command} & {\bf Response} \\ \midrule
+        {\tiny \bf START} &
+        {\tiny \tt ``START ERROR\_STATUS SERVER\_STATUS''} \\ \midrule
+        {\tiny \bf STOP} &
+        {\tiny \tt ``STOP ERROR\_STATUS SERVER\_STATUS''} \\ \midrule
+        {\tiny \bf STATUS} &
+        {\tiny \tt ``STATUS ERROR\_STATUS SERVER\_STATUS''} \\ \midrule
+        {\tiny \bf DISCONNECT} &
+        {\tiny \tt ``DISCONNECT ERROR\_STATUS SERVER\_STATUS''} \\ \midrule
+        {\tiny \bf SHUTDOWN} &
+        {\tiny \tt ``SHUTDOWN ERROR\_STATUS SERVER\_STATUS''} \\ \midrule
+        {\tiny \bf CLONE} &
+        {\tiny \tt ``CLONE ERROR\_STATUS SERVER\_STATUS [GIT\_RET\_CODE]''} \\ \midrule
+        {\tiny \bf LOAD} &
+        {\tiny \tt ``LOAD ERROR\_STATUS SERVER\_STATUS''} \\ \midrule
+        {\tiny \bf MEASURE} &
+        {\tiny \tt ``MEASURE ERROR\_STATUS SERVER\_STATUS [RESULT\_ID]''} \\ \midrule
+        {\tiny \bf GET} &
+        {\tiny \tt ``GET ERROR\_STATUS SERVER\_STATUS [RESULT\_ID] [RESULT]''} \\ \bottomrule
+    \end{tabular}
+    \caption{Server responses.}
+    \label{tab:protocol-responses}
+\end{table}

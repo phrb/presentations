@@ -1,0 +1,583 @@
+#+TITLE: @@latex: \vspace{11em}@@ Uma Breve História
+#+TITLE: @@latex: \\@@ da Computação
+#+AUTHOR:    @@latex: \vspace{-2em}@@ \footnotesize Pedro Bruel \newline \scriptsize \emph{phrb@ime.usp.br}
+#+EMAIL:     phrb@ime.usp.br
+#+DATE:      \scriptsize 6 de Agosto de 2019
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  bt-br
+#+OPTIONS:   H:2 num:t toc:nil @:t \n:nil ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   tex:t latex:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+EXPORT_FILE_NAME: breve_historia_computação.pdf
+#+LINK_UP:
+#+LINK_HOME:
+
+#+STARTUP: beamer
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]
+#+LATEX_HEADER: \mode<beamer>{\usetheme[numbering=fraction, progressbar=none, titleformat=smallcaps, sectionpage=none]{metropolis}}
+
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+#+LATEX_HEADER: \usepackage{sourcecodepro}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+LATEX_HEADER: \usepackage{array}
+#+LATEX_HEADER: \usepackage{listings}
+#+LATEX_HEADER: \usepackage{caption}
+#+LATEX_HEADER: \usepackage{xeCJK}
+#+LATEX_HEADER: \usepackage{graphicx}
+#+LATEX_HEADER: \usepackage[english]{babel}
+#+LATEX_HEADER: \usepackage[scale=2]{ccicons}
+#+LATEX_HEADER: \usepackage{hyperref}
+# #+LATEX_HEADER: \usepackage{url}
+#+LATEX_HEADER: \usepackage{relsize}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{bm}
+#+LATEX_HEADER: \usepackage{wasysym}
+#+LATEX_HEADER: \usepackage{ragged2e}
+#+LATEX_HEADER: \usepackage{textcomp}
+#+LATEX_HEADER: \usepackage{pgfplots}
+#+LATEX_HEADER: \usepgfplotslibrary{dateplot}
+#+LATEX_HEADER: \definecolor{Base}{HTML}{191F26}
+# #+LATEX_HEADER: \definecolor{Accent}{HTML}{157FFF}
+#+LATEX_HEADER: \definecolor{Accent}{HTML}{bb0300}
+#+LATEX_HEADER: \setbeamercolor{alerted text}{fg=Accent}
+#+LATEX_HEADER: \setbeamercolor{frametitle}{bg=Base}
+#+LATEX_HEADER: \setbeamercolor{normal text}{bg=black!2,fg=Base}
+#+LATEX_HEADER: \setsansfont[BoldFont={Source Sans Pro Semibold},Numbers={OldStyle}]{Source Sans Pro}
+#+LATEX_HEADER: \lstdefinelanguage{Julia}%
+#+LATEX_HEADER:   {morekeywords={abstract,struct,break,case,catch,const,continue,do,else,elseif,%
+#+LATEX_HEADER:       end,export,false,for,function,immutable,mutable,using,import,importall,if,in,%
+#+LATEX_HEADER:       macro,module,quote,return,switch,true,try,catch,type,typealias,%
+#+LATEX_HEADER:       while,<:,+,-,::,/},%
+#+LATEX_HEADER:    sensitive=true,%
+#+LATEX_HEADER:    alsoother={$},%
+#+LATEX_HEADER:    morecomment=[l]\#,%
+#+LATEX_HEADER:    morecomment=[n]{\#=}{=\#},%
+#+LATEX_HEADER:    morestring=[s]{"}{"},%
+#+LATEX_HEADER:    morestring=[m]{'}{'},%
+#+LATEX_HEADER: }[keywords,comments,strings]%
+#+LATEX_HEADER: \lstset{ %
+#+LATEX_HEADER:   backgroundcolor={},
+#+LATEX_HEADER:   basicstyle=\ttfamily\scriptsize,
+#+LATEX_HEADER:   breakatwhitespace=true,
+#+LATEX_HEADER:   breaklines=true,
+#+LATEX_HEADER:   captionpos=n,
+#+LATEX_HEADER:   commentstyle=\color{Accent},
+# #+LATEX_HEADER:   escapeinside={\%*}{*)},
+#+LATEX_HEADER:   extendedchars=true,
+#+LATEX_HEADER:   frame=n,
+#+LATEX_HEADER:   keywordstyle=\color{Accent},
+#+LATEX_HEADER:   language=R,
+#+LATEX_HEADER:   rulecolor=\color{black},
+#+LATEX_HEADER:   showspaces=false,
+#+LATEX_HEADER:   showstringspaces=false,
+#+LATEX_HEADER:   showtabs=false,
+#+LATEX_HEADER:   stepnumber=2,
+#+LATEX_HEADER:   stringstyle=\color{gray},
+#+LATEX_HEADER:   tabsize=2,
+#+LATEX_HEADER: }
+#+LATEX_HEADER: \renewcommand*{\UrlFont}{\ttfamily\smaller\relax}
+#+LATEX_HEADER: \graphicspath{{../../img/}}
+#+LATEX_HEADER: \addtobeamertemplate{block begin}{}{\justifying}
+
+#+LATEX_HEADER: \captionsetup[figure]{labelformat=empty}
+#+LATEX_HEADER: \titlegraphic{\hspace*{\fill}\includegraphics[height=.85\textheight]{../../../img/computador_grego.jpg}}
+
+* Setup                                            :B_ignoreheading:noexport:
+  :PROPERTIES:
+  :BEAMER_env: ignoreheading
+  :END:
+  #+HEADER: :results output :exports none
+  #+BEGIN_SRC emacs-lisp
+  (setq-local org-latex-pdf-process (list "latexmk -xelatex %f"))
+  #+END_SRC
+
+  #+RESULTS:
+
+* Introdução
+** Informações Importantes
+   *Site* do curso:
+   - \href{https://phrb.github.io/MAC0115}{phrb.github.io/MAC0115}
+   - Documento com *informações importantes*: \href{https://phrb.github.io/MAC0115/pdf/MAC0115.pdf}{phrb.github.io/MAC0115/pdf/MAC0115.pdf}
+   - Contém /slides/ e *todo o material* de apoio às aulas
+   /Moodle/ do curso no */PACA/*:
+   - \href{https://paca.ime.usp.br/course/view.php?id=1448}{paca.ime.usp.br/course/view.php?id=1448}
+   - O PACA é o site dos cursos do IME/USP. *Faça sua conta* para acessar!
+   *Livro* usado no curso:
+   - \href{https://phrb.github.io/PenseJulia}{phrb.github.io/PenseJulia}
+   - Usa */Notebooks Jupyter/*
+
+** Licença
+   Esta aula é disponibilizada sob *licença Creative Commons*:
+   #+ATTR_LATEX: :width 0.3\textwidth
+   #+CAPTION: \href{https://creativecommons.org/licenses/by-nc/3.0/deed.pt}{Atribuição-NãoComercial 3.0 Não Adaptada (CC BY-NC 3.0)}
+   [[../../../img/by-nc.png]]
+
+   A maioria das imagens vem do *Wikimedia Commons*:
+   #+ATTR_LATEX: :width 0.1\textwidth
+   #+CAPTION: \href{https://commons.wikimedia.org/wiki/Main_Page}{Wikimedia Commons}
+   [[../../../img/wikimedia_commons.jpg]]
+** Uma Breve História da Computação
+   #+ATTR_LATEX: :height .8\textheight
+   #+CAPTION: Pedra tumular, Grécia, \textasciitilde{100 AC} (Getty Villa, \alert{não é um notebook})
+   [[../../../img/computador_grego.jpg]]
+** Uma Breve História da Computação: Sobre Esta Aula
+*** Computação                                                :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    - *O que é*?
+    - *Desde quando* existe?
+    - Qual é sua *utilidade*?
+
+**** Roteiro desta Aula
+     1. Computação até o *Século 19*
+     2. Computação *Moderna*
+     3. Computação e *Ciência*
+
+*** O que pode ser Computação?                                :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    #+latex: \only<1>{
+    #+CAPTION: \alert{Supercomputador} Summit
+    #+ATTR_LATEX: :width \columnwidth
+    [[../../../img/summit_supercomputer.jpg]]
+    #+latex: }
+
+    #+latex: \only<2>{
+    #+CAPTION: \alert{Neurônio}
+    #+ATTR_LATEX: :width .8\columnwidth
+    [[../../../img/neuron.jpg]]
+    #+latex: }
+
+    #+latex: \only<3>{
+    #+CAPTION: Célula \alert{procarionte}
+    #+ATTR_LATEX: :width .55\columnwidth
+    [[../../../img/procaryote.jpg]]
+    #+latex: }
+
+    #+latex: \only<4>{
+    #+CAPTION: Processo (\alert{algoritmo}?) de \alert{duplicação do DNA}
+    #+ATTR_LATEX: :width .8\columnwidth
+    [[../../../img/dna.jpg]]
+    #+latex: }
+
+    #+latex: \only<5>{
+    #+CAPTION: Representação de um \alert{átomo}
+    #+ATTR_LATEX: :width .65\columnwidth
+    [[../../../img/atom.jpg]]
+    #+latex: }
+
+** Tecnologia Computacional na Antiguidade: Melhores Usos\dots
+   #+ATTR_LATEX: :width \textwidth
+   #+CAPTION: Estandarte de Ur, \alert{lado paz}, 2600 AC
+   [[../../../img/ur_estandarte_paz.jpg]]
+** Tecnologia Computacional na Antiguidade: \dots{}Piores Usos
+   #+ATTR_LATEX: :width \textwidth
+   #+CAPTION: Estandarte de Ur, \alert{lado guerra}, 2600 AC
+   [[../../../img/ur_estandarte_guerra.jpg]]
+* Primórdios da Computação
+** Primórdios da Computação: O Ábaco
+*** História do *Ábaco*                                         :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+
+    - Egípcios, *Sumérios*: \textasciitilde{}3000 AC
+    - Persas: \textasciitilde{}600 AC
+    - @@latex: \visible<2->{Gregos: \textasciitilde{}384 AC}@@
+    - @@latex: \visible<3->{Chineses: \textasciitilde{}200 AC}@@
+    - @@latex: \visible<7->{Romanos: \textasciitilde{}100 AC}@@
+    - @@latex: \visible<8->{\alert{Indianos e Árabes}: \textasciitilde{}100}@@
+    - @@latex: \visible<9->{Américas: \textasciitilde{}1300}@@
+
+*** Imagens                                                           :BMCOL:
+    :PROPERTIES:
+    :BEAMER_COL: 0.5
+    :END:
+
+    #+latex: \only<1>{
+    #+CAPTION: Rei de Ur, Mesopotâmia, 2600 AC
+    #+ATTR_LATEX: :width \columnwidth
+    [[../../../img/rei_de_ur_2600BC.jpg]]
+    #+latex: }
+
+    #+latex: \only<2>{
+    #+CAPTION: \alert{Tábua de Contagem} Salamina, 300 AC
+    #+ATTR_LATEX: :width .4\columnwidth
+    [[../../../img/tablete_salamis_gregos.jpg]]
+    #+latex: }
+
+    #+latex: \only<3>{
+    #+CAPTION: \alert{算盤} (\alert{Suanpan}), Ábaco Chinês
+    #+ATTR_LATEX: :width \columnwidth
+    [[../../../img/abaco_chines.jpg]]
+    #+latex: }
+
+    #+latex: \only<4>{
+    #+CAPTION: Apotecário, \textasciitilde{} 1085. Você consegue \alert{achar o ábaco}?
+    #+ATTR_LATEX: :width \columnwidth
+    [[../../../img/abaco_chines_2.jpg]]
+    #+latex: }
+
+    #+latex: \only<5>{
+    #+CAPTION: \alert{盘珠算法} (Introdução ao Ábaco), 1573
+    #+ATTR_LATEX: :width \columnwidth
+    [[../../../img/abaco_chines_3.jpg]]
+    #+latex: }
+
+    #+latex: \only<6>{
+    #+CAPTION: \alert{算盤}, \alert{そろばん} (\alert{Suanpan} e \alert{Soroban})
+    #+ATTR_LATEX: :width \columnwidth
+    [[../../../img/suanpan_soroban.jpg]]
+    #+latex: }
+
+    #+latex: \only<7>{
+    #+CAPTION: Reprodução de um \alert{ábaco Romano}
+    #+ATTR_LATEX: :width \columnwidth
+    [[../../../img/abaco_romano.jpg]]
+    #+latex: }
+
+    #+latex: \only<8>{
+    #+CAPTION: Evolução do \alert{Sistema Numérico Hindu-Arábico}
+    #+ATTR_LATEX: :width .93\columnwidth
+    [[../../../img/algarismos.png]]
+    #+latex: }
+
+    #+latex: \only<9>{
+    #+CAPTION: \alert{Quipo}, Peru, 1300
+    #+ATTR_LATEX: :width \columnwidth
+    [[../../../img/quipo.jpg]]
+    #+latex: }
+
+** Primórdios da Computação: A Máquina de Anticítera
+*** Coluna A                                                          :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+ATTR_LATEX: :width .9\columnwidth
+    #+CAPTION: Frente da \alert{Máquina de Anticítera}, \textasciitilde{}100 AC
+    [[../../../img/anticitera_frente.jpg]]
+*** Coluna B                                                          :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+latex: \only<1>{
+    #+ATTR_LATEX: :width .9\columnwidth
+    #+CAPTION: Fundo da \alert{Máquina de Anticítera}, \textasciitilde{}100 AC
+    [[../../../img/anticitera_tras.jpg]]
+    #+latex: }
+
+    #+latex: \only<2>{
+    #+ATTR_LATEX: :width .70\columnwidth
+    #+CAPTION: Reprodução da \alert{Máquina de Anticítera}, 2007
+    [[../../../img/anticitera_2007.jpg]]
+    #+latex: }
+* Computação Moderna
+** Computação no Século 19
+*** Linha do Tempo                                            :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+
+    - Bonecos *autômatos*: 1770
+    - @@latex: \visible<2->{Tear de Jacquard: 1804}@@
+    - @@latex: \visible<4->{Máquina \alert{Diferencial}: 1822}@@
+    - @@latex: \visible<7->{Máquina \alert{Analítica}: 1837}@@
+    - @@latex: \visible<9->{\alert{Programação}: \textasciitilde{}1837}@@
+    - @@latex: \visible<10->{Analisador Diferencial: 1878}@@
+
+*** Imagens                                                           :BMCOL:
+    :PROPERTIES:
+    :BEAMER_COL: 0.5
+    :END:
+
+    #+latex: \only<1>{
+    #+CAPTION: Bonecos escritores \alert{autômatos}
+    #+ATTR_LATEX: :width \columnwidth
+    [[../../../img/bonecos_automatos.jpg]]
+    #+latex: }
+
+    #+latex: \only<2>{
+    #+CAPTION: \alert{Tear de Jacquard}, Museu Nacional da Escócia
+    #+ATTR_LATEX: :width 1.0\columnwidth
+    [[../../../img/tear_jacquard.jpg]]
+    #+latex: }
+
+    #+latex: \only<3>{
+    #+CAPTION: Tecido feito no \alert{Tear de Jacquard}
+    #+ATTR_LATEX: :width 1.0\columnwidth
+    [[../../../img/tecido_tear_jacquard.jpg]]
+    #+latex: }
+
+    #+latex: \only<4>{
+    #+CAPTION: \alert{Máquina Diferencial} de Charles Babbage
+    #+ATTR_LATEX: :width 0.62\columnwidth
+    [[../../../img/diferencial_0.jpg]]
+    #+latex: }
+
+    #+latex: \only<5>{
+    #+CAPTION: \alert{Máquina Diferencial} de Charles Babbage
+    #+ATTR_LATEX: :width \columnwidth
+    [[../../../img/diferencial_1.jpg]]
+    #+latex: }
+
+    #+latex: \only<6>{
+    #+CAPTION: \alert{Máquina Diferencial} de Charles Babbage
+    #+ATTR_LATEX: :width \columnwidth
+    [[../../../img/diferencial_2.jpg]]
+    #+latex: }
+
+    #+latex: \only<7>{
+    #+CAPTION: \alert{Máquina Analítica} de Charles Babbage
+    #+ATTR_LATEX: :width .62\columnwidth
+    [[../../../img/analitica.jpg]]
+    #+latex: }
+
+    #+latex: \only<8>{
+    #+CAPTION: ``\alert{Programas}'' para a Máquina Analítica
+    #+ATTR_LATEX: :width .48\columnwidth
+    [[../../../img/analitica_programas.jpg]]
+    #+latex: }
+
+    #+latex: \only<9>{
+    #+CAPTION: \alert{Primeiro programa}, por Ada Lovelace
+    #+ATTR_LATEX: :width \columnwidth
+    [[../../../img/ada_primeiro_programa_publicado.jpg]]
+    #+latex: }
+
+    #+latex: \only<10>{
+    #+CAPTION: Analisador Diferencial para \alert{predição de marés}
+    #+ATTR_LATEX: :width \columnwidth
+    [[../../../img/analisador_diferencial.jpg]]
+    #+latex: }
+
+** Computação no Século 20
+*** Linha do Tempo                                            :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+
+    - *Tubos de Vácuo*: 1904
+    - @@latex: \visible<2->{Máquina de \alert{Turing}: 1936}@@
+    - @@latex: \visible<3->{Arquitetura de \alert{Von Neumann}: 1945}@@
+    - @@latex: \visible<4->{\alert{ENIAC}: 1945}@@
+    - @@latex: \visible<5->{\alert{Transístor}: 1947}@@
+    - @@latex: \visible<6->{\alert{Fotolitografia}: 1958}@@
+    - @@latex: \visible<7->{\alert{Circuito Integrado}: 1958}@@
+    - @@latex: \visible<8->{\alert{Microprocessador}: 1971}@@
+    - @@latex: \visible<10->{\alert{Supercomputador}: 1976}@@
+    - @@latex: \visible<12->{\alert{Laptops}: anos 1990}@@
+    - @@latex: \visible<13->{\alert{Smartphones}: anos 2000}@@
+
+*** Imagens                                                           :BMCOL:
+    :PROPERTIES:
+    :BEAMER_COL: 0.5
+    :END:
+
+    #+latex: \only<1>{
+    #+CAPTION: Tubos de Vácuo, ou \alert{Válvulas}
+    #+ATTR_LATEX: :width \columnwidth
+    [[../../../img/tubos_vacuo.jpg]]
+    #+latex: }
+
+    #+latex: \only<2>{
+    #+CAPTION: Representação de uma Máquina de \alert{Turing}
+    #+ATTR_LATEX: :width 1.0\columnwidth
+    [[../../../img/automato.jpg]]
+    #+latex: }
+
+    #+latex: \only<3>{
+    #+CAPTION: Arquitetura de \alert{Von Neumann}
+    #+ATTR_LATEX: :width .8\columnwidth
+    [[../../../img/arquitetura_neumann.jpg]]
+    #+latex: }
+
+    #+latex: \only<4>{
+    #+CAPTION: Sala do \alert{ENIAC}
+    #+ATTR_LATEX: :width 1.0\columnwidth
+    [[../../../img/eniac.jpg]]
+    #+latex: }
+
+    #+latex: \only<5>{
+    #+CAPTION: Alguns \alert{transistores}
+    #+ATTR_LATEX: :width \columnwidth
+    [[../../../img/transistores.jpg]]
+    #+latex: }
+
+    #+latex: \only<6>{
+    #+CAPTION: Processo da \alert{Fotolitografia}
+    #+ATTR_LATEX: :width .55\columnwidth
+    [[../../../img/fotolitografia.jpg]]
+    #+latex: }
+
+    #+latex: \only<7>{
+    #+CAPTION: Exemplo de \alert{Circuito Integrado}
+    #+ATTR_LATEX: :width 1.0\columnwidth
+    [[../../../img/circuito_integrado.jpg]]
+    #+latex: }
+
+    #+latex: \only<8>{
+    #+CAPTION: Exemplo de \alert{Microprocessador}
+    #+ATTR_LATEX: :width 1.0\columnwidth
+    [[../../../img/microprocessador.jpg]]
+    #+latex: }
+
+    #+latex: \only<9>{
+    #+CAPTION: \alert{ENIAC} num \alert{único chip}
+    #+ATTR_LATEX: :width .55\columnwidth
+    [[../../../img/eniac_num_chip.jpg]]
+    #+latex: }
+
+    #+latex: \only<10>{
+    #+CAPTION: Supercomputador \alert{Cray-1}, década de 1970
+    #+ATTR_LATEX: :width .8\columnwidth
+    [[../../../img/cray1.jpg]]
+    #+latex: }
+
+    #+latex: \only<11>{
+    #+CAPTION: Supercomputador \alert{Blue Gene P}, 2007
+    #+ATTR_LATEX: :width \columnwidth
+    [[../../../img/blue_gene.jpg]]
+    #+latex: }
+
+    #+latex: \only<12>{
+    #+CAPTION: \alert{Compaq Armada}, década de 1990
+    #+ATTR_LATEX: :width .6\columnwidth
+    [[../../../img/compaq_armada.jpg]]
+    #+latex: }
+
+    #+latex: \only<13>{
+    #+CAPTION: Primeiro \alert{iPhone}, década de 2000
+    #+ATTR_LATEX: :width .4\columnwidth
+    [[../../../img/iphone1.jpg]]
+    #+latex: }
+
+** Linguagens de Programação
+   #+CAPTION: Árvore Genealógica de \alert{Linguagens de Programação} (veja no \alert{site do curso})
+   #+ATTR_LATEX: :width .65\columnwidth
+   [[../../../img/programming_language_tree.png]]
+
+* Computação & Ciência
+** Tecnologia Computacional na Antiguidade: Melhores Usos\dots
+   #+ATTR_LATEX: :width \textwidth
+   #+CAPTION: Estandarte de Ur, \alert{lado paz}, 2600 AC
+   [[../../../img/ur_estandarte_paz.jpg]]
+** Tecnologia Computacional na Antiguidade: \dots{}Piores Usos
+   #+ATTR_LATEX: :width \textwidth
+   #+CAPTION: Estandarte de Ur, \alert{lado guerra}, 2600 AC
+   [[../../../img/ur_estandarte_guerra.jpg]]
+** Computação Hoje: Melhores Usos\dots{}
+*** Coluna A                                                          :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+ATTR_LATEX: :width \columnwidth
+    #+CAPTION: Relatório da \alert{Comissão Europeia} sobre os melhores usos
+    #+CAPTION: da \alert{Computação de Alto-Desempenho}, 2018
+    [[../../../img/hpc_european_commission.png]]
+*** Coluna B                                                          :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    *Melhores* usos:
+    - Desenvolvimento de *fármacos*
+    - Mapeamento do *cérebro humano*
+    - Simulações *climáticas* e *sísmicas*
+    - *Planejamento urbano*
+    - *Astrofísica* e *Cosmologia*
+
+    Você pode baixar o =pdf= aqui:
+    - \scriptsize\href{http://ec.europa.eu/newsroom/dae/document.cfm?doc_id=49301}{ec.europa.eu/newsroom/dae/document.cfm?doc\_id=49301}
+** Computação Hoje: \dots{}Piores Usos
+*** Coluna A                                                          :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+ATTR_LATEX: :height .8\textheight
+    #+CAPTION: Capa do livro \alert{Armas de Destruição Matemática}, 2017
+    [[../../../img/wmd_cover.jpg]]
+*** Coluna B                                                          :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    *Piores* usos:
+    - *Coleta ubíqua* de dados
+    - Seu *comportamento*:
+      - *Análise* \rightarrow *Predição* \rightarrow *Geração*
+
+    Alguns *livros interessantes*:
+    - *The Age of Surveillance Capitalism*, 2018
+    - *Weapons of Math Destruction*, 2017
+    - *Data and Goliath*, 2015
+
+** Computação & Ciência
+*** *Ubiquidade* da Computação na Ciência                       :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    - Enorme *volume de dados*
+    - Modelos de *análise* & *predição*
+    - *Comunicação* & *publicação*
+    - Atividades do *dia-a-dia*
+*** Imagens                                                           :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+
+    #+latex: \only<1>{
+    #+ATTR_LATEX: :width .8\columnwidth
+    #+CAPTION: Mapa do \alert{Large Hadron Collider}
+    [[../../../img/lhc_mapa.png]]
+    #+latex: }
+
+    #+latex: \only<2>{
+    #+ATTR_LATEX: :width \columnwidth
+    #+CAPTION: Um corredor no \alert{Large Hadron Collider}
+    [[../../../img/lhc_tunel.jpg]]
+    #+latex: }
+** Computação & Ciência: Oceanografia
+*** Computação & Oceanografia :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    - [[http://www.cev.washington.edu/index.html][Center for Environment Visualization]]
+    - [[https://faculty.washington.edu/pmacc/LO/LiveOcean.html][LiveOcean]]: Simulações
+    - [[http://www.ncsa.illinois.edu/news/story/the_fragile_balance_of_the_most_productive_ecosystems][Simulando transporte de sedimentos]]
+    - [[https://www.onepetro.org/conference-paper/ISOPE-I-02-281][Modelagem de ondas e correntes]]
+    - [[https://agupubs.onlinelibrary.wiley.com/doi/full/10.1002/2014GL062577][Previsão de tsunamis]]
+    - \dots
+*** Imagens                                                           :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+
+    #+ATTR_LATEX: :width \columnwidth
+    #+CAPTION: \alert{Alpha Crucis}, o navio oceanográfico da USP
+    [[../../../img/alpha_crucis.jpg]]
+** Computação & Ciência: mini-EP1
+*** Computação & Ciência: mini-EP1
+    1. *Encontre* um exemplo de *pesquisa científica* que:
+       - Desperte o *seu interesse*
+       - Tenha sido *facilitado* ou *tornado possível* pela *computação moderna*
+         - *Sensores*, *satélites*, *volume de dados*, *simulações*, \dots
+    2. *Escreva um parágrafo* resumindo a pesquisa
+       - Inclua *links* para a pesquisa
+    3. *Entregue* um *arquivo =pdf=* no *PACA*
+       - Até a *próxima Quinta, 08/08*
+* Ending Title :B_ignoreheading:
+  :PROPERTIES:
+  :BEAMER_env: ignoreheading
+  :END:
+  #+LATEX: \maketitle

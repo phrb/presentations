@@ -1,0 +1,17 @@
+# for intel compiler on Cori (Xeon CPU based system at NERSC)
+# copy to make.def
+
+FC          = ftn
+CC          = cc
+CLINKER     = $(FC)
+FLINKER     = $(FC)
+OPTFLAGS    = -qopenmp 
+LIBS        = -lm
+PRE         = ./
+
+CFLAGS	  = $(OPTFLAGS)
+FFLAGS	  = $(OPTFLAGS)
+
+OBJ=o
+EXE=
+RM=rm

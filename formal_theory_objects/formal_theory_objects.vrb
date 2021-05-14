@@ -1,0 +1,6 @@
+\frametitle{Referências}
+  \begin{enumerate}
+  \item Abadi, M., e Cardelli, L. (1996). {\textit A theory of objects}. Springer Science \& Business Media.
+  %\item Bruce, K.(2002). {\textit Foundations of Object-Oriented Languages types and semantics}. The MIT Press.
+  \item Pierce, B. (2002). {\textit Types and programming Languages}. The MIT Press.
+  \end{enumerate}

@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="580.05652mm"
+   height="200.19261mm"
+   viewBox="0 0 580.05652 200.19261"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="dpe-stack.svg"
+   inkscape:version="0.92.1 r"
+   inkscape:export-filename="/home/phrb/chr-downloads/fpga-stack.png"
+   inkscape:export-xdpi="21.75"
+   inkscape:export-ydpi="21.75">
+  <defs
+     id="defs2">
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4547"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.175"
+     inkscape:cx="102.40996"
+     inkscape:cy="1033.1284"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="mm"
+     inkscape:snap-global="true"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:snap-bbox="true"
+     inkscape:snap-others="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1062"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:bbox-paths="true"
+     inkscape:object-nodes="false"
+     inkscape:snap-object-midpoints="true"
+     inkscape:bbox-nodes="true"
+     fit-margin-top="10"
+     fit-margin-left="10"
+     fit-margin-right="10"
+     fit-margin-bottom="10">
+    <sodipodi:guide
+       position="8.7740763,170.4496"
+       orientation="0,1"
+       id="guide5111"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="10.000002,28.299449"
+       orientation="1,0"
+       id="guide5488"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="261.35222,159.86312"
+       orientation="1,0"
+       id="guide4570"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="478.61336,159.86312"
+       orientation="1,0"
+       id="guide4577"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="235.19718,147.79759"
+       orientation="0,1"
+       id="guide4579"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="569.06797,97.553374"
+       orientation="1,0"
+       id="guide4589"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-42.34122,302.76214)">
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4856"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:25px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="matrix(0.26458333,0,0,0.26458333,0,-544.00003)"><flowRegion
+         id="flowRegion4858"><rect
+           id="rect4860"
+           width="94.285713"
+           height="40"
+           x="1674.2858"
+           y="1144.297" /></flowRegion><flowPara
+         id="flowPara4862" /></flowRoot>    <g
+       id="g4563"
+       transform="translate(10.534542,-0.04411895)">
+      <g
+         id="g4762">
+        <rect
+           style="opacity:1;fill:#d8d8d8;fill-opacity:1;stroke:#000000;stroke-width:1.58749998;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:100;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect4487-9-9"
+           width="91.891983"
+           height="120.85046"
+           x="42.60043"
+           y="-272.18124"
+           rx="0"
+           ry="0" />
+        <g
+           id="g4755">
+          <text
+             id="text4495"
+             y="-215.2009"
+             x="88.315903"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:13.38791656px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.58749998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:100;stroke-dasharray:none;stroke-opacity:1"
+             xml:space="preserve"><tspan
+               style="font-size:14.11111069px;line-height:13.38791656px;text-align:center;text-anchor:middle;stroke-width:1.58749998;stroke-miterlimit:100;stroke-dasharray:none"
+               y="-215.2009"
+               x="88.315903"
+               id="tspan4493"
+               sodipodi:role="line">Hardware</tspan><tspan
+               id="tspan4547"
+               style="font-size:14.11111069px;line-height:13.38791656px;text-align:center;text-anchor:middle;stroke-width:1.58749998;stroke-miterlimit:100;stroke-dasharray:none"
+               y="-200.7617"
+               x="88.315903"
+               sodipodi:role="line">Specification</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g4575"
+       transform="translate(-5.8208334)" />
+    <g
+       id="g4768"
+       transform="translate(0.23753138)">
+      <g
+         id="g4793">
+        <g
+           id="g4782"
+           transform="translate(-5.8208339,1.3029127e-5)">
+          <rect
+             ry="0"
+             rx="0"
+             y="-272.18124"
+             x="425.37061"
+             height="19.497227"
+             width="100.61105"
+             id="rect4487-3-5"
+             style="opacity:1;fill:#ffa6a6;fill-opacity:1;stroke:#000000;stroke-width:1.58749998;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:100;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+          <text
+             id="text4495-6-92"
+             y="-258.56619"
+             x="445.5831"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:6.61458302px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.58749998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:100;stroke-dasharray:none;stroke-opacity:1"
+             xml:space="preserve"><tspan
+               style="font-size:14.11111069px;stroke-width:1.58749998;stroke-miterlimit:100;stroke-dasharray:none"
+               y="-258.56619"
+               x="445.5831"
+               id="tspan4493-7-2"
+               sodipodi:role="line">Compiler</tspan></text>
+        </g>
+        <rect
+           style="opacity:1;fill:#b2dbff;fill-opacity:1;stroke:#000000;stroke-width:1.5875001;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:100;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect4487-3-3-7-7"
+           width="100.61106"
+           height="98.24263"
+           x="419.5498"
+           y="-249.57336"
+           rx="0"
+           ry="0" />
+      </g>
+      <text
+         id="text4495-6-92-4"
+         y="-202.49815"
+         x="469.95334"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:13.22916603px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.58749998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:100;stroke-dasharray:none;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-size:14.11111069px;line-height:13.22916603px;text-align:center;text-anchor:middle;stroke-width:1.58749998;stroke-miterlimit:100;stroke-dasharray:none"
+           y="-202.49815"
+           x="469.95334"
+           id="tspan4493-7-2-5"
+           sodipodi:role="line">Software</tspan><tspan
+           id="tspan4945"
+           style="font-size:14.11111069px;line-height:13.22916603px;text-align:center;text-anchor:middle;stroke-width:1.58749998;stroke-miterlimit:100;stroke-dasharray:none"
+           y="-188.21771"
+           x="469.95334"
+           sodipodi:role="line">Parameters</tspan></text>
+    </g>
+    <g
+       id="g4733"
+       transform="translate(0.24580481)">
+      <g
+         id="g4744">
+        <g
+           transform="translate(-23.812503,1.3029127e-5)"
+           id="g4568">
+          <rect
+             style="opacity:1;fill:#ffa6a6;fill-opacity:1;stroke:#000000;stroke-width:1.58749998;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:100;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+             id="rect4487-3-5-3"
+             width="155.02843"
+             height="19.497227"
+             x="171.68376"
+             y="-272.18124"
+             rx="0"
+             ry="0" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:6.61458302px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.58749998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:100;stroke-dasharray:none;stroke-opacity:1"
+             x="181.37689"
+             y="-257.33853"
+             id="text4495-6-92-6"><tspan
+               sodipodi:role="line"
+               id="tspan4493-7-2-1"
+               x="181.37689"
+               y="-257.33853"
+               style="font-size:14.11111069px;stroke-width:1.58749998;stroke-miterlimit:100;stroke-dasharray:none">Hardware Simulator</tspan></text>
+        </g>
+        <rect
+           style="opacity:1;fill:#b2dbff;fill-opacity:1;stroke:#000000;stroke-width:1.58749998;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:100;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect4487-3-3-7-7-6-4"
+           width="155.02843"
+           height="98.242592"
+           x="147.87126"
+           y="-249.57335"
+           rx="0"
+           ry="0" />
+      </g>
+      <text
+         id="text4495-6-92-4-9-5"
+         y="-202.49817"
+         x="225.48347"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:13.22916603px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.58749998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:100;stroke-dasharray:none;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           id="tspan4945-7-5"
+           style="font-size:14.11111069px;line-height:13.22916603px;text-align:center;text-anchor:middle;stroke-width:1.58749998;stroke-miterlimit:100;stroke-dasharray:none"
+           y="-202.49817"
+           x="225.48347"
+           sodipodi:role="line">Hardware</tspan><tspan
+           id="tspan5089"
+           style="font-size:14.11111069px;line-height:13.22916603px;text-align:center;text-anchor:middle;stroke-width:1.58749998;stroke-miterlimit:100;stroke-dasharray:none"
+           y="-188.21773"
+           x="225.48347"
+           sodipodi:role="line">Parameters</tspan></text>
+    </g>
+    <g
+       id="g4750"
+       transform="translate(0.35503952)">
+      <rect
+         ry="0"
+         rx="0"
+         y="-272.18121"
+         x="305.88055"
+         height="120.85046"
+         width="110.4616"
+         id="rect4487-9-9-4"
+         style="opacity:1;fill:#d8d8d8;fill-opacity:1;stroke:#000000;stroke-width:1.58749998;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:100;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         id="text4495-3-8"
+         y="-215.30669"
+         x="360.97256"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:13.38791656px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.58749998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:100;stroke-dasharray:none;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-size:14.11111069px;line-height:13.38791656px;text-align:center;text-anchor:middle;stroke-width:1.58749998;stroke-miterlimit:100;stroke-dasharray:none"
+           y="-215.30669"
+           x="360.97256"
+           id="tspan4493-6-7"
+           sodipodi:role="line">DPE</tspan><tspan
+           id="tspan4557"
+           style="font-size:14.11111069px;line-height:13.38791656px;text-align:center;text-anchor:middle;stroke-width:1.58749998;stroke-miterlimit:100;stroke-dasharray:none"
+           y="-200.86749"
+           x="360.97256"
+           sodipodi:role="line">Implementation</tspan></text>
+    </g>
+    <g
+       id="g4798"
+       transform="translate(5.9991564e-6)">
+      <rect
+         ry="0"
+         rx="0"
+         y="-272.18121"
+         x="523.48853"
+         height="120.85046"
+         width="87.126907"
+         id="rect4487-9-9-7"
+         style="opacity:1;fill:#d8d8d8;fill-opacity:1;stroke:#000000;stroke-width:1.58749998;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:100;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         id="text4495-3-8-2"
+         y="-207.98126"
+         x="529.74133"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:6.61458302px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.58749998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:100;stroke-dasharray:none;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-size:14.11111069px;stroke-width:1.58749998;stroke-miterlimit:100;stroke-dasharray:none"
+           y="-207.98126"
+           x="529.74133"
+           id="tspan4493-6-7-3"
+           sodipodi:role="line">Application</tspan></text>
+    </g>
+    <g
+       id="g4803">
+      <rect
+         ry="0"
+         rx="0"
+         y="-148.37466"
+         x="53.134972"
+         height="35.011398"
+         width="557.48047"
+         id="rect4487-3-3-7-7-4"
+         style="opacity:1;fill:#b2dbff;fill-opacity:1;stroke:#000000;stroke-width:1.58749986;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:100;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         id="text4495-6-92-4-4"
+         y="-125.78191"
+         x="331.99063"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:13.22916603px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.58749998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:100;stroke-dasharray:none;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           id="tspan4945-78"
+           style="font-size:14.11111069px;line-height:13.22916603px;text-align:center;text-anchor:middle;stroke-width:1.58749998;stroke-miterlimit:100;stroke-dasharray:none"
+           y="-125.78191"
+           x="331.99063"
+           sodipodi:role="line">Autotuner</tspan></text>
+    </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.11666656;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
+       d="M 52.34122,-279.31114 H 608.22644"
+       id="path4536"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:6.61458349px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.58749998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:100;stroke-dasharray:none;stroke-opacity:1"
+       x="315.75296"
+       y="-282.57391"
+       id="text4495-3-8-3"><tspan
+         sodipodi:role="line"
+         id="tspan4493-6-7-6"
+         x="315.75296"
+         y="-282.57391"
+         style="font-size:14.11111069px;stroke-width:1.58749998;stroke-miterlimit:100;stroke-dasharray:none">Time</tspan></text>
+  </g>
+</svg>

@@ -1,0 +1,210 @@
+#+TITLE: Autotuning:
+#+TITLE: A Design of Experiments Approach
+#+AUTHOR:    \footnotesize Pedro Bruel \newline \scriptsize \emph{phrb@ime.usp.br}
+#+EMAIL:     phrb@ime.usp.br
+#+DATE:      \scriptsize \today
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:2 num:t toc:nil @:t \n:nil ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   tex:t latex:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+
+#+STARTUP: beamer
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]
+#+LATEX_HEADER: \mode<beamer>{\usetheme[numbering=fraction, progressbar=none, titleformat=smallcaps, sectionpage=none]{metropolis}}
+
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+#+LATEX_HEADER: \usepackage{sourcecodepro}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+LATEX_HEADER: \usepackage{array}
+#+LATEX_HEADER: \usepackage{listings}
+#+LATEX_HEADER: \usepackage{graphicx}
+#+LATEX_HEADER: \usepackage[english]{babel}
+#+LATEX_HEADER: \usepackage[scale=2]{ccicons}
+#+LATEX_HEADER: \usepackage{url}
+#+LATEX_HEADER: \usepackage{relsize}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{bm}
+#+LATEX_HEADER: \usepackage{wasysym}
+#+LATEX_HEADER: \usepackage{ragged2e}
+#+LATEX_HEADER: \usepackage{textcomp}
+#+LATEX_HEADER: \usepackage{pgfplots}
+#+LATEX_HEADER: \usepgfplotslibrary{dateplot}
+#+LATEX_HEADER: \definecolor{Base}{HTML}{191F26}
+# #+LATEX_HEADER: \definecolor{Accent}{HTML}{157FFF}
+#+LATEX_HEADER: \definecolor{Accent}{HTML}{790700}
+#+LATEX_HEADER: \setbeamercolor{alerted text}{fg=Accent}
+#+LATEX_HEADER: \setbeamercolor{frametitle}{bg=Base}
+#+LATEX_HEADER: \setbeamercolor{normal text}{bg=black!2,fg=Base}
+#+LATEX_HEADER: \setsansfont[BoldFont={Source Sans Pro Semibold},Numbers={OldStyle}]{Source Sans Pro}
+#+LATEX_HEADER: \lstdefinelanguage{Julia}%
+#+LATEX_HEADER:   {morekeywords={abstract,struct,break,case,catch,const,continue,do,else,elseif,%
+#+LATEX_HEADER:       end,export,false,for,function,immutable,mutable,using,import,importall,if,in,%
+#+LATEX_HEADER:       macro,module,quote,return,switch,true,try,catch,type,typealias,%
+#+LATEX_HEADER:       while,<:,+,-,::,/},%
+#+LATEX_HEADER:    sensitive=true,%
+#+LATEX_HEADER:    alsoother={$},%
+#+LATEX_HEADER:    morecomment=[l]\#,%
+#+LATEX_HEADER:    morecomment=[n]{\#=}{=\#},%
+#+LATEX_HEADER:    morestring=[s]{"}{"},%
+#+LATEX_HEADER:    morestring=[m]{'}{'},%
+#+LATEX_HEADER: }[keywords,comments,strings]%
+#+LATEX_HEADER: \lstset{ %
+#+LATEX_HEADER:   backgroundcolor={},
+#+LATEX_HEADER:   basicstyle=\ttfamily\scriptsize,
+#+LATEX_HEADER:   breakatwhitespace=true,
+#+LATEX_HEADER:   breaklines=true,
+#+LATEX_HEADER:   captionpos=n,
+#+LATEX_HEADER:   commentstyle=\color{Accent},
+# #+LATEX_HEADER:   escapeinside={\%*}{*)},
+#+LATEX_HEADER:   extendedchars=true,
+#+LATEX_HEADER:   frame=n,
+#+LATEX_HEADER:   keywordstyle=\color{Accent},
+#+LATEX_HEADER:   language=R,
+#+LATEX_HEADER:   rulecolor=\color{black},
+#+LATEX_HEADER:   showspaces=false,
+#+LATEX_HEADER:   showstringspaces=false,
+#+LATEX_HEADER:   showtabs=false,
+#+LATEX_HEADER:   stepnumber=2,
+#+LATEX_HEADER:   stringstyle=\color{gray},
+#+LATEX_HEADER:   tabsize=2,
+#+LATEX_HEADER: }
+#+LATEX_HEADER: \renewcommand*{\UrlFont}{\ttfamily\smaller\relax}
+#+LATEX_HEADER: \graphicspath{{../../img/}}
+#+LATEX_HEADER: \addtobeamertemplate{block begin}{}{\justifying}
+#+LATEX_HEADER: \setbeamertemplate{itemize/enumerate body begin}{\normalsize}
+#+LATEX_HEADER: \setbeamertemplate{itemize/enumerate subbody begin}{\normalsize}
+
+* Setup                                            :B_ignoreheading:noexport:
+  :PROPERTIES:
+  :BEAMER_env: ignoreheading
+  :END:
+  #+HEADER: :results output :exports none
+  #+BEGIN_SRC emacs-lisp
+  (setq-local org-latex-pdf-process (list "latexmk -xelatex %f"))
+  #+END_SRC
+
+  #+RESULTS:
+
+* Autotuning
+** Autotuning: Optimizing Program Configurations
+*** Architectures for High Performance Computing              :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :BEAMER_opt: t
+    :END:
+
+    #+ATTR_LATEX: width=\columnwidth
+    #+ATTR_ORG: :width 600
+    [[../../../img/architectures.png]]
+
+    How to write *efficient code* for each of these?
+
+**** Autotuning                                                     :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+     #+LATEX: \vspace{.2cm}
+
+     The process of *automatically finding* a *configuration* of a program that
+     optimizes an *objective*
+
+*** Popular Approaches to Autotuning                          :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_COL: 0.5
+    :BEAMER_opt: t
+    :END:
+    - Exhaustive
+    - Meta-Heuristics
+    - Machine Learning
+     #+LATEX: \vspace{-.2cm}
+
+**** Our Approach                                                   :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+     - *Design of Experiments* (*DoE*)
+
+* Design of Experiments
+** Design of Experiments: An Example on Agriculture
+*** Crop Yield Example                                                :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.55
+    :END:
+    #+ATTR_LATEX: :width .99\columnwidth
+    [[../../../img/crop_yield_doe_example.pdf]]
+*** Testing *all combinations* is *inviable*                      :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.45
+    :END:
+**** Which combinations to test?                                    :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+     - DoE provides a *selection method*
+     - *Parsimony*: *decreases experiments*
+
+**** Which is the best combination?                                 :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+     - DoE provides an *analysis method*
+     - *Transparency*: use *statistical tests*
+
+**** *How to use DoE on Autotuning?*                                  :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+** Design of Experiments                           :B_ignoreheading:noexport:
+   :PROPERTIES:
+   :BEAMER_env: ignoreheading
+   :END:
+*** Design Objectives                                         :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+
+    - *Transparency*: use *statistical tests*
+    - *Parsimony*: *decrease experiments*
+
+**** Analysis of Results                                            :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+     - Identify *relevant parameters*
+     - Fit a *regression model*
+
+*** Plackett-Burman                                                   :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+
+    #+LATEX: \vspace{.4cm}
+
+    A *small design* for $7$ *2-level factors*:
+
+    #+LATEX: \vspace{.2cm}
+
+    #+LATEX: \input{latex/plackett_burman.tex}
+
+* Ending Title :B_ignoreheading:
+  :PROPERTIES:
+  :BEAMER_env: ignoreheading
+  :END:
+  #+LATEX: \maketitle

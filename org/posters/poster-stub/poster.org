@@ -1,0 +1,59 @@
+#+TITLE:     Poster Template
+#+AUTHOR:    Pedro Bruel \linebreak \small \texttt{phrb@ime.usp.br}
+#+EMAIL:     phrb@ime.usp.br
+#+DATE:      \small \today
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:1 num:t toc:nil @:t \n:nil ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   tex:t latex:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+#+STARTUP: beamer
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [14pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]
+
+#+LATEX_HEADER: \renewcommand\maketitle{}
+#+LATEX_HEADER: \input{configuration}
+
+
+* Setup                                            :B_ignoreheading:noexport:
+  :PROPERTIES:
+  :BEAMER_env: ignoreheading
+  :END:
+  #+HEADER: :results output :exports none :eval no-export
+  #+BEGIN_SRC emacs-lisp
+  (setq-local org-latex-pdf-process (list "latexmk -xelatex %f"))
+  #+END_SRC
+
+  #+RESULTS:
+* Main Frame                                                :B_ignoreheading:
+  :PROPERTIES:
+  :BEAMER_env: ignoreheading
+  :END:
+  #+LATEX: \begin{frame}
+** Column 1                                                           :BMCOL:
+   :PROPERTIES:
+   :BEAMER_col: 0.48
+   :END:
+*** Block A                                                         :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+** Column 2                                                           :BMCOL:
+   :PROPERTIES:
+   :BEAMER_col: 0.48
+   :END:
+*** Block B                                                         :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+* Closing Main Frame                                        :B_ignoreheading:
+  :PROPERTIES:
+  :BEAMER_env: ignoreheading
+  :END:
+  #+LATEX: \end{frame}

@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:export-ydpi="181.48671"
+   inkscape:export-xdpi="181.48671"
+   inkscape:export-filename="/home/phrb/cloud/presentations/img/autotuning_julia_overview_done.png"
+   sodipodi:docname="autotuning_julia.svg"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   id="svg7405"
+   version="1.1"
+   viewBox="0 0 167.95997 130.00769"
+   height="130.00769mm"
+   width="167.95996mm">
+  <defs
+     id="defs7399">
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="Arrow2Send"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Send">
+      <path
+         transform="matrix(-0.3,0,0,-0.3,0.69,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#3e3e3e;fill-opacity:1;fill-rule:evenodd;stroke:#3e3e3e;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path956" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="Arrow2Mend"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Mend">
+      <path
+         transform="scale(-0.6)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path950" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="Arrow1Lstart"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lstart">
+      <path
+         transform="matrix(0.8,0,0,0.8,10,0)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path923" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Send"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Send-3"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path956-7"
+         style="fill:#e36a00;fill-opacity:1;fill-rule:evenodd;stroke:#e36a00;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(-0.3,0,0,-0.3,0.69,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     fit-margin-bottom="3"
+     fit-margin-right="3"
+     fit-margin-left="3"
+     fit-margin-top="3"
+     inkscape:window-maximized="1"
+     inkscape:window-y="0"
+     inkscape:window-x="0"
+     inkscape:window-height="1060"
+     inkscape:window-width="1920"
+     showgrid="false"
+     inkscape:document-rotation="0"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="mm"
+     inkscape:cy="24.333319"
+     inkscape:cx="282.14337"
+     inkscape:zoom="1"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base" />
+  <metadata
+     id="metadata7402">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(-20.71942,-161.02591)"
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1">
+    <text
+       id="text7972-9-0"
+       y="27.347298"
+       x="79.257278"
+       style="font-size:4.9389px;line-height:1.28;font-family:Roboto;-inkscape-font-specification:Roboto;letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
+       xml:space="preserve"><tspan
+         style="font-weight:bold;stroke-width:0.264583"
+         y="27.347298"
+         x="79.257278"
+         id="tspan7970-6-7"
+         sodipodi:role="line">Autotuning Libraries</tspan></text>
+    <rect
+       ry="5.8033624"
+       y="20.045214"
+       x="21.07682"
+       height="123.47852"
+       width="161.43079"
+       id="rect8135"
+       style="opacity:0.968;fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke" />
+    <text
+       id="text8536"
+       y="139.26894"
+       x="54.522984"
+       style="font-size:4.9389px;line-height:1.28;font-family:Roboto;-inkscape-font-specification:Roboto;letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
+       xml:space="preserve"><tspan
+         style="font-weight:bold;stroke-width:0.264583"
+         y="139.26894"
+         x="54.522984"
+         id="tspan8534"
+         sodipodi:role="line">- Automated Tests, Continuous Integration</tspan></text>
+    <g
+       transform="translate(-2.2294322)"
+       id="g8946">
+      <g
+         id="g8632">
+        <g
+           transform="translate(0.04865564,0.51118875)"
+           id="g8611">
+          <text
+             xml:space="preserve"
+             style="font-size:4.9389px;line-height:1.28;font-family:Roboto;-inkscape-font-specification:Roboto;letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
+             x="29.912107"
+             y="39.303135"
+             id="text7972"><tspan
+               sodipodi:role="line"
+               id="tspan7970"
+               x="29.912107"
+               y="39.303135"
+               style="font-weight:bold;stroke-width:0.264583">Autotuning</tspan><tspan
+               sodipodi:role="line"
+               x="29.912107"
+               y="45.624928"
+               style="font-style:italic;font-weight:normal;font-size:3.88056px;stroke-width:0.264583"
+               id="tspan8088">github.com/phrb/Autotuning.jl</tspan><tspan
+               sodipodi:role="line"
+               x="29.912107"
+               y="51.94672"
+               style="font-weight:bold;stroke-width:0.264583"
+               id="tspan8044" /><tspan
+               sodipodi:role="line"
+               x="29.912107"
+               y="58.268509"
+               style="font-weight:normal;stroke-width:0.264583"
+               id="tspan8052">- Design space representation</tspan><tspan
+               sodipodi:role="line"
+               x="29.912107"
+               y="64.590302"
+               style="font-weight:normal;stroke-width:0.264583"
+               id="tspan8050">- Experiments  database</tspan><tspan
+               sodipodi:role="line"
+               x="29.912107"
+               y="70.912094"
+               style="font-weight:normal;stroke-width:0.264583"
+               id="tspan8560">- Experimental Design</tspan><tspan
+               sodipodi:role="line"
+               x="29.912107"
+               y="77.233887"
+               style="font-weight:normal;stroke-width:0.264583"
+               id="tspan8558">- Statistical Analysis</tspan></text>
+          <g
+             id="g8160"
+             transform="translate(-0.71630436,0.98958078)">
+            <text
+               xml:space="preserve"
+               style="font-size:4.9389px;line-height:1.28;font-family:Roboto;-inkscape-font-specification:Roboto;letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
+               x="38.559429"
+               y="88.644112"
+               id="text7972-9"><tspan
+                 sodipodi:role="line"
+                 id="tspan7970-6"
+                 x="38.559429"
+                 y="88.644112"
+                 style="font-weight:bold;stroke-width:0.264583">NODAL</tspan><tspan
+                 id="tspan8090"
+                 sodipodi:role="line"
+                 x="38.559429"
+                 y="94.965904"
+                 style="font-style:italic;font-weight:normal;font-size:3.88056px;stroke-width:0.264583">github.com/phrb/NODAL.jl</tspan><tspan
+                 id="tspan8028"
+                 sodipodi:role="line"
+                 x="38.559429"
+                 y="101.2877"
+                 style="font-weight:normal;stroke-width:0.264583" /><tspan
+                 id="tspan8030"
+                 sodipodi:role="line"
+                 x="38.559429"
+                 y="107.60949"
+                 style="font-weight:normal;stroke-width:0.264583">- Optimization heuristics</tspan><tspan
+                 id="tspan8032"
+                 sodipodi:role="line"
+                 x="38.559429"
+                 y="113.93128"
+                 style="font-weight:normal;stroke-width:0.264583">- Distributed &amp; parallel</tspan><tspan
+                 id="tspan8036"
+                 sodipodi:role="line"
+                 x="38.559429"
+                 y="120.25307"
+                 style="font-weight:normal;stroke-width:0.264583">  experiments engine</tspan></text>
+            <rect
+               style="opacity:0.968;fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+               id="rect8131-0"
+               width="60.402905"
+               height="41.694054"
+               x="34.846687"
+               y="82.335487"
+               ry="2.4659843" />
+          </g>
+        </g>
+        <rect
+           style="opacity:0.968;fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           id="rect8133-8"
+           width="72.162773"
+           height="98.889725"
+           x="26.326048"
+           y="31.537804"
+           ry="5.6275024" />
+      </g>
+      <path
+         style="fill:none;stroke:#3e3e3e;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Send)"
+         d="M 101.48902,75.174355 C 95.96333,69.681111 85.802669,70.49703 79.377419,72.906498"
+         id="path8653" />
+      <g
+         id="g8651"
+         transform="translate(-4.2333333,0.17676544)">
+        <text
+           xml:space="preserve"
+           style="font-size:4.9389px;line-height:1.28;font-family:Roboto;-inkscape-font-specification:Roboto;letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
+           x="110.98016"
+           y="37.891781"
+           id="text7972-2"><tspan
+             sodipodi:role="line"
+             id="tspan7970-8"
+             x="110.98016"
+             y="37.891781"
+             style="font-weight:bold;stroke-width:0.264583">ExperimentalDesign</tspan><tspan
+             id="tspan8086"
+             sodipodi:role="line"
+             x="110.98016"
+             y="44.213573"
+             style="font-style:italic;font-weight:normal;font-size:3.88056px;stroke-width:0.264583">github.com/phrb/ExperimentalDesign.jl</tspan><tspan
+             id="tspan8054"
+             sodipodi:role="line"
+             x="110.98016"
+             y="50.535366"
+             style="font-weight:bold;stroke-width:0.264583" /><tspan
+             id="tspan8056"
+             sodipodi:role="line"
+             x="110.98016"
+             y="56.857155"
+             style="font-weight:normal;stroke-width:0.264583">- Model-based experiments</tspan><tspan
+             id="tspan8062"
+             sodipodi:role="line"
+             x="110.98016"
+             y="63.178947"
+             style="font-weight:normal;stroke-width:0.264583">  selection engine:</tspan><tspan
+             id="tspan8098"
+             sodipodi:role="line"
+             x="110.98016"
+             y="69.50074"
+             style="font-weight:normal;stroke-width:0.264583">    - Screening, factorial</tspan><tspan
+             id="tspan8084"
+             sodipodi:role="line"
+             x="110.98016"
+             y="75.822533"
+             style="font-weight:normal;stroke-width:0.264583">    - Optimal design</tspan><tspan
+             id="tspan8102"
+             sodipodi:role="line"
+             x="110.98016"
+             y="82.144325"
+             style="font-weight:normal;stroke-width:0.264583">    - Space-filling designs</tspan><tspan
+             id="tspan8104"
+             sodipodi:role="line"
+             x="110.98016"
+             y="88.466118"
+             style="font-weight:normal;stroke-width:0.264583">    - Distribution-sampling</tspan><tspan
+             id="tspan8106"
+             sodipodi:role="line"
+             x="110.98016"
+             y="94.78791"
+             style="font-weight:normal;stroke-width:0.264583">      random designs</tspan><tspan
+             id="tspan8096"
+             sodipodi:role="line"
+             x="110.98016"
+             y="101.1097"
+             style="font-weight:normal;stroke-width:0.264583" /><tspan
+             id="tspan8092"
+             sodipodi:role="line"
+             x="110.98016"
+             y="107.43149"
+             style="font-weight:normal;stroke-width:0.264583">- Statistical Analysis:</tspan><tspan
+             id="tspan8108"
+             sodipodi:role="line"
+             x="110.98016"
+             y="113.75328"
+             style="font-weight:normal;stroke-width:0.264583">    - Sensitivity analysis</tspan><tspan
+             id="tspan8110"
+             sodipodi:role="line"
+             x="110.98016"
+             y="120.07507"
+             style="font-weight:normal;stroke-width:0.264583">    - ANOVA</tspan><tspan
+             id="tspan8118"
+             sodipodi:role="line"
+             x="110.98016"
+             y="126.39687"
+             style="font-weight:normal;stroke-width:0.264583">    - Statistical Learning methods</tspan></text>
+        <rect
+           ry="5.6275024"
+           y="31.361038"
+           x="106.03699"
+           height="98.889725"
+           width="79.913589"
+           id="rect8133"
+           style="opacity:0.968;fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke" />
+      </g>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:4.9389px;line-height:1.28;font-family:Roboto;-inkscape-font-specification:Roboto;letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
+       x="82.164467"
+       y="171.59258"
+       id="text7972-9-0-9"><tspan
+         sodipodi:role="line"
+         id="tspan7970-6-7-3"
+         x="82.164467"
+         y="171.59258"
+         style="font-weight:bold;stroke-width:0.264583">Autotuning Libraries</tspan></text>
+    <rect
+       style="opacity:0.968;fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+       id="rect8135-7"
+       width="161.4308"
+       height="123.47852"
+       x="23.984003"
+       y="164.2905"
+       ry="5.8033624" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.9389px;line-height:1.28;font-family:Roboto;-inkscape-font-specification:Roboto;letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
+       x="57.430168"
+       y="283.51422"
+       id="text8536-8"><tspan
+         sodipodi:role="line"
+         id="tspan8534-7"
+         x="57.430168"
+         y="283.51422"
+         style="font-weight:bold;stroke-width:0.264583">- <tspan
+   id="tspan9355"
+   style="fill:#006c0d;fill-opacity:1">Automated Tests, Continuous Integration</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4.9389px;line-height:1.28;font-family:Roboto;-inkscape-font-specification:Roboto;letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
+       x="30.638515"
+       y="184.05962"
+       id="text7972-0"><tspan
+         sodipodi:role="line"
+         id="tspan7970-9"
+         x="30.638515"
+         y="184.05962"
+         style="font-weight:bold;stroke-width:0.264583">Autotuning</tspan><tspan
+         sodipodi:role="line"
+         x="30.638515"
+         y="190.38141"
+         style="font-style:italic;font-weight:normal;font-size:3.88056px;stroke-width:0.264583"
+         id="tspan8088-8">github.com/phrb/Autotuning.jl</tspan><tspan
+         sodipodi:role="line"
+         x="30.638515"
+         y="196.7032"
+         style="font-weight:bold;stroke-width:0.264583"
+         id="tspan8044-8" /><tspan
+         sodipodi:role="line"
+         x="30.638515"
+         y="203.02499"
+         style="font-weight:normal;stroke-width:0.264583"
+         id="tspan8052-5">- <tspan
+   id="tspan9327"
+   style="font-weight:bold;fill:#006c0d;fill-opacity:1">Design space representation</tspan></tspan><tspan
+         sodipodi:role="line"
+         x="30.638515"
+         y="209.34679"
+         style="font-weight:normal;stroke-width:0.264583"
+         id="tspan8050-8">- <tspan
+   id="tspan9329"
+   style="font-weight:bold;fill:#e36a00;fill-opacity:1">Experiments  database</tspan></tspan><tspan
+         sodipodi:role="line"
+         x="30.638515"
+         y="215.66858"
+         style="font-weight:normal;stroke-width:0.264583"
+         id="tspan8560-4">- <tspan
+   id="tspan9331"
+   style="font-weight:bold;fill:#006c0d;fill-opacity:1">Experimental Design</tspan></tspan><tspan
+         sodipodi:role="line"
+         x="30.638515"
+         y="221.99037"
+         style="font-weight:normal;stroke-width:0.264583"
+         id="tspan8558-3">- <tspan
+   id="tspan9347"
+   style="font-weight:bold;fill:#e36a00;fill-opacity:1">Statistical Analysis</tspan></tspan></text>
+    <g
+       id="g8160-7"
+       transform="translate(0.01010289,145.74606)">
+      <text
+         xml:space="preserve"
+         style="font-size:4.9389px;line-height:1.28;font-family:Roboto;-inkscape-font-specification:Roboto;letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
+         x="38.559429"
+         y="88.644112"
+         id="text7972-9-1"><tspan
+           sodipodi:role="line"
+           id="tspan7970-6-3"
+           x="38.559429"
+           y="88.644112"
+           style="font-weight:bold;stroke-width:0.264583">NODAL</tspan><tspan
+           id="tspan8090-8"
+           sodipodi:role="line"
+           x="38.559429"
+           y="94.965904"
+           style="font-style:italic;font-weight:normal;font-size:3.88056px;stroke-width:0.264583">github.com/phrb/NODAL.jl</tspan><tspan
+           id="tspan8028-0"
+           sodipodi:role="line"
+           x="38.559429"
+           y="101.2877"
+           style="font-weight:normal;stroke-width:0.264583" /><tspan
+           id="tspan8030-9"
+           sodipodi:role="line"
+           x="38.559429"
+           y="107.60949"
+           style="font-weight:normal;stroke-width:0.264583">- <tspan
+   id="tspan9335"
+   style="font-weight:bold;fill:#006c0d;fill-opacity:1">Optimization heuristics</tspan></tspan><tspan
+           id="tspan8032-7"
+           sodipodi:role="line"
+           x="38.559429"
+           y="113.93128"
+           style="font-weight:normal;stroke-width:0.264583">- <tspan
+   id="tspan9337"
+   style="font-weight:bold;fill:#006c0d;fill-opacity:1">Distributed &amp; parallel</tspan></tspan><tspan
+           id="tspan8036-9"
+           sodipodi:role="line"
+           x="38.559429"
+           y="120.25307"
+           style="font-weight:bold;fill:#006c0d;fill-opacity:1;stroke-width:0.264583">  experiments engine</tspan></text>
+      <rect
+         style="opacity:0.968;fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+         id="rect8131-0-9"
+         width="60.402905"
+         height="41.694054"
+         x="34.846687"
+         y="82.335487"
+         ry="2.4659843" />
+    </g>
+    <rect
+       ry="5.6275024"
+       y="175.7831"
+       x="27.003799"
+       height="98.889725"
+       width="72.162773"
+       id="rect8133-8-3"
+       style="opacity:0.968;fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke" />
+    <path
+       style="fill:none;stroke:#e36a00;stroke-width:1.058;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Send-3)"
+       d="M 102.16677,219.41964 C 96.641082,213.9264 86.480421,214.74232 80.055171,217.15179"
+       id="path8653-2" />
+    <text
+       id="text7972-2-3"
+       y="182.31384"
+       x="107.42458"
+       style="font-size:4.9389px;line-height:1.28;font-family:Roboto;-inkscape-font-specification:Roboto;letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
+       xml:space="preserve"><tspan
+         style="font-weight:bold;stroke-width:0.264583"
+         y="182.31384"
+         x="107.42458"
+         id="tspan7970-8-7"
+         sodipodi:role="line">ExperimentalDesign</tspan><tspan
+         style="font-style:italic;font-weight:normal;font-size:3.88056px;stroke-width:0.264583"
+         y="188.63564"
+         x="107.42458"
+         sodipodi:role="line"
+         id="tspan8086-1">github.com/phrb/ExperimentalDesign.jl</tspan><tspan
+         style="font-weight:bold;stroke-width:0.264583"
+         y="194.95743"
+         x="107.42458"
+         sodipodi:role="line"
+         id="tspan8054-2" /><tspan
+         style="font-weight:normal;stroke-width:0.264583"
+         y="201.27922"
+         x="107.42458"
+         sodipodi:role="line"
+         id="tspan8056-2">- Model-based experiments</tspan><tspan
+         style="font-weight:normal;stroke-width:0.264583"
+         y="207.60101"
+         x="107.42458"
+         sodipodi:role="line"
+         id="tspan8062-0">  selection engine:</tspan><tspan
+         style="font-weight:normal;stroke-width:0.264583"
+         y="213.92281"
+         x="107.42458"
+         sodipodi:role="line"
+         id="tspan8098-2">    - <tspan
+   id="tspan9339"
+   style="font-weight:bold;fill:#006c0d;fill-opacity:1">Screening, factorial</tspan></tspan><tspan
+         style="font-weight:normal;stroke-width:0.264583"
+         y="220.2446"
+         x="107.42458"
+         sodipodi:role="line"
+         id="tspan8084-1">    - <tspan
+   id="tspan9341"
+   style="font-weight:bold;fill:#006c0d;fill-opacity:1">Optimal design</tspan></tspan><tspan
+         style="font-weight:normal;stroke-width:0.264583"
+         y="226.56639"
+         x="107.42458"
+         sodipodi:role="line"
+         id="tspan8102-7">    - <tspan
+   id="tspan9349"
+   style="font-weight:bold;fill:#e36a00;fill-opacity:1">Space-filling designs</tspan></tspan><tspan
+         style="font-weight:normal;stroke-width:0.264583"
+         y="232.88818"
+         x="107.42458"
+         sodipodi:role="line"
+         id="tspan8104-5">    - <tspan
+   id="tspan9343"
+   style="font-weight:bold;fill:#006c0d;fill-opacity:1">Distribution-sampling</tspan></tspan><tspan
+         style="font-weight:bold;fill:#006c0d;fill-opacity:1;stroke-width:0.264583"
+         y="239.20998"
+         x="107.42458"
+         sodipodi:role="line"
+         id="tspan8106-1">      random designs</tspan><tspan
+         style="font-weight:normal;stroke-width:0.264583"
+         y="245.53177"
+         x="107.42458"
+         sodipodi:role="line"
+         id="tspan8096-7" /><tspan
+         style="font-weight:normal;stroke-width:0.264583"
+         y="251.85355"
+         x="107.42458"
+         sodipodi:role="line"
+         id="tspan8092-4">- Statistical Analysis:</tspan><tspan
+         style="font-weight:normal;stroke-width:0.264583"
+         y="258.17535"
+         x="107.42458"
+         sodipodi:role="line"
+         id="tspan8108-1">    - <tspan
+   id="tspan9351"
+   style="font-weight:bold;fill:#e36a00;fill-opacity:1">Sensitivity analysis</tspan></tspan><tspan
+         style="font-weight:normal;stroke-width:0.264583"
+         y="264.49713"
+         x="107.42458"
+         sodipodi:role="line"
+         id="tspan8110-7">    - <tspan
+   id="tspan9345"
+   style="font-weight:bold;fill:#006c0d;fill-opacity:1">ANOVA</tspan></tspan><tspan
+         style="font-weight:normal;stroke-width:0.264583"
+         y="270.81894"
+         x="107.42458"
+         sodipodi:role="line"
+         id="tspan8118-1">    - <tspan
+   id="tspan9353"
+   style="font-weight:bold;fill:#e36a00;fill-opacity:1">Statistical Learning methods</tspan></tspan></text>
+    <rect
+       style="opacity:0.968;fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+       id="rect8133-1"
+       width="79.913589"
+       height="98.889725"
+       x="102.48141"
+       y="175.7831"
+       ry="5.6275024" />
+  </g>
+</svg>

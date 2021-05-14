@@ -1,0 +1,57 @@
+ \usepackage{sourcecodepro}
+ \usepackage{booktabs}
+ \usepackage{array}
+ \usepackage{listings}
+ \usepackage{graphicx}
+ \usepackage[english]{babel}
+ \usepackage[scale=2]{ccicons}
+ \usepackage{url}
+ \usepackage{relsize}
+ \usepackage{amsmath}
+ \usepackage{bm}
+ \usepackage{wasysym}
+ \usepackage{ragged2e}
+ \usepackage{textcomp}
+ \usepackage{pgfplots}
+ \usepgfplotslibrary{dateplot}
+ \definecolor{Base}{HTML}{191F26}
+ \definecolor{Accent}{HTML}{157FFF}
+ \setbeamercolor{alerted text}{fg=Accent}
+ \setbeamercolor{frametitle}{bg=Base}
+ \setbeamercolor{normal text}{bg=black!2,fg=Base}
+ \setsansfont[BoldFont={Source Sans Pro Semibold},Numbers={OldStyle}]{Source Sans Pro}
+ \lstdefinelanguage{Julia}%
+   {morekeywords={abstract,struct,break,case,catch,const,continue,do,else,elseif,%
+       end,export,false,for,function,immutable,mutable,using,import,importall,if,in,%
+       macro,module,quote,return,switch,true,try,catch,type,typealias,%
+       while,<:,+,-,::,/},%
+    sensitive=true,%
+    alsoother={$},%
+    morecomment=[l]\#,%
+    morecomment=[n]{\#=}{=\#},%
+    morestring=[s]{"}{"},%
+    morestring=[m]{'}{'},%
+ }[keywords,comments,strings]%
+ \lstset{ %
+   backgroundcolor={},
+   basicstyle=\ttfamily\scriptsize,
+   breakatwhitespace=true,
+   breaklines=true,
+   captionpos=n,
+   commentstyle=\color{Accent},
+   %% escapeinside={\%*}{*)},
+   extendedchars=true,
+   frame=n,
+   keywordstyle=\color{Accent},
+   language=R,
+   rulecolor=\color{black},
+   showspaces=false,
+   showstringspaces=false,
+   showtabs=false,
+   stepnumber=2,
+   stringstyle=\color{gray},
+   tabsize=2,
+ }
+ \renewcommand*{\UrlFont}{\ttfamily\smaller\relax}
+ \graphicspath{{../img/}}
+ \addtobeamertemplate{block begin}{}{\justifying}

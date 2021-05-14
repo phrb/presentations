@@ -1,0 +1,834 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   id="svg2"
+   width="6436.624"
+   height="4286.4653"
+   viewBox="0 0 6436.624 4286.4653"
+   sodipodi:docname="process-and-thread.svg"
+   inkscape:version="0.92.1 r"
+   inkscape:export-filename="/home/phrb/Dropbox/presentations/aula-pthreads/img/process-and-thread.png"
+   inkscape:export-xdpi="37.325199"
+   inkscape:export-ydpi="37.325199">
+  <metadata
+     id="metadata8">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs6">
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker5542"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path5540"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#5a5a5a;fill-opacity:1;fill-rule:evenodd;stroke:#5a5a5a;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker5494"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend">
+      <path
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path5492"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker5422"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:collect="always">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:#5a5a5a;fill-opacity:1;fill-rule:evenodd;stroke:#5a5a5a;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path5420"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mstart"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path5052"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker5542-4"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5540-3"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#5a5a5a;fill-opacity:1;fill-rule:evenodd;stroke:#5a5a5a;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker5422-0"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:collect="always">
+      <path
+         inkscape:connector-curvature="0"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:#5a5a5a;fill-opacity:1;fill-rule:evenodd;stroke:#5a5a5a;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path5420-7" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker5422-0-5"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:collect="always">
+      <path
+         inkscape:connector-curvature="0"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:#5a5a5a;fill-opacity:1;fill-rule:evenodd;stroke:#5a5a5a;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path5420-7-9" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker5542-4-7"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5540-3-7"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#5a5a5a;fill-opacity:1;fill-rule:evenodd;stroke:#5a5a5a;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1062"
+     id="namedview4"
+     showgrid="false"
+     inkscape:zoom="0.1744272"
+     inkscape:cx="2941.1741"
+     inkscape:cy="2255.9101"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="g7031-3"
+     fit-margin-top="10"
+     fit-margin-left="10"
+     fit-margin-right="10"
+     fit-margin-bottom="10" />
+  <g
+     id="g4949"
+     transform="translate(1184.8457,539.88794)" />
+  <g
+     id="g4961"
+     transform="translate(1077.946,505.99426)" />
+  <g
+     id="g6886"
+     transform="translate(1451.1029,539.8878)">
+    <g
+       transform="translate(-4378.1895,-255.94832)"
+       id="g6111">
+      <g
+         id="g4975"
+         transform="translate(181.13574,127.44603)">
+        <rect
+           y="275.38358"
+           x="4819.1836"
+           height="433.76508"
+           width="717.53662"
+           id="rect4489"
+           style="opacity:1;fill:#e4e4e4;fill-opacity:1;fill-rule:nonzero;stroke:#00071e;stroke-width:8;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+        <text
+           id="text4555-6"
+           y="378.44611"
+           x="4867.7744"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125.09999847px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           xml:space="preserve"><tspan
+             id="tspan4720"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+             y="378.44611"
+             x="4867.7744"
+             sodipodi:role="line">Stack Pointer</tspan><tspan
+             id="tspan4724"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+             y="518.29279"
+             x="4867.7744"
+             sodipodi:role="line">Prog. Counter</tspan><tspan
+             id="tspan4726"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+             y="658.1394"
+             x="4867.7744"
+             sodipodi:role="line">Registers</tspan></text>
+      </g>
+      <g
+         id="g4982"
+         transform="translate(96.9585,113.47542)">
+        <rect
+           y="1334.1873"
+           x="4903.3608"
+           height="433.76508"
+           width="717.53662"
+           id="rect4489-3"
+           style="opacity:1;fill:#e4e4e4;fill-opacity:1;fill-rule:nonzero;stroke:#00071e;stroke-width:8;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+        <text
+           id="text4555-6-4"
+           y="1445.5698"
+           x="5033.0259"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125.09999847px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           xml:space="preserve"><tspan
+             id="tspan4726-3"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+             y="1445.5698"
+             x="5033.0259"
+             sodipodi:role="line">Process ID</tspan><tspan
+             id="tspan4769"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+             y="1585.4165"
+             x="5033.0259"
+             sodipodi:role="line">Group ID</tspan><tspan
+             id="tspan4771"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+             y="1725.2632"
+             x="5033.0259"
+             sodipodi:role="line">User ID</tspan></text>
+      </g>
+      <g
+         id="g4989"
+         transform="translate(38,140.10335)">
+        <rect
+           y="1829.976"
+           x="4962.3193"
+           height="433.76508"
+           width="717.53662"
+           id="rect4489-6"
+           style="opacity:1;fill:#e4e4e4;fill-opacity:1;fill-rule:nonzero;stroke:#00071e;stroke-width:8;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+        <text
+           id="text4555-6-6"
+           y="1944.3452"
+           x="5147.687"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125.09999847px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           xml:space="preserve"><tspan
+             id="tspan4726-6"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+             y="1944.3452"
+             x="5147.687"
+             sodipodi:role="line">Files</tspan><tspan
+             id="tspan4790"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+             y="2084.1919"
+             x="5147.687"
+             sodipodi:role="line">Locks</tspan><tspan
+             id="tspan4792"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+             y="2224.0386"
+             x="5147.687"
+             sodipodi:role="line">Sockets</tspan></text>
+      </g>
+      <g
+         id="g5040">
+        <rect
+           y="58.816929"
+           x="3328.2349"
+           height="2549.8899"
+           width="1013.4698"
+           id="rect4487"
+           style="opacity:1;fill:#cfcfcf;fill-opacity:1;fill-rule:nonzero;stroke:#00071e;stroke-width:8;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+        <text
+           id="text4555-6-6-7-3"
+           y="224.33063"
+           x="3398.2988"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125.09999847px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           xml:space="preserve"><tspan
+             id="tspan4847-4"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+             y="224.33063"
+             x="3398.2988"
+             sodipodi:role="line">User Address Space</tspan></text>
+      </g>
+      <g
+         id="g4968"
+         transform="translate(61.527863,82.932203)">
+        <g
+           id="g5035">
+          <g
+             transform="translate(-41.912354,-63.414917)"
+             id="g4954">
+            <rect
+               style="opacity:1;fill:#e4e4e4;fill-opacity:1;fill-rule:nonzero;stroke:#00071e;stroke-width:8;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+               id="rect4489-5"
+               width="717.53662"
+               height="433.76508"
+               x="3456.5859"
+               y="905.72882" />
+            <text
+               xml:space="preserve"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125.09999847px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+               x="3699.1958"
+               y="1159.9447"
+               id="text4555-6-6-1"><tspan
+                 sodipodi:role="line"
+                 x="3699.1958"
+                 y="1159.9447"
+                 style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+                 id="tspan4855">Code</tspan></text>
+          </g>
+          <rect
+             style="opacity:1;fill:#e4e4e4;fill-opacity:1;fill-rule:nonzero;stroke:#00071e;stroke-width:8;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+             id="rect4489-7"
+             width="717.53662"
+             height="433.76508"
+             x="3357.1401"
+             y="319.89728"
+             transform="translate(57.533447,1.2207031e-4)" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125.09999847px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             x="3592.54"
+             y="574.11316"
+             id="text4555-6-6-7"
+             transform="translate(57.533447,1.2207031e-4)"><tspan
+               sodipodi:role="line"
+               x="3592.54"
+               y="574.11316"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+               id="tspan4847">Stack</tspan></text>
+          <rect
+             style="opacity:1;fill:#e4e4e4;fill-opacity:1;fill-rule:nonzero;stroke:#00071e;stroke-width:8;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+             id="rect4489-35"
+             width="717.53662"
+             height="433.76508"
+             x="3464.0398"
+             y="1398.624"
+             transform="translate(-49.366211,-33.893555)" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125.09999847px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             x="3825.4648"
+             y="1512.9933"
+             id="text4555-6-6-1-5"
+             transform="translate(-49.366211,-33.893555)"><tspan
+               sodipodi:role="line"
+               x="3825.4648"
+               y="1512.9933"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro';text-align:center;text-anchor:middle"
+               id="tspan4855-2">Statically</tspan><tspan
+               sodipodi:role="line"
+               x="3825.4648"
+               y="1652.84"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro';text-align:center;text-anchor:middle"
+               id="tspan4918">Allocated</tspan><tspan
+               sodipodi:role="line"
+               x="3825.4648"
+               y="1792.6866"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro';text-align:center;text-anchor:middle"
+               id="tspan4920">Data</tspan></text>
+          <rect
+             style="opacity:1;fill:#e4e4e4;fill-opacity:1;fill-rule:nonzero;stroke:#00071e;stroke-width:8;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+             id="rect4489-35-1"
+             width="717.53662"
+             height="433.76508"
+             x="3414.6736"
+             y="1887.1471" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125.09999847px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             x="3769.271"
+             y="2001.5164"
+             id="text4555-6-6-1-5-5"><tspan
+               sodipodi:role="line"
+               x="3769.271"
+               y="2001.5164"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro';text-align:center;text-anchor:middle"
+               id="tspan4855-2-4">Dynamically</tspan><tspan
+               sodipodi:role="line"
+               x="3769.271"
+               y="2141.363"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro';text-align:center;text-anchor:middle"
+               id="tspan4918-7">Allocated</tspan><tspan
+               sodipodi:role="line"
+               x="3769.271"
+               y="2281.2097"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro';text-align:center;text-anchor:middle"
+               id="tspan4920-4">Data</tspan></text>
+        </g>
+      </g>
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#5a5a5a;stroke-width:18;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker5542)"
+         d="M 5039.3517,475.84322 4081.9322,630.63559"
+         id="path5042"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#5a5a5a;stroke-width:18;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker5422)"
+         d="M 5039.3517,619.16949 4081.9322,1123.6779"
+         id="path5044"
+         inkscape:connector-curvature="0" />
+    </g>
+  </g>
+  <g
+     id="g4975-6"
+     transform="translate(606.1516,411.38553)">
+    <rect
+       y="275.38358"
+       x="4819.1836"
+       height="433.76508"
+       width="717.53662"
+       id="rect4489-8"
+       style="opacity:1;fill:#e4e4e4;fill-opacity:1;fill-rule:nonzero;stroke:#00071e;stroke-width:8;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <text
+       id="text4555-6-8"
+       y="378.44611"
+       x="4867.7744"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125.09999847px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         id="tspan4720-4"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+         y="378.44611"
+         x="4867.7744"
+         sodipodi:role="line">Stack Pointer</tspan><tspan
+         id="tspan4724-3"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+         y="518.29279"
+         x="4867.7744"
+         sodipodi:role="line">Prog. Counter</tspan><tspan
+         id="tspan4726-1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+         y="658.1394"
+         x="4867.7744"
+         sodipodi:role="line">Registers</tspan></text>
+  </g>
+  <g
+     id="g4982-4"
+     transform="translate(521.9744,1502.3815)">
+    <rect
+       y="1334.1873"
+       x="4903.3608"
+       height="433.76508"
+       width="717.53662"
+       id="rect4489-3-9"
+       style="opacity:1;fill:#e4e4e4;fill-opacity:1;fill-rule:nonzero;stroke:#00071e;stroke-width:8;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <text
+       id="text4555-6-4-2"
+       y="1445.5698"
+       x="5033.0259"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125.09999847px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         id="tspan4726-3-0"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+         y="1445.5698"
+         x="5033.0259"
+         sodipodi:role="line">Process ID</tspan><tspan
+         id="tspan4769-6"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+         y="1585.4165"
+         x="5033.0259"
+         sodipodi:role="line">Group ID</tspan><tspan
+         id="tspan4771-8"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+         y="1725.2632"
+         x="5033.0259"
+         sodipodi:role="line">User ID</tspan></text>
+  </g>
+  <g
+     id="g4989-9"
+     transform="translate(463.0159,1544.0427)">
+    <rect
+       y="1829.976"
+       x="4962.3193"
+       height="433.76508"
+       width="717.53662"
+       id="rect4489-6-2"
+       style="opacity:1;fill:#e4e4e4;fill-opacity:1;fill-rule:nonzero;stroke:#00071e;stroke-width:8;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <text
+       id="text4555-6-6-6"
+       y="1944.3452"
+       x="5147.687"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125.09999847px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         id="tspan4726-6-6"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+         y="1944.3452"
+         x="5147.687"
+         sodipodi:role="line">Files</tspan><tspan
+         id="tspan4790-4"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+         y="2084.1919"
+         x="5147.687"
+         sodipodi:role="line">Locks</tspan><tspan
+         id="tspan4792-9"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+         y="2224.0386"
+         x="5147.687"
+         sodipodi:role="line">Sockets</tspan></text>
+  </g>
+  <rect
+     style="opacity:1;fill:#cfcfcf;fill-opacity:1;fill-rule:nonzero;stroke:#00071e;stroke-width:8;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     id="rect4487-0"
+     width="1013.4698"
+     height="3805.4282"
+     x="3753.2507"
+     y="342.75641" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125.09999847px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     x="3823.3147"
+     y="508.27014"
+     id="text4555-6-6-7-3-4"><tspan
+       sodipodi:role="line"
+       x="3823.3147"
+       y="508.27014"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+       id="tspan4847-4-8">User Address Space</tspan></text>
+  <g
+     transform="translate(444.6313,318.49036)"
+     id="g4954-7">
+    <rect
+       style="opacity:1;fill:#e4e4e4;fill-opacity:1;fill-rule:nonzero;stroke:#00071e;stroke-width:8;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4489-5-2"
+       width="717.53662"
+       height="433.76508"
+       x="3456.5859"
+       y="905.72882" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125.09999847px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="3699.1958"
+       y="1159.9447"
+       id="text4555-6-6-1-7"><tspan
+         sodipodi:role="line"
+         x="3699.1958"
+         y="1159.9447"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+         id="tspan4855-22">Code</tspan></text>
+  </g>
+  <g
+     id="g6606"
+     transform="translate(1634.3579,539.88796)">
+    <rect
+       y="146.88127"
+       x="2266.8594"
+       height="433.76508"
+       width="717.53662"
+       id="rect4489-7-6"
+       style="opacity:1;fill:#e4e4e4;fill-opacity:1;fill-rule:nonzero;stroke:#00071e;stroke-width:8;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <text
+       id="text4555-6-6-7-1"
+       y="401.09717"
+       x="2502.2593"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125.09999847px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         id="tspan4847-0"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+         y="401.09717"
+         x="2502.2593"
+         sodipodi:role="line">Stack</tspan></text>
+  </g>
+  <g
+     id="g6589"
+     transform="translate(1634.3579,524.85443)">
+    <rect
+       y="2311.7144"
+       x="2266.8594"
+       height="433.76508"
+       width="717.53662"
+       id="rect4489-35-6"
+       style="opacity:1;fill:#e4e4e4;fill-opacity:1;fill-rule:nonzero;stroke:#00071e;stroke-width:8;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <text
+       id="text4555-6-6-1-5-1"
+       y="2426.0835"
+       x="2628.2842"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125.09999847px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         id="tspan4855-2-5"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro';text-align:center;text-anchor:middle"
+         y="2426.0835"
+         x="2628.2842"
+         sodipodi:role="line">Statically</tspan><tspan
+         id="tspan4918-9"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro';text-align:center;text-anchor:middle"
+         y="2565.9302"
+         x="2628.2842"
+         sodipodi:role="line">Allocated</tspan><tspan
+         id="tspan4920-49"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro';text-align:center;text-anchor:middle"
+         y="2705.7769"
+         x="2628.2842"
+         sodipodi:role="line">Data</tspan></text>
+  </g>
+  <g
+     id="g6596"
+     transform="translate(1634.3579,539.88782)">
+    <rect
+       y="2834.1309"
+       x="2266.8594"
+       height="433.76508"
+       width="717.53662"
+       id="rect4489-35-1-0"
+       style="opacity:1;fill:#e4e4e4;fill-opacity:1;fill-rule:nonzero;stroke:#00071e;stroke-width:8;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <text
+       id="text4555-6-6-1-5-5-9"
+       y="2948.5002"
+       x="2621.4568"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125.09999847px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         id="tspan4855-2-4-1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro';text-align:center;text-anchor:middle"
+         y="2948.5002"
+         x="2621.4568"
+         sodipodi:role="line">Dynamically</tspan><tspan
+         id="tspan4918-7-7"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro';text-align:center;text-anchor:middle"
+         y="3088.3469"
+         x="2621.4568"
+         sodipodi:role="line">Allocated</tspan><tspan
+         id="tspan4920-4-7"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro';text-align:center;text-anchor:middle"
+         y="3228.1936"
+         x="2621.4568"
+         sodipodi:role="line">Data</tspan></text>
+  </g>
+  <path
+     style="fill:none;fill-rule:evenodd;stroke:#5a5a5a;stroke-width:18;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker5542-4)"
+     d="M 5464.3676,759.78272 4506.9481,914.57509"
+     id="path5042-1"
+     inkscape:connector-curvature="0" />
+  <path
+     style="fill:none;fill-rule:evenodd;stroke:#5a5a5a;stroke-width:18;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker5422-0)"
+     d="M 5464.3676,903.10899 4506.9481,1407.6174"
+     id="path5044-1"
+     inkscape:connector-curvature="0" />
+  <g
+     transform="translate(444.6313,1393.3901)"
+     id="g4954-7-3">
+    <rect
+       style="opacity:1;fill:#e4e4e4;fill-opacity:1;fill-rule:nonzero;stroke:#00071e;stroke-width:8;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4489-5-2-9"
+       width="717.53662"
+       height="433.76508"
+       x="3456.5859"
+       y="905.72882" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125.09999847px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="3699.1958"
+       y="1159.9447"
+       id="text4555-6-6-1-7-4"><tspan
+         sodipodi:role="line"
+         x="3699.1958"
+         y="1159.9447"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+         id="tspan4855-22-8">Code</tspan></text>
+  </g>
+  <g
+     id="g6601"
+     transform="translate(1634.3579,555.43781)">
+    <rect
+       y="1206.2312"
+       x="2266.8594"
+       height="433.76508"
+       width="717.53662"
+       id="rect4489-7-6-1"
+       style="opacity:1;fill:#e4e4e4;fill-opacity:1;fill-rule:nonzero;stroke:#00071e;stroke-width:8;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <text
+       id="text4555-6-6-7-1-2"
+       y="1460.4471"
+       x="2502.2593"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125.09999847px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         id="tspan4847-0-9"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+         y="1460.4471"
+         x="2502.2593"
+         sodipodi:role="line">Stack</tspan></text>
+  </g>
+  <g
+     id="g7266"
+     transform="translate(0,15.549936)">
+    <g
+       transform="translate(606.1517,1470.7355)"
+       id="g4975-6-6">
+      <rect
+         style="opacity:1;fill:#e4e4e4;fill-opacity:1;fill-rule:nonzero;stroke:#00071e;stroke-width:8;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect4489-8-7"
+         width="717.53662"
+         height="433.76508"
+         x="4819.1836"
+         y="275.38358" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125.09999847px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="4867.7744"
+         y="378.44611"
+         id="text4555-6-8-3"><tspan
+           sodipodi:role="line"
+           x="4867.7744"
+           y="378.44611"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+           id="tspan4720-4-6">Stack Pointer</tspan><tspan
+           sodipodi:role="line"
+           x="4867.7744"
+           y="518.29279"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+           id="tspan4724-3-5">Prog. Counter</tspan><tspan
+           sodipodi:role="line"
+           x="4867.7744"
+           y="658.1394"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro'"
+           id="tspan4726-1-6">Registers</tspan></text>
+    </g>
+    <path
+       inkscape:connector-curvature="0"
+       id="path5042-1-3"
+       d="M 5464.3677,1819.1327 4506.9482,1973.925"
+       style="fill:none;fill-rule:evenodd;stroke:#5a5a5a;stroke-width:18;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker5542-4-7)" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path5044-1-9"
+       d="m 5464.3677,1962.4589 -957.4195,504.5085"
+       style="fill:none;fill-rule:evenodd;stroke:#5a5a5a;stroke-width:18;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker5422-0-5)" />
+  </g>
+  <rect
+     style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#810000;stroke-width:19;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     id="rect6888"
+     width="3017.3577"
+     height="1029.6852"
+     x="3331.9866"
+     y="659.51294" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125.09999847px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#810000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     x="5877.4331"
+     y="1594.0762"
+     id="text4555-6-6-7-3-4-5"><tspan
+       sodipodi:role="line"
+       x="5877.4331"
+       y="1594.0762"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro';fill:#810000;fill-opacity:1"
+       id="tspan4847-4-8-0">Thread 1</tspan></text>
+  <g
+     transform="translate(1154.3579,1614.6659)"
+     id="g7031-3">
+    <rect
+       y="119.62511"
+       x="2177.6287"
+       height="1029.6852"
+       width="3017.3577"
+       id="rect6888-8"
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#810000;stroke-width:19;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <text
+       id="text4555-6-6-7-3-4-5-5"
+       y="1054.1884"
+       x="4723.0752"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125.09999847px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#810000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         id="tspan4847-4-8-0-6"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:106.66666412px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro';fill:#810000;fill-opacity:1"
+         y="1054.1884"
+         x="4723.0752"
+         sodipodi:role="line">Thread 2</tspan></text>
+  </g>
+  <g
+     id="g7175"
+     transform="translate(1127.3123,539.88782)">
+    <rect
+       y="-520.88782"
+       x="2136.3943"
+       height="4248.4653"
+       width="3153.9177"
+       id="rect6746-0"
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#1d1d1d;stroke-width:18;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <text
+       id="text4555-6-6-7-3-4-5-1"
+       y="-370.63232"
+       x="3032.1094"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125.09999847px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#810000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         id="tspan4847-4-8-0-1"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:120px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro';fill:#810000;fill-opacity:1"
+         y="-370.63232"
+         x="3032.1094"
+         sodipodi:role="line">Threads of a UNIX Process</tspan></text>
+  </g>
+  <rect
+     style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#1d1d1d;stroke-width:18;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     id="rect6746-0-5"
+     width="3153.9177"
+     height="4248.4653"
+     x="19"
+     y="19" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125.09999847px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#810000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     x="1246.6398"
+     y="169.25549"
+     id="text4555-6-6-7-3-4-5-1-9"><tspan
+       sodipodi:role="line"
+       x="1246.6398"
+       y="169.25549"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:120px;line-height:125.09999847px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro';fill:#810000;fill-opacity:1"
+       id="tspan4847-4-8-0-1-8">UNIX Process</tspan></text>
+</svg>

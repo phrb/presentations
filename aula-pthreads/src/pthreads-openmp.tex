@@ -1,0 +1,396 @@
+\documentclass[10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
+\usetheme[numbering=fraction, progressbar=none, titleformat=smallcaps, sectionpage=none]{metropolis}
+
+\usepackage{sourcecodepro}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{marvosym}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{xeCJK}
+\usepackage{graphicx}
+\usepackage[brazilian]{babel}
+\usepackage[scale=2]{ccicons}
+\usepackage{url}
+\usepackage{relsize}
+\usepackage{wasysym}
+\usepackage{animate}
+\usepackage{adjustbox}
+\usepackage{amsmath}
+\usepackage{bm}
+\definecolor{Base}{HTML}{191F26}
+\definecolor{Accent}{HTML}{bb0300}
+\setbeamercolor{alerted text}{fg=Accent}
+\setbeamercolor{frametitle}{bg=Base}
+\setbeamercolor{normal text}{bg=black!2,fg=Base}
+\setsansfont[BoldFont={Source Sans Pro Semibold},Numbers={OldStyle}]{Source Sans Pro}
+\addtobeamertemplate{block begin}{}{\justifying}
+\captionsetup[figure]{labelformat=empty}
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+\lstset{ %
+  backgroundcolor={},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=true,
+  breaklines=true,
+  captionpos=n,
+  commentstyle=\color{orange},
+  escapeinside={\%*}{*)},
+  extendedchars=true,
+  frame=n,
+  keywordstyle=\color{Accent},
+  language=C++,
+  rulecolor=\color{black},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  stepnumber=2,
+  stringstyle=\color{gray},
+  tabsize=2,
+  keywords={thrust,plus,device_vector, copy,transform,begin,end, copyin,
+  copyout, acc, \_\_global\_\_, void, int, float, main, threadIdx, blockIdx,
+  blockDim, if, else, malloc, NULL, cudaMalloc, cudaMemcpy, cudaSuccess,
+  cudaGetLastError, cudaDeviceSynchronize, cudaFree, cudaMemcpyDeviceToHost,
+  cudaMemcpyHostToDevice, const, data, independent, kernels, loop,
+  fprintf, stderr, cudaGetErrorString, EXIT_FAILURE, for, dim3, pthread_t,
+  pthread_create, exit, pthread_exit, long, printf, omp, parallel, private,
+  default, shared, task, taskgroup, taskloop, num_tasks,
+  omp_get_thread_num, omp_get_num_threads},
+  otherkeywords={::, \#pragma, \#include, \#define, <<<,>>>, \&, \*, +, -, /, [, ], >, <}
+}
+
+\renewcommand*{\UrlFont}{\ttfamily\smaller\relax}
+
+\graphicspath{{../../img/}}
+
+\title{Introdução a \textit{Pthreads} \& \textit{OpenMP}}
+\author{\footnotesize Pedro Bruel \\ {\scriptsize \emph{phrb@ime.usp.br}}}
+\institute{{\large\Biohazard} Versão Quarentena}
+\date{\scriptsize 2020}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introdução}
+
+\begin{frame}
+    \frametitle{Slides}
+    Os slides e todo o código fonte estão no \alert{GitHub}:
+
+    \begin{itemize}
+        \item {\scriptsize\url{https://github.com/phrb/presentations/tree/master/aula-pthreads/code_samples/pthreads}}
+    \end{itemize}
+\end{frame}
+
+\section{Motivação}
+
+\begin{frame}
+    \frametitle{Programação Concorrente: Motivação}
+    Por que usar programação concorrente?
+
+    \alert{Desempenho}:
+    \begin{itemize}
+        \item Arquiteturas paralelas
+        \item Memória Compartilhada
+        \item SMP, hyperthreaded, multi-core, NUMA, $\dots$
+    \end{itemize}
+
+    \alert{Modelagem}:
+    \begin{itemize}
+        \item Descrever paralelismo natural
+        \item Tarefas independentes
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Programação Concorrente: Motivação}
+    \begin{center}
+        \includegraphics[width=.43\textwidth]{shared_work}
+    \end{center}
+\end{frame}
+
+\section{IEEE POSIX Threads}
+
+\subsection{Processos \& Threads}
+
+\begin{frame}
+    \frametitle{IEEE POSIX Threads}
+
+    \alert{IEEE} \& \alert{POSIX}:
+    \begin{itemize}
+        \item Institute of Electrical and Electronics Engineers (\alert{IEEE})
+        \item Portable Operating System Interface (\alert{POSIX})
+    \end{itemize}
+
+    \alert{IEEE POSIX Threads}:
+    \begin{itemize}
+        \item Define um \alert{modelo de execução}
+        \item \alert{Independente} de linguagens
+        \item Execução paralela de ``\alert{fluxos de trabalho}'' (\alert{threads})
+        \item Define uma API para \alert{criação e controle} de threads
+        \item \alert{Não define} detalhes de implementação
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Processos \& Threads}
+    \begin{center}
+        \includegraphics[width=0.8\columnwidth]{process-and-thread}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Pthreads API}
+    \alert{\textasciitilde{}100 funções} prefixadas por \texttt{pthread\_}:
+    \begin{itemize}
+        \item Gerenciamento
+        \item Mutexes
+        \item Variáveis condicionais
+        \item Sincronização
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Pthreads API}
+    \begin{table}[]
+        \centering
+        \begin{tabular}{@{}ll@{}}
+            \toprule
+            \textbf{Prefixo} & \textbf{Funcionalidade} \\ \midrule
+            \texttt{pthread\_} &  Gerenciamento \\
+            \texttt{pthread\_attr\_} & Atributos \\
+            \texttt{pthread\_mutex\_} &  Mutexes \\
+            \texttt{pthread\_mutexattr\_} & Atributos de Mutexes \\
+            \texttt{pthread\_cond\_} & Variáveis condicionais \\
+            \texttt{pthread\_condattr\_} & Atributos de condicionais \\
+            \texttt{pthread\_key\_} & Dados específicos de threads \\
+            \texttt{pthread\_rwlock\_} & \textit{Locks} de leitura e escrita \\
+            \texttt{pthread\_barrier\_} &  Barreiras e sincronização \\ \bottomrule
+        \end{tabular}
+        \label{my-label}
+        \caption{Algumas funções da API Pthreads}
+    \end{table}
+\end{frame}
+
+\subsection{Exemplos}
+
+\begin{frame}
+    \frametitle{Pthreads: Tutorial}
+    \alert{POSIX Threads Programming}:
+    \begin{itemize}
+        \item Blaise Barney, Lawrence Livermore National Laboratory
+        \item \url{https://computing.llnl.gov/tutorials/pthreads}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{POSIX Threads: Hello, World!}
+    \begin{adjustbox}{width=.65\textwidth,center}
+    \begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+    #include <pthread.h>
+    #include <stdio.h>
+    #include <stdlib.h>
+    #define NUM_THREADS 5
+    void *print_hello(void *threadid){
+        long tid;
+        tid = (long) threadid;
+        printf("Hello World! It's me, thread #%ld!\n", tid);
+        pthread_exit(NULL);
+    };
+    int main(int argc, char *argv[]){
+        pthread_t threads[NUM_THREADS];
+        int error_code;
+        long t;
+        for(t = 0; t < NUM_THREADS; t++){
+            printf("In main: creating thread %ld\n", t);
+            error_code = pthread_create(&threads[t], NULL,
+                                        print_hello, (void *) t);
+            if (error_code){
+                printf("ERROR pthread_create(): %d\n", error_code);
+                exit(-1);
+            };
+        };
+        pthread_exit(NULL);
+    };
+    \end{lstlisting}
+    \end{adjustbox}
+\end{frame}
+
+\begin{frame}
+    \frametitle{POSIX Threads: Mais Exemplos}
+    Exemplos de código:
+
+    {\scriptsize\url{https://github.com/phrb/presentations/tree/master/aula-pthreads/code_samples/pthreads}}
+    \begin{itemize}
+        \item Hello, World!
+        \item Argumentos
+        \item \textit{Join}
+        \item Servidor IRC: \url{https://github.com/phrb/simple-irc-server}
+    \end{itemize}
+\end{frame}
+
+\section{OpenMP}
+
+\begin{frame}
+    \frametitle{OpenMP}
+    \alert{Open Multi-Processing} (OpenMP):
+    \begin{itemize}
+        \item API para paralelismo \alert{multithreaded} e de \alert{memória
+            compartilhada}
+        \item \alert{Diretivas de compilador}
+        \item Biblioteca de \alert{Tempo de Execução} (\alert{Runtime})
+        \item Variáveis de ambiente
+    \end{itemize}
+
+    Objetivos:
+    \begin{itemize}
+        \item Padronizar
+        \item Simplificar
+        \item Promover \alert{portabilidade}
+    \end{itemize}
+\end{frame}
+
+\subsection{Modelo de Programação}
+
+\begin{frame}
+    \frametitle{OpenMP: Modelo de Programação}
+    \begin{itemize}
+        \item Threads \alert{dinâmicas}
+        \item Paralelismo \alert{explícito e aninhável}
+        \item \alert{Diretivas} de compilador
+        \item Modelo \alert{Fork-Join}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{OpenMP: Fork-Join}
+    \begin{center}
+        \includegraphics[width=.99\textwidth]{omp-fork-join}
+    \end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{OpenMP: Diretivas}
+    Usadas para:
+    \begin{itemize}
+        \item Criar \alert{regiões paralelas}
+        \item Distribuir \alert{blocos de código}
+        \item Distribuir \alert{iterações de laços}
+        \item \alert{Sincronizar threads}
+        \item $\dots$
+    \end{itemize}
+
+    Modelo:
+    \begin{lstlisting}[basicstyle=\ttfamily]
+        #pragma omp directive [clause, ...]
+    \end{lstlisting}
+
+    Exemplo:
+    \begin{lstlisting}[basicstyle=\ttfamily]
+        #pragma omp parallel default(shared) private(beta,pi)
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{OpenMP: Biblioteca Runtime}
+    Usada para:
+    \begin{itemize}
+        \item Obter e definir \alert{número de threads}
+        \item Obter \alert{IDs de threads}
+        \item Obter \alert{região paralela e nível de aninhamento}
+        \item Obter, criar e destruir \alert{locks}
+        \item $\dots$
+    \end{itemize}
+
+    Exemplo:
+    \begin{lstlisting}[basicstyle=\ttfamily]
+        #include <omp.h>
+        int omp_get_num_threads(void)
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{OpenMP: Variáveis de Ambiente}
+    Usadas para:
+    \begin{itemize}
+        \item Definir \alert{número de threads}
+        \item Distribuir \alert{iterações de laços}
+        \item Associar \alert{threads a processadores}
+        \item Configurar \alert{paralelismo aninhado}
+        \item Configurar \alert{threads dinâmicas}
+        \item $\dots$
+    \end{itemize}
+
+    Exemplo:
+    \begin{lstlisting}[basicstyle=\ttfamily]
+        export OMP_NUM_THREADS=8
+    \end{lstlisting}
+\end{frame}
+
+\subsection{Exemplos}
+
+\begin{frame}
+    \frametitle{OpenMP: Tutorial}
+    \alert{OpenMP Programming}:
+    \begin{itemize}
+        \item Blaise Barney, Lawrence Livermore National Laboratory
+        \item \url{https://computing.llnl.gov/tutorials/openMP}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{OMP: Hello, World!}
+    \begin{adjustbox}{width=.65\textwidth,center}
+    \begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+    #include <stdio.h>
+    #include <omp.h>
+
+    int main(int argc, char *argv[]){
+        int nthreads, tid;
+
+        #pragma omp parallel private(tid)
+        {
+            tid = omp_get_thread_num();
+            printf("Hello World from thread = %d\n", tid);
+
+            if(tid == 0){
+                nthreads = omp_get_num_threads();
+                printf("Number of threads = %d\n", nthreads);
+            };
+        };
+        return 0;
+    };
+    \end{lstlisting}
+    \end{adjustbox}
+\end{frame}
+
+\begin{frame}
+    \frametitle{OpenMP: Mais Exemplos}
+    Exemplos de código:
+
+    {\scriptsize\url{https://github.com/phrb/presentations/tree/master/aula-pthreads/code_samples/omp}}
+    \begin{itemize}
+        \item Hello, World!
+        \item Parallel \texttt{for}
+        \item Reduction
+        \item Critical section
+    \end{itemize}
+\end{frame}
+
+% \begin{frame}[fragile]
+%     \frametitle{OpenMP: Exemplo com \texttt{taskloop}}
+%     \alert{Dividir e sincronizar} $1024$ iterações de um laço entre $32$
+%     \textit{threads}, usando \alert{OpenMP $\geq$ 4.5}:
+%
+%     \begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+%     #pragma omp taskloop num_tasks(32)
+%     for (long l = 0; l < 1024; l++){
+%         do_something(l);
+%     };
+%     \end{lstlisting}
+% \end{frame}
+
+\maketitle
+
+\end{document}

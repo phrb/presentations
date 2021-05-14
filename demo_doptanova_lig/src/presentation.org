@@ -1,0 +1,1076 @@
+#+TITLE:     Autotuning: A Design of Experiments Approach
+#+AUTHOR:    \footnotesize Pedro Bruel \newline \scriptsize \emph{phrb@ime.usp.br}
+#+EMAIL:     phrb@ime.usp.br
+#+DATE:      \scriptsize July 3rd, 2018
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:2 num:t toc:nil @:t \n:nil ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   tex:t latex:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+
+#+STARTUP: beamer
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]
+#+LATEX_HEADER: \mode<beamer>{\usetheme[numbering=fraction, progressbar=none, titleformat=smallcaps, sectionpage=none]{metropolis}}
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+#+LATEX_HEADER: \input{beamer_configuration.tex}
+
+* Autotuning
+** Autotuning: Optimizing Program Configurations
+*** Architectures for High Performance Computing              :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+
+    #+ATTR_LATEX: width=\columnwidth
+    #+ATTR_ORG: :width 600
+    [[../img/architectures.png]]
+
+    How to write *efficient code* for each of these?
+
+**** Autotuning                                                     :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+     #+LATEX: \vspace{.2cm}
+
+     The process of *automatically finding* a *configuration* of a program that
+     optimizes an *objective*
+
+*** Configurations                                            :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_COL: 0.5
+    :END:
+
+    - Program Configuration
+      - Algorithm, block size, $\dots$
+    - \colorbox{Accent!25}{Source code transformation}
+      - Loop unrolling, tiling, rotation $\dots$
+    - Compiler configuration
+      - =-O2=, vectorization, $\dots$
+    - $\dots$
+
+**** Objectives :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+     - \colorbox{Accent!25}{Execution time}
+     - Memory & power consumption
+     - $\dots$
+
+** Autotuning: Search Spaces
+*** Search Spaces                                            :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.4
+    :BEAMER_env: block
+    :END:
+
+     #+LATEX: \vspace{.2cm}
+
+     Represent the *effect* of all possible
+     *configurations* on the *objectives*
+**** Issues                                                         :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     - *Exponential Growth*
+     - *Geometry*
+     - *Measurement Time*
+*** Illustration                                                      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :END:
+    #+BEGIN_CENTER
+    #+ATTR_LATEX: width=.65\columnwidth
+    #+ATTR_ORG: :width 400
+    [[../img/holder_table.pdf]]
+
+    *Hölder Table Function*
+    #+END_CENTER
+
+** Autotuning: Multiple Approaches
+*** Popular Approaches                                        :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    #+LATEX: \footnotesize
+    - \colorbox{red!25}{Exhaustive}
+    - \colorbox{green!25}{Meta-Heuristics}
+    - \colorbox{cyan!25}{Machine Learning}
+    #+LATEX: \normalsize
+
+    #+LATEX: \vspace{-.4cm}
+
+    #+LATEX: \input{latex/popular_approaches.tex}
+
+*** Main Issues                                               :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+
+    #+LATEX: \vspace{0.2cm}
+
+    These approaches *assume*:
+
+    - A *large number of function evaluations*
+    - Seach space *``smoothness''*
+    - Good solutions are *reachable*
+
+    After optimizing:
+
+    - *Learn nothing* about the search space
+    - *Can't explain* why optimizations work
+* Applying Design of Experiments to Autotuning
+** Applying Design of Experiments to Autotuning
+*** Our Approach                                              :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+
+    #+LATEX: \vspace{.2cm}
+
+    Using *efficient experimental designs* to overcome issues
+    related to *exponential growth*, *geometry*, and
+    *measurement time*
+
+**** Design Requirements                                            :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     - Support a large number of factors (*Exponential Growth*)
+     - Support numerical and categorical factors (*Geometry*)
+     - Minimize function evaluations (*Measurement Time*)
+
+*** Main Candidate: *D-Optimal Designs*                       :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+
+    #+LATEX: \vspace{.2cm}
+
+    - Require an *initial model*
+    - Minimize *variance of estimators*
+    - Support *mixed-level factors*
+    - Constructed using *search algorithms*
+
+** D-Optimal Designs: Example in R
+*** Example                                                   :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    - Factors & Levels: \(\mathbf{X} = \{x_1 = \{1, 2, 3\}, x_2 = \{1, 2, 3\}\}\)
+    - Model: \(\mathbf{Y} = \mathbf{X}\beta + \eta\)
+    - Minimize: *D-optimality*
+    - Candidate set: *Full factorial*
+    - Construction method: *Fedorov's algorithm*
+
+**** Source code                                                    :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     #+HEADER: :results output :session *R* :exports code
+     #+BEGIN_SRC R
+     library(AlgDesign)
+     full_factorial <- gen.factorial(c(3, 3),
+                           factors = c(1, 2))
+     output <- optFederov(~., full_factorial,
+                          nTrials = 5)
+     #+END_SRC
+
+     #+RESULTS:
+
+*** Output                                                    :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+
+     #+LATEX: \scriptsize
+
+     #+HEADER: :results output :session *R* :exports results
+     #+BEGIN_SRC R
+     output$design = t(output$design)
+     output
+     full_factorial
+     #+END_SRC
+
+     #+RESULTS:
+     #+begin_example
+     $D
+     [1] 0.2
+
+     $A
+     [1] 13
+
+     $Ge
+     [1] 0.333
+
+     $Dea
+     [1] 0.135
+
+     $design
+        3   4   5   6   7
+     X1 "3" "1" "2" "3" "1"
+     X2 "1" "2" "2" "2" "3"
+
+     $rows
+     [1] 3 4 5 6 7
+       X1 X2
+     1  1  1
+     2  2  1
+     3  3  1
+     4  1  2
+     5  2  2
+     6  3  2
+     7  1  3
+     8  2  3
+     9  3  3
+     #+end_example
+
+     #+LATEX: \normalsize
+* Example: A Laplacian GPU Kernel
+** Example: A Laplacian GPU Kernel
+*** Search Space                                              :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    #+LATEX: \vspace{-.2cm}
+
+    #+LATEX: \input{latex/laplacian_parameters.tex}
+*** Objective                                                 :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+
+    #+LATEX: \vspace{.2cm}
+
+    *Minimize* the *time to compute each pixel*:
+    - $\alert{time\_per\_pixel}$
+
+**** Initial Model                                                  :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     #+LATEX: \scriptsize
+     \begin{align*}
+           \alert{time\_per\_pixel} = & \; y\_component\_number + 1 / y\_component\_number + \\
+                             & \; vector\_length + lws\_y + 1 / lws\_y + \\
+                             & \; load\_overlap + temporary\_size + \\
+                             & \; elements\_number + 1 / elements\_number + \\
+                             & \; threads\_number + 1 / threads\_number
+     \end{align*}
+     #+LATEX: \normalsize
+** Strategy
+   #+ATTR_LATEX: :width 0.63\textwidth
+   [[../img/doe_anova_strategy.eps]]
+** Loading Data
+   #+HEADER: :results output :session *R* :exports code
+   #+BEGIN_SRC R
+   library(AlgDesign)
+   library(car)
+   library(dplyr)
+   #+END_SRC
+
+   #+RESULTS:
+   #+begin_example
+   Loading required package: carData
+
+   Attaching package: ‘dplyr’
+
+   The following object is masked from ‘package:car’:
+
+       recode
+
+   The following objects are masked from ‘package:stats’:
+
+       filter, lag
+
+   The following objects are masked from ‘package:base’:
+
+       intersect, setdiff, setequal, union
+   #+end_example
+
+   #+LATEX: \scriptsize
+
+   #+HEADER: :results output :session *R* :exports both
+   #+BEGIN_SRC R
+   complete_data = read.csv("../data/search_space.csv", header = TRUE)
+   str(complete_data)
+   #+END_SRC
+
+   #+RESULTS:
+   #+begin_example
+   'data.frame':	23120 obs. of  9 variables:
+    $ elements_number   : int  3 2 4 2 2 2 2 4 4 3 ...
+    $ y_component_number: int  3 2 1 1 1 2 2 2 4 1 ...
+    $ vector_length     : int  4 1 4 1 8 2 1 8 16 4 ...
+    $ temporary_size    : int  4 2 2 2 2 2 4 4 2 4 ...
+    $ vector_recompute  : Factor w/ 1 level "true": 1 1 1 1 1 1 1 1 1 1 ...
+    $ load_overlap      : Factor w/ 2 levels "false","true": 2 1 2 1 2 2 1 2 2 2 ...
+    $ threads_number    : int  64 128 64 256 128 128 128 64 128 32 ...
+    $ lws_y             : int  64 1 32 64 32 8 2 2 128 32 ...
+    $ time_per_pixel    : num  1.11e-08 1.58e-10 2.34e-09 1.39e-09 3.40e-09 ...
+   #+end_example
+
+   #+LATEX: \normalsize
+
+** Configuration
+   #+HEADER: :results output :session *R* :exports code
+   #+BEGIN_SRC R
+   used <- 0
+   budget <- 120
+
+   iterations <- 1
+
+   factors = c("elements_number", "y_component_number",
+               "vector_length", "temporary_size",
+               "load_overlap", "threads_number",
+               "lws_y")
+
+   data <- complete_data[, c(factors, "time_per_pixel")]
+   #+END_SRC
+
+   #+RESULTS:
+
+** Step 1: D-Optimal Design
+   #+LATEX: \scriptsize
+   #+HEADER: :results output :session *R* :exports both
+   #+BEGIN_SRC R
+   output <- optFederov(~ y_component_number + I(1 / y_component_number) +
+                          vector_length + lws_y + I(1 / lws_y) +
+                          load_overlap + temporary_size +
+                          elements_number + I(1 / elements_number) +
+                          threads_number + I(1 / threads_number),
+                        data,
+                        nTrials = 24)
+
+   federov_design <- data[output$rows, ]
+   experiments <- output$rows
+
+   str(federov_design)
+   #+END_SRC
+
+   #+RESULTS:
+   : 'data.frame':	48 obs. of  8 variables:
+   :  $ elements_number   : int  1 4 1 1 4 2 1 4 1 4 ...
+   :  $ y_component_number: int  1 1 1 1 1 2 1 1 1 1 ...
+   :  $ vector_length     : int  1 1 1 16 1 16 1 1 16 1 ...
+   :  $ temporary_size    : int  2 2 4 2 2 4 4 4 4 2 ...
+   :  $ load_overlap      : Factor w/ 2 levels "false","true": 1 2 2 2 1 1 2 1 2 2 ...
+   :  $ threads_number    : int  32 128 128 128 32 32 32 128 256 32 ...
+   :  $ lws_y             : int  32 1 32 64 1 32 1 64 1 1 ...
+   :  $ time_per_pixel    : num  5.38e-09 3.00e-10 1.37e-09 2.13e-08 3.48e-10 ...
+
+   #+HEADER: :results output :session *R*
+   #+BEGIN_SRC R
+   output
+   #+END_SRC
+
+   #+RESULTS:
+   #+begin_example
+   $D
+   [1] 3.055716
+
+   $A
+   [1] 1302.825
+
+   $Ge
+   [1] 0.883
+
+   $Dea
+   [1] 0.876
+
+   $design
+         elements_number y_component_number vector_length temporary_size
+   278                 1                  1             1              2
+   679                 4                  1             1              2
+   1265                1                  1             1              4
+   2088                1                  1            16              2
+   2316                4                  1             1              2
+   2911                2                  2            16              4
+   4528                1                  1             1              4
+   4638                4                  1             1              4
+   5595                1                  1            16              4
+   5853                4                  1             1              2
+   6230                2                  2             1              4
+   6443               24                  6            16              2
+   7760               24                  6             1              2
+   8983               24                  6            16              4
+   9898                1                  1             1              4
+   10861               1                  1             2              2
+   11125               6                  6             1              2
+   11404              24                  6            16              2
+   11579               3                  3             1              2
+   11687              24                  6             1              4
+   12140               6                  2            16              4
+   12220              24                  6             1              2
+   12439               8                  2             1              4
+   12535               3                  3            16              2
+   13020               3                  3             1              4
+   13314               6                  6             1              2
+   13462               4                  1            16              4
+   13706               4                  1            16              2
+   15572               1                  1            16              2
+   15844               6                  6            16              2
+   16754               4                  1             1              4
+   17682               2                  2            16              2
+   18140               8                  2            16              2
+   18453              12                  3             1              4
+   18854               6                  6             1              2
+   19156               6                  6             1              4
+   19878              24                  6             1              4
+   20114              24                  6            16              4
+   20403               8                  2             1              2
+   20454              24                  6             1              2
+   20460               6                  6            16              2
+   20468               6                  6            16              4
+   20498               1                  1            16              2
+   20655               4                  1            16              4
+   21886               8                  2             1              2
+   21941               6                  6            16              4
+   22047               4                  1            16              2
+   22523               6                  6             1              4
+         load_overlap threads_number lws_y time_per_pixel
+   278          false             32    32   5.375363e-09
+   679           true            128     1   3.002279e-10
+   1265          true            128    32   1.365406e-09
+   2088          true            128    64   2.126500e-08
+   2316         false             32     1   3.481459e-10
+   2911         false             32    32   3.004519e-08
+   4528          true             32     1   5.742228e-10
+   4638         false            128    64   2.325322e-09
+   5595          true            256     1   1.994363e-09
+   5853          true             32     1   3.490299e-10
+   6230         false            256     1   1.610623e-10
+   6443         false            256     1   4.820430e-10
+   7760         false            256     1   1.474744e-10
+   8983         false             32     1   4.378793e-10
+   9898         false           1024  1024   5.374624e-09
+   10861         true           1024  1024   1.074687e-08
+   11125        false            128   128   3.005795e-09
+   11404         true             32    32   6.049068e-09
+   11579         true           1024     1   1.499903e-10
+   11687         true           1024  1024   3.761999e-09
+   12140        false            256    32   1.484748e-09
+   12220         true           1024    32   1.962965e-10
+   12439         true             32    32   3.112197e-09
+   12535         true           1024  1024   3.584549e-08
+   13020         true           1024  1024   3.634243e-09
+   13314         true             32     1   1.950445e-10
+   13462         true           1024  1024   1.119401e-08
+   13706         true           1024    16   8.776046e-10
+   15572        false           1024     1   2.793304e-09
+   15844        false             32    32   2.410326e-08
+   16754        false           1024    16   3.137135e-10
+   17682        false           1024     1   1.923828e-09
+   18140        false           1024  1024   8.908715e-09
+   18453         true           1024    16   2.124916e-10
+   18854         true           1024    32   1.306016e-10
+   19156        false           1024     1   1.253740e-10
+   19878        false           1024    16   1.783716e-10
+   20114         true             32     1   4.479387e-10
+   20403        false            128    64   1.616966e-09
+   20454        false           1024  1024   3.741158e-09
+   20460         true            128   128   2.749388e-08
+   20468         true            128     1   1.543067e-09
+   20498        false           1024    32   1.989157e-09
+   20655         true           1024     1   9.526888e-10
+   21886        false             32     1   2.315778e-10
+   21941        false             32    32   2.410010e-08
+   22047        false           1024  1024   1.108180e-08
+   22523        false           1024  1024   3.750906e-09
+
+   $rows
+    [1]   278   679  1265  2088  2316  2911  4528  4638  5595  5853  6230  6443
+   [13]  7760  8983  9898 10861 11125 11404 11579 11687 12140 12220 12439 12535
+   [25] 13020 13314 13462 13706 15572 15844 16754 17682 18140 18453 18854 19156
+   [37] 19878 20114 20403 20454 20460 20468 20498 20655 21886 21941 22047 22523
+   #+end_example
+
+   #+LATEX: \normalsize
+
+** Step 1: Regression
+   #+LATEX: \scriptsize
+   #+HEADER: :results output :session *R* :exports both
+   #+BEGIN_SRC R
+   regression <- lm(time_per_pixel ~ y_component_number + I(1 / y_component_number) +
+                                     vector_length + lws_y + I(1 / lws_y) +
+                                     load_overlap + temporary_size +
+                                     elements_number + I(1 / elements_number) +
+                                     threads_number + I(1 / threads_number),
+                     data = federov_design)
+   summary.aov(regression)
+   #+END_SRC
+
+   #+RESULTS:
+   #+begin_example
+                           Df    Sum Sq   Mean Sq F value   Pr(>F)
+   y_component_number       1 6.100e-18 6.100e-18   0.165  0.68737
+   I(1/y_component_number)  1 5.870e-17 5.870e-17   1.585  0.21608
+   vector_length            1 8.450e-16 8.450e-16  22.823 2.96e-05 ***
+   lws_y                    1 3.042e-16 3.042e-16   8.217  0.00689 **
+   I(1/lws_y)               1 4.196e-16 4.196e-16  11.333  0.00182 **
+   load_overlap             1 7.500e-18 7.500e-18   0.203  0.65497
+   temporary_size           1 4.430e-17 4.430e-17   1.197  0.28126
+   elements_number          1 3.667e-16 3.667e-16   9.904  0.00330 **
+   I(1/elements_number)     1 1.700e-17 1.700e-17   0.459  0.50258
+   threads_number           1 2.754e-16 2.754e-16   7.437  0.00981 **
+   I(1/threads_number)      1 4.990e-17 4.990e-17   1.347  0.25347
+   Residuals               36 1.333e-15 3.700e-17
+   ---
+   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+   #+end_example
+
+   #+LATEX: \normalsize
+
+   #+HEADER: :results output :session *R* :exports none
+   #+BEGIN_SRC R
+   used <- used + nrow(federov_design)
+   #+END_SRC
+
+   #+RESULTS:
+
+** Step 1: Heteroscedasticity
+   #+HEADER: :results output :session *R* :exports none
+   #+BEGIN_SRC R
+   ncvTest(regression)
+   #+END_SRC
+
+   #+RESULTS:
+   : Non-constant Variance Score Test
+   : Variance formula: ~ fitted.values
+   : Chisquare = 16.53125    Df = 1     p = 4.785477e-05
+
+   #+HEADER: :results graphics output :session *R* :exports none
+   #+HEADER: :file ../img/regression_before_transform.png
+   #+HEADER: :width 800 :height 600
+   #+BEGIN_SRC R
+   plot(regression, which = c(1), cex.lab = 1.5, cex.axis = 1.5, cex.sub = 1.5, cex.main = 1.5)
+   #+END_SRC
+
+   #+RESULTS:
+   [[file:../img/regression_before_transform.png]]
+
+   #+ATTR_LATEX: :width 0.7\textwidth
+   [[../img/regression_before_transform.png]]
+
+** Step 1: Power Transform
+   #+HEADER: :results output :session *R* :exports code
+   #+BEGIN_SRC R
+   boxcox_transform <- powerTransform(time_per_pixel ~ y_component_number +
+                                         I(1 / y_component_number) +
+                                         vector_length + lws_y + I(1 / lws_y) +
+                                         load_overlap + temporary_size +
+                                         elements_number + I(1 / elements_number) +
+                                         threads_number + I(1 / threads_number),
+                                      data = federov_design)
+
+   regression <- lm(bcPower(time_per_pixel, boxcox_transform$lambda) ~ y_component_number +
+                                   I(1 / y_component_number) +
+                                   vector_length + lws_y + I(1 / lws_y) +
+                                   load_overlap + temporary_size +
+                                   elements_number + I(1 / elements_number) +
+                                   threads_number + I(1 / threads_number),
+                                data = federov_design)
+   #+END_SRC
+
+   #+RESULTS:
+
+** Step 1: Power Transform Results
+   #+HEADER: :results output :session *R* :exports none
+   #+BEGIN_SRC R
+   ncvTest(regression)
+   #+END_SRC
+
+   #+RESULTS:
+   : Non-constant Variance Score Test
+   : Variance formula: ~ fitted.values
+   : Chisquare = 0.09165178    Df = 1     p = 0.7620877
+
+   #+LATEX: \scriptsize
+   #+HEADER: :results output :session *R* :exports both
+   #+BEGIN_SRC R
+   summary.aov(regression)
+   #+END_SRC
+
+   #+RESULTS:
+   #+begin_example
+                           Df Sum Sq Mean Sq F value   Pr(>F)
+   y_component_number       1   5.93    5.93   2.552  0.13616
+   I(1/y_component_number)  1   0.06    0.06   0.027  0.87126
+   vector_length            1  66.84   66.84  28.746  0.00017 ***
+   lws_y                    1  79.03   79.03  33.992 8.08e-05 ***
+   I(1/lws_y)               1  30.24   30.24  13.005  0.00360 **
+   load_overlap             1   0.59    0.59   0.252  0.62477
+   temporary_size           1   5.50    5.50   2.366  0.14995
+   elements_number          1   0.39    0.39   0.169  0.68840
+   I(1/elements_number)     1  17.74   17.74   7.632  0.01720 *
+   threads_number           1  21.98   21.98   9.452  0.00964 **
+   I(1/threads_number)      1   0.08    0.08   0.033  0.85934
+   Residuals               12  27.90    2.33
+   ---
+   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+   #+end_example
+
+   #+LATEX: \normalsize
+** Step 1: Power Transform Results
+   #+HEADER: :results graphics output :session *R* :exports none
+   #+HEADER: :file ../img/regression_after_transform.png
+   #+HEADER: :width 800 :height 600
+   #+BEGIN_SRC R
+   plot(regression, which = c(1), cex.lab = 1.5, cex.axis = 1.5, cex.sub = 1.5, cex.main = 1.5)
+   #+END_SRC
+
+   #+RESULTS:
+   [[file:../img/regression_after_transform.png]]
+
+   #+ATTR_LATEX: :width 0.7\textwidth
+   [[../img/regression_after_transform.png]]
+** Step 1: Predicting Best Point and Pruning Data
+   #+HEADER: :results output :session *R*
+   #+BEGIN_SRC R
+   predicted_best <- data[predict(regression, data) == min(predict(regression, data)), ]
+   best <- complete_data[complete_data$time_per_pixel == min(complete_data$time_per_pixel), ]
+   best_row <- rownames(best)
+
+   predicted_best$slowdown <- predicted_best$time_per_pixel / best$time_per_pixel
+   predicted_best$method <- rep("DOPTaov_t", nrow(predicted_best))
+   predicted_best$point_number <- rep(used, nrow(predicted_best))
+   predicted_best$vector_recompute <- rep("true", nrow(predicted_best))
+
+   data <- complete_data[complete_data$vector_length == predicted_best$vector_length &
+                         complete_data$lws_y == predicted_best$lws_y, c(factors, "time_per_pixel")]
+   scaled_data <- data[, factors]
+   #+END_SRC
+
+   #+RESULTS:
+** Step 1: Predicting Best Point and Pruning Data
+   #+LATEX: \scriptsize
+   #+HEADER: :results output :session *R* :exports both
+   #+BEGIN_SRC R
+   predicted_best
+   str(data)
+   #+END_SRC
+
+   #+RESULTS:
+   #+begin_example
+         elements_number y_component_number vector_length temporary_size
+   15927               4                  1             1              2
+         load_overlap threads_number lws_y time_per_pixel slowdown    method
+   15927         true           1024     1   3.368082e-10 2.891024 DOPTaov_t
+         point_number vector_recompute
+   15927            0             true
+   'data.frame':	576 obs. of  8 variables:
+    $ elements_number   : int  2 4 4 1 3 3 3 4 4 4 ...
+    $ y_component_number: int  2 1 1 1 1 3 1 2 2 1 ...
+    $ vector_length     : int  1 1 1 1 1 1 1 1 1 1 ...
+    $ temporary_size    : int  2 4 2 4 4 2 2 4 4 4 ...
+    $ load_overlap      : Factor w/ 2 levels "false","true": 1 1 1 1 1 1 2 1 2 1 ...
+    $ threads_number    : int  128 64 128 256 256 128 512 64 64 512 ...
+    $ lws_y             : int  1 1 1 1 1 1 1 1 1 1 ...
+    $ time_per_pixel    : num  1.58e-10 3.03e-10 3.01e-10 2.36e-10 3.33e-10 ...
+   #+end_example
+   #+LATEX: \normalsize
+** Subsequent Steps
+   We can now *continue* with the *other steps*:
+   #+LATEX: \scriptsize
+   #+HEADER: :results output :session *R* :exports none
+   #+BEGIN_SRC R
+   if (nrow(scaled_data) > 18) {
+       output <- optFederov(~ y_component_number + I(1 / y_component_number) +
+                              load_overlap + temporary_size +
+                              elements_number + I(1 / elements_number) +
+                              threads_number + I(1 / threads_number),
+                            scaled_data,
+                            nTrials = 18)
+
+       federov_design <- data[output$rows, ]
+   } else {
+       federov_design <- data
+   }
+
+   used_rows <- rownames(federov_design)[!(rownames(federov_design) %in% experiments)]
+   used <- used + nrow(federov_design[used_rows, ])
+   experiments <- c(experiments, output$rows[!(output$rows %in% experiments)])
+
+   str(data)
+   str(federov_design)
+
+   regression <- aov(time_per_pixel ~ y_component_number + I(1 / y_component_number) +
+                                      load_overlap + temporary_size +
+                                      elements_number + I(1 / elements_number) +
+                                      threads_number + I(1 / threads_number),
+                     data = federov_design)
+
+   boxcox_transform <- powerTransform(time_per_pixel ~ y_component_number +
+                                         I(1 / y_component_number) +
+                                         load_overlap + temporary_size +
+                                         elements_number + I(1 / elements_number) +
+                                         threads_number + I(1 / threads_number),
+                                      data = federov_design)
+
+   regression <- lm(bcPower(time_per_pixel, boxcox_transform$lambda) ~ y_component_number +
+                                   I(1 / y_component_number) +
+                                   load_overlap + temporary_size +
+                                   elements_number + I(1 / elements_number) +
+                                   threads_number + I(1 / threads_number),
+                                data = federov_design)
+
+   summary.aov(regression)
+
+   predicted_best <- data[predict(regression, data) == min(predict(regression, data)), ]
+   best <- complete_data[complete_data$time_per_pixel == min(complete_data$time_per_pixel), ]
+   best_row <- rownames(best)
+
+   predicted_best$slowdown <- predicted_best$time_per_pixel / best$time_per_pixel
+   predicted_best$method <- rep("DOPTaov_t", nrow(predicted_best))
+   predicted_best$point_number <- rep(used, nrow(predicted_best))
+   predicted_best$vector_recompute <- rep("true", nrow(predicted_best))
+
+   predicted_best
+
+   data <- complete_data[complete_data$vector_length == predicted_best$vector_length &
+                         complete_data$lws_y == predicted_best$lws_y &
+                         complete_data$y_component_number == predicted_best$y_component_number &
+                         complete_data$threads_number == predicted_best$threads_number, c(factors, "time_per_pixel")]
+   scaled_data <- data[, factors]
+
+   if (nrow(scaled_data) > 10) {
+       output <- optFederov(~ load_overlap + temporary_size +
+                              elements_number + I(1 / elements_number),
+                            scaled_data,
+                            nTrials = 10)
+
+       federov_design <- data[output$rows, ]
+   } else {
+       federov_design <- data
+   }
+
+   used_rows <- rownames(federov_design)[!(rownames(federov_design) %in% experiments)]
+   used <- used + nrow(federov_design[used_rows, ])
+   experiments <- c(experiments, output$rows[!(output$rows %in% experiments)])
+
+   str(data)
+   str(federov_design)
+
+   regression <- aov(time_per_pixel ~ load_overlap + temporary_size +
+                                      elements_number + I(1 / elements_number),
+                     data = federov_design)
+
+   predicted_best <- data[predict(regression, data) == min(predict(regression, data)), ]
+   best <- complete_data[complete_data$time_per_pixel == min(complete_data$time_per_pixel), ]
+   best_row <- rownames(best)
+
+   predicted_best$slowdown <- predicted_best$time_per_pixel / best$time_per_pixel
+   predicted_best$method <- rep("DOPTaov_t", nrow(predicted_best))
+   predicted_best$point_number <- rep(used, nrow(predicted_best))
+   predicted_best$vector_recompute <- rep("true", nrow(predicted_best))
+
+   predicted_best
+
+   data <- complete_data[complete_data$vector_length == predicted_best$vector_length &
+                         complete_data$lws_y == predicted_best$lws_y &
+                         complete_data$y_component_number == predicted_best$y_component_number &
+                         complete_data$threads_number == predicted_best$threads_number &
+                         complete_data$elements_number == predicted_best$elements_number, c(factors, "time_per_pixel")]
+   scaled_data <- data[, factors]
+
+   if (nrow(scaled_data) > 6) {
+       output <- optFederov(~ load_overlap + temporary_size,
+                            scaled_data,
+                            nTrials = 6)
+
+       federov_design <- data[output$rows, ]
+   } else {
+       federov_design <- data
+   }
+
+   used_rows <- rownames(federov_design)[!(rownames(federov_design) %in% experiments)]
+   used <- used + nrow(federov_design[used_rows, ])
+   experiments <- c(experiments, output$rows[!(output$rows %in% experiments)])
+
+   str(data)
+   str(federov_design)
+
+   regression <- lm(time_per_pixel ~ load_overlap + temporary_size,
+                    data = federov_design)
+
+   summary.aov(regression)
+
+   predicted_best <- data[predict(regression, data) == min(predict(regression, data)), ]
+   predicted_best
+
+   best <- complete_data[complete_data$time_per_pixel == min(complete_data$time_per_pixel), ]
+   best_row <- rownames(best)
+
+   predicted_best$slowdown <- predicted_best$time_per_pixel / best$time_per_pixel
+   predicted_best$method <- rep("DOPTaov_t", nrow(predicted_best))
+   predicted_best$point_number <- rep(used, nrow(predicted_best))
+   predicted_best$vector_recompute <- rep("true", nrow(predicted_best))
+
+   predicted_best <- predicted_best[, c("elements_number", "y_component_number",
+                                       "vector_length", "temporary_size", "vector_recompute",
+                                       "load_overlap", "threads_number", "lws_y",
+                                       "time_per_pixel", "point_number", "method",
+                                       "slowdown")]
+   predicted_best
+   #+END_SRC
+
+   #+RESULTS:
+   #+begin_example
+   'data.frame':	576 obs. of  8 variables:
+    $ elements_number   : int  2 4 4 1 3 3 3 4 4 4 ...
+    $ y_component_number: int  2 1 1 1 1 3 1 2 2 1 ...
+    $ vector_length     : int  1 1 1 1 1 1 1 1 1 1 ...
+    $ temporary_size    : int  2 4 2 4 4 2 2 4 4 4 ...
+    $ load_overlap      : Factor w/ 2 levels "false","true": 1 1 1 1 1 1 2 1 2 1 ...
+    $ threads_number    : int  128 64 128 256 256 128 512 64 64 512 ...
+    $ lws_y             : int  1 1 1 1 1 1 1 1 1 1 ...
+    $ time_per_pixel    : num  1.58e-10 3.03e-10 3.01e-10 2.36e-10 3.33e-10 ...
+   'data.frame':	18 obs. of  8 variables:
+    $ elements_number   : int  4 2 4 1 1 3 24 6 1 12 ...
+    $ y_component_number: int  1 2 1 1 1 3 6 6 1 3 ...
+    $ vector_length     : int  1 1 1 1 1 1 1 1 1 1 ...
+    $ temporary_size    : int  4 2 2 4 2 4 2 4 4 4 ...
+    $ load_overlap      : Factor w/ 2 levels "false","true": 1 2 1 2 1 1 1 1 2 1 ...
+    $ threads_number    : int  128 128 32 32 128 32 32 256 1024 1024 ...
+    $ lws_y             : int  1 1 1 1 1 1 1 1 1 1 ...
+    $ time_per_pixel    : num  3.00e-10 1.57e-10 3.48e-10 5.74e-10 2.30e-10 ...
+                           Df    Sum Sq   Mean Sq F value   Pr(>F)
+   y_component_number       1 1.197e+12 1.197e+12  44.288 9.32e-05 ***
+   I(1/y_component_number)  1 4.350e+10 4.350e+10   1.610  0.23633
+   load_overlap             1 1.614e+09 1.614e+09   0.060  0.81239
+   temporary_size           1 3.551e+10 3.551e+10   1.314  0.28118
+   elements_number          1 4.403e+10 4.403e+10   1.630  0.23372
+   I(1/elements_number)     1 2.151e+09 2.151e+09   0.080  0.78419
+   threads_number           1 9.074e+09 9.074e+09   0.336  0.57645
+   I(1/threads_number)      1 3.259e+11 3.259e+11  12.061  0.00702 **
+   Residuals                9 2.432e+11 2.702e+10
+   ---
+   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+         elements_number y_component_number vector_length temporary_size
+   17258               6                  6             1              2
+         load_overlap threads_number lws_y time_per_pixel slowdown    method
+   17258         true            256     1     1.1792e-10 1.012177 DOPTaov_t
+         point_number vector_recompute
+   17258           18             true
+   'data.frame':	16 obs. of  8 variables:
+    $ elements_number   : int  18 24 12 18 6 12 12 6 24 12 ...
+    $ y_component_number: int  6 6 6 6 6 6 6 6 6 6 ...
+    $ vector_length     : int  1 1 1 1 1 1 1 1 1 1 ...
+    $ temporary_size    : int  4 2 2 2 4 4 4 4 2 2 ...
+    $ load_overlap      : Factor w/ 2 levels "false","true": 2 1 1 1 1 2 1 2 2 2 ...
+    $ threads_number    : int  256 256 256 256 256 256 256 256 256 256 ...
+    $ lws_y             : int  1 1 1 1 1 1 1 1 1 1 ...
+    $ time_per_pixel    : num  1.64e-10 1.47e-10 1.39e-10 1.64e-10 1.20e-10 ...
+   'data.frame':	10 obs. of  8 variables:
+    $ elements_number   : int  24 12 6 12 12 24 12 6 6 24
+    $ y_component_number: int  6 6 6 6 6 6 6 6 6 6
+    $ vector_length     : int  1 1 1 1 1 1 1 1 1 1
+    $ temporary_size    : int  2 2 4 4 4 2 2 2 2 4
+    $ load_overlap      : Factor w/ 2 levels "false","true": 1 1 1 2 1 2 2 2 1 2
+    $ threads_number    : int  256 256 256 256 256 256 256 256 256 256
+    $ lws_y             : int  1 1 1 1 1 1 1 1 1 1
+    $ time_per_pixel    : num  1.47e-10 1.39e-10 1.20e-10 1.40e-10 1.41e-10 ...
+         elements_number y_component_number vector_length temporary_size
+   17258               6                  6             1              2
+         load_overlap threads_number lws_y time_per_pixel slowdown    method
+   17258         true            256     1     1.1792e-10 1.012177 DOPTaov_t
+         point_number vector_recompute
+   17258           28             true
+   'data.frame':	4 obs. of  8 variables:
+    $ elements_number   : int  6 6 6 6
+    $ y_component_number: int  6 6 6 6
+    $ vector_length     : int  1 1 1 1
+    $ temporary_size    : int  4 4 2 2
+    $ load_overlap      : Factor w/ 2 levels "false","true": 1 2 2 1
+    $ threads_number    : int  256 256 256 256
+    $ lws_y             : int  1 1 1 1
+    $ time_per_pixel    : num  1.20e-10 1.20e-10 1.18e-10 1.18e-10
+   'data.frame':	4 obs. of  8 variables:
+    $ elements_number   : int  6 6 6 6
+    $ y_component_number: int  6 6 6 6
+    $ vector_length     : int  1 1 1 1
+    $ temporary_size    : int  4 4 2 2
+    $ load_overlap      : Factor w/ 2 levels "false","true": 1 2 2 1
+    $ threads_number    : int  256 256 256 256
+    $ lws_y             : int  1 1 1 1
+    $ time_per_pixel    : num  1.20e-10 1.20e-10 1.18e-10 1.18e-10
+                  Df    Sum Sq   Mean Sq F value Pr(>F)
+   load_overlap    1 6.000e-27 6.000e-27   0.137 0.7746
+   temporary_size  1 3.575e-24 3.575e-24  84.289 0.0691 .
+   Residuals       1 4.200e-26 4.200e-26
+   ---
+   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+         elements_number y_component_number vector_length temporary_size
+   17258               6                  6             1              2
+         load_overlap threads_number lws_y time_per_pixel
+   17258         true            256     1     1.1792e-10
+         elements_number y_component_number vector_length temporary_size
+   17258               6                  6             1              2
+         vector_recompute load_overlap threads_number lws_y time_per_pixel
+   17258             true         true            256     1     1.1792e-10
+         point_number    method slowdown
+   17258           32 DOPTaov_t 1.012177
+   #+end_example
+
+   #+HEADER: :results output :session *R* :exports both
+   #+BEGIN_SRC R
+   predicted_best
+   #+END_SRC
+
+   #+RESULTS:
+   :       elements_number y_component_number vector_length temporary_size
+   : 17258               6                  6             1              2
+   :       vector_recompute load_overlap threads_number lws_y time_per_pixel
+   : 17258             true         true            256     1     1.1792e-10
+   :       point_number    method slowdown
+   : 17258           56 DOPTaov_t 1.012177
+
+   #+LATEX: \normalsize
+
+** Comparing Strategies
+   #+LATEX: \vspace{0.3cm}
+
+   #+HEADER: :file ../img/comparison_histogram.pdf :exports none :width 7 :height 8
+   #+BEGIN_SRC R :results output graphics  :session *R*
+   library(ggplot2)
+   library(plyr)
+
+   df_all_methods <- read.csv("../data/complete_1000.csv", strip.white = T, header = T)
+
+   df_all_methods$method <- factor(df_all_methods$method, levels = c("RS","LHS","GS","GSR","GA","LM", "LMB", "LMBT", "RQ", "DOPT", "DLM", "DLMT"))
+
+   df_mean = ddply(df_all_methods,.(method), summarize,
+                   mean = mean(slowdown))
+
+   df_median = ddply(df_all_methods,.(method), summarize,
+                     median = median(slowdown))
+
+   df_err = ddply(df_all_methods,.(method), summarize,
+                 mean = mean(slowdown), err = 2 * sd(slowdown) / sqrt(length(slowdown)))
+
+   df_max = ddply(df_all_methods,.(method), summarize, max = max(slowdown))
+
+   ggplot(df_all_methods ) +
+       facet_grid(method~.) +
+       theme_bw() +
+       coord_cartesian(xlim = c(.9, 4), ylim = c(0, 1000)) +
+       geom_histogram(aes(slowdown), binwidth = .05, fill = "gray48") +
+       geom_curve(data = df_max, aes(x = max + .1, y = 500, xend = max, yend = 5), arrow = arrow(length = unit(0.05, "npc")), curvature = 0.3) +
+       geom_text( aes(x = max+.2, y = 550, label = "max"), data = df_max ) +
+       geom_rect(data = df_err, aes(xmin = mean-err, xmax = mean + err, ymin = 0, ymax = 1000, fill = "red"), alpha = 0.3) +
+       geom_vline( aes(xintercept = median), df_median, color = "darkgreen", linetype = 3 ) +
+       geom_vline( aes(xintercept = mean), df_mean, color = "red", linetype = 2 ) +
+       labs(y = "Frequency", x = "Slowdown compared to the optimal solution") +
+       scale_fill_discrete(name = "",breaks = c("red"), labels = c("Mean error")) +
+       ggtitle("") +
+       theme(legend.position = "top")
+   #+END_SRC
+
+   #+RESULTS:
+   [[file:../img/comparison_histogram.pdf]]
+
+   #+HEADER: :results output latex :session *R* :exports results
+   #+BEGIN_SRC R
+   library(xtable)
+   summaries <- data.frame(RS = c(as.data.frame(unclass(summary(df_all_methods[df_all_methods$method == "RS", ]$slowdown)))[ , 1],
+                                 mean(df_all_methods[df_all_methods$method == "RS",]$point_number),
+                                 max(df_all_methods[df_all_methods$method == "LHS",]$point_number)),
+                           LHS = c(as.data.frame(unclass(summary(df_all_methods[df_all_methods$method == "LHS", ]$slowdown)))[ , 1],
+                                   mean(df_all_methods[df_all_methods$method == "LHS",]$point_number),
+                                   max(df_all_methods[df_all_methods$method == "LHS",]$point_number)),
+                           GS = c(as.data.frame(unclass(summary(df_all_methods[df_all_methods$method == "GS", ]$slowdown)))[ , 1],
+                                 mean(df_all_methods[df_all_methods$method == "GS",]$point_number),
+                                 max(df_all_methods[df_all_methods$method == "GS",]$point_number)),
+                           GSR = c(as.data.frame(unclass(summary(df_all_methods[df_all_methods$method == "GSR", ]$slowdown)))[ , 1],
+                                   mean(df_all_methods[df_all_methods$method == "GSR",]$point_number),
+                                   max(df_all_methods[df_all_methods$method == "GSR",]$point_number)),
+                           GA = c(as.data.frame(unclass(summary(df_all_methods[df_all_methods$method == "GA", ]$slowdown)))[ , 1],
+                                 mean(df_all_methods[df_all_methods$method == "GA",]$point_number),
+                                 max(df_all_methods[df_all_methods$method == "GA",]$point_number)),
+                           LM = c(as.data.frame(unclass(summary(df_all_methods[df_all_methods$method == "LM", ]$slowdown)))[ , 1],
+                                 mean(df_all_methods[df_all_methods$method == "LM",]$point_number),
+                                 max(df_all_methods[df_all_methods$method == "LM",]$point_number)),
+                           LMB = c(as.data.frame(unclass(summary(df_all_methods[df_all_methods$method == "LMB", ]$slowdown)))[ , 1],
+                                 mean(df_all_methods[df_all_methods$method == "LMB",]$point_number),
+                                 max(df_all_methods[df_all_methods$method == "LMB",]$point_number)),
+                           LMBT = c(as.data.frame(unclass(summary(df_all_methods[df_all_methods$method == "LMBT", ]$slowdown)))[ , 1],
+                                 mean(df_all_methods[df_all_methods$method == "LMBT",]$point_number),
+                                 max(df_all_methods[df_all_methods$method == "LMBT",]$point_number)),
+                           RQ = c(as.data.frame(unclass(summary(df_all_methods[df_all_methods$method == "RQ", ]$slowdown)))[ , 1],
+                                 mean(df_all_methods[df_all_methods$method == "RQ",]$point_number),
+                                 max(df_all_methods[df_all_methods$method == "RQ",]$point_number)),
+                           DOPT = c(as.data.frame(unclass(summary(df_all_methods[df_all_methods$method == "DOPT", ]$slowdown)))[ , 1],
+                                   mean(df_all_methods[df_all_methods$method == "DOPT",]$point_number),
+                                   max(df_all_methods[df_all_methods$method == "DOPT",]$point_number)),
+                           DLM = c(as.data.frame(unclass(summary(df_all_methods[df_all_methods$method == "DLM", ]$slowdown)))[ , 1],
+                                       mean(df_all_methods[df_all_methods$method == "DLM",]$point_number),
+                                       max(df_all_methods[df_all_methods$method == "DLM",]$point_number)),
+                           DLMT = c(as.data.frame(unclass(summary(df_all_methods[df_all_methods$method == "DLMT", ]$slowdown)))[ , 1],
+                                       mean(df_all_methods[df_all_methods$method == "DLMT",]$point_number),
+                                       max(df_all_methods[df_all_methods$method == "DLMT",]$point_number)))
+
+   rownames(summaries) <- c(rownames(as.data.frame(unclass(summary(df_all_methods[df_all_methods$method == "RS", ]$slowdown)))), "Mean Pt.", "Max Pt.")
+   x <- xtable(t(summaries), caption = "Summary statistics")
+   align(x) <- xalign(x)
+   display(x) <- display(x)
+   print(x, size = "\\small")
+   #+END_SRC
+
+   #+RESULTS:
+   #+BEGIN_EXPORT latex
+   % latex table generated in R 3.4.4 by xtable 1.8-2 package
+   % Mon Jul  2 16:56:29 2018
+   \begin{table}[ht]
+   \centering
+   \begingroup\scriptsize
+   \begin{tabular}{lrrrrrrrr}
+     \hline
+    & Min. & 1st Qu. & Median & Mean & 3rd Qu. & Max. & Mean Pt. & Max Pt. \\
+     \hline
+   RS & 1.00 & 1.03 & 1.08 & 1.10 & 1.18 & 1.39 & 120.00 & 125.00 \\
+     LHS & 1.00 & 1.09 & 1.19 & 1.17 & 1.24 & 1.52 & 98.92 & 125.00 \\
+     GS & 1.00 & 1.35 & 1.80 & 6.46 & 6.31 & 124.76 & 22.17 & 106.00 \\
+     GSR & 1.00 & 1.07 & 1.19 & 1.23 & 1.33 & 3.16 & 120.00 & 120.00 \\
+     GA & 1.00 & 1.02 & 1.09 & 1.12 & 1.19 & 1.65 & 120.00 & 120.00 \\
+     LM & 1.01 & 1.01 & 1.01 & 1.02 & 1.01 & 3.77 & 119.00 & 119.00 \\
+     LMB & 1.01 & 1.01 & 1.03 & 1.03 & 1.03 & 3.80 & 104.81 & 106.00 \\
+     LMBT & 1.01 & 1.01 & 1.03 & 1.03 & 1.03 & 1.98 & 104.89 & 106.00 \\
+     RQ & 1.01 & 1.01 & 1.01 & 1.02 & 1.01 & 2.06 & 119.00 & 119.00 \\
+     DOPT & 1.38 & 1.64 & 1.64 & 1.68 & 1.64 & 2.91 & 120.00 & 120.00 \\
+     DLM & 1.01 & 1.01 & 1.01 & 1.01 & 1.01 & 1.08 & 54.85 & 56.00 \\
+     DLMT & 1.01 & 1.01 & 1.01 & 1.01 & 1.01 & 1.01 & 54.84 & 56.00 \\
+      \hline
+   \end{tabular}
+   \endgroup
+   \caption{Summary statistics}
+   \end{table}
+   #+END_EXPORT
+* Resources
+** Resources
+   #+BEGIN_CENTER
+   The code, slides and images are *hosted at GitHub*:
+
+   [[https://github.com/phrb/presentations/tree/master/demo_doptanova_lig][\texttt{github.com/phrb/presentations/tree/master/demo\_doptanova\_lig}]]
+   #+END_CENTER
+* Ending Title :B_ignoreheading:
+  :PROPERTIES:
+  :BEAMER_env: ignoreheading
+  :END:
+  #+LATEX: \maketitle

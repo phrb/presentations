@@ -1,0 +1,119 @@
+\section{Avaliação experimental}
+
+\plain{Avaliação Experimental}
+
+\subsection{Testbed}
+
+\begin{frame}
+  \frametitle{Testbed}
+
+  \begin{figure}
+          \includegraphics[scale=0.33]{testbed.png}
+  \end{figure}
+\end{frame}
+
+\subsection{Experimentos}
+
+\begin{frame}
+  \frametitle{Medidas de Alcance 1D}
+
+  \begin{figure}
+          \includegraphics[width=6cm]{experiment_1D.png}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Medidas de Localização 2D}
+
+  \begin{figure}
+          \includegraphics[width=5cm]{experiment_2D_probability.png}
+          \includegraphics[width=5cm]{experiment_2D_position.png}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Medidas de Localização 3D}
+
+  \begin{figure}
+    \includegraphics[width=4cm]{experiment_3D_in_open_lab.png}\hfil
+    \includegraphics[width=4cm]{experiment_3D_in_narrow_lounge.png}\newline
+    \hfil\hfil\includegraphics[width=4cm]{experiment_3D_in_classroom.png}
+        \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Localização com Elementos de Dispersão}
+
+  \begin{figure}
+          \centering
+    \includegraphics[width=7cm]{experiment_3D_without_scatter.png}
+                \vfill
+    \includegraphics[width=7cm]{experiment_3D_with_5_scatters.png}
+        \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Localização com Elementos de Dispersão}
+
+  \begin{figure}
+          \vfill
+          \includegraphics[width=9cm]{experiment_3D_error.png}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Monitoramento 3D em Tempo Real}
+
+  \begin{figure}
+          \vfill
+          \includegraphics[width=9cm]{experiment_real_time_latency.png}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Vídeo de Apresentação}
+    Vídeo de 1 minuto, no YouTube, sobre o artigo:
+    \begin{itemize}
+        \item \url{https://youtu.be/FwmQvAi7omo}
+    \end{itemize}
+\end{frame}
+
+\section{Discussões}
+
+\begin{frame}
+  \frametitle{Discussões}
+
+    \begin{itemize}
+        \item Uso legítimo do espectro
+            \begin{itemize}
+                \item Legalidade na re-radiação harmônica
+                \item Legalidade no emissor
+            \end{itemize}
+        \item Limitações no intervalo de leitura
+        \item Custo da tecnologia
+    \end{itemize}
+\end{frame}
+
+\subsection{Conclusão}
+
+\begin{frame}
+  \frametitle{Conclusão: Contribuições Principais}
+
+    Monitorar a posição de etiquetas RFID no espaço 3D:
+
+    \begin{itemize}
+      \item Com \alert{alta precisão} (erro de $3.5$cm)
+      \item Em \alert{tempo real}: latência de $0.155$s
+      \item Funciona em \alert{ambientes fechados e cheios de objetos}
+      \item \alert{Não requer movimento relativo} ou \alert{nós de referência}
+    \end{itemize}
+
+    Hardware \& software co-design:
+
+    \begin{itemize}
+        \item \alert{Combinação de frequências}
+        \item \alert{Modificações no algoritmo HMFCW}
+        \item Algoritmo de \alert{Localização 3D}
+        \item \alert{Tag RFID não-linear}
+    \end{itemize}
+\end{frame}

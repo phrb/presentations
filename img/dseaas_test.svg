@@ -1,0 +1,1461 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1094.1029"
+   height="541.33942"
+   viewBox="0 0 289.48138 143.22937"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   sodipodi:docname="dseaas_test.svg"
+   inkscape:export-filename="/home/phrb/cloud/presentations/img/autotuning_summary.png"
+   inkscape:export-xdpi="179.91"
+   inkscape:export-ydpi="179.91">
+  <defs
+     id="defs2">
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path5007"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutL"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutL"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path5004"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.8,0,0,0.8,-4.8,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4853"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker5128"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path5126"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4847"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-4"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-5"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-3"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-6"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-0"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-63"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-06"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-1"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-5"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-4"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-0-6"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-63-5"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-06-6"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-1-9"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-5-3"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-4-7"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="EmptyTriangleOutM-0-3"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="EmptyTriangleOutM">
+      <path
+         transform="matrix(0.4,0,0,0.4,-1.8,0)"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path5007-63-3"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="EmptyTriangleOutM-06-8"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="EmptyTriangleOutM">
+      <path
+         transform="matrix(0.4,0,0,0.4,-1.8,0)"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path5007-1-0"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="EmptyTriangleOutM-5-5"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="EmptyTriangleOutM">
+      <path
+         transform="matrix(0.4,0,0,0.4,-1.8,0)"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path5007-4-6"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="EmptyTriangleOutM-0-6-6"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="EmptyTriangleOutM">
+      <path
+         transform="matrix(0.4,0,0,0.4,-1.8,0)"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path5007-63-5-4"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="EmptyTriangleOutM-06-6-0"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="EmptyTriangleOutM">
+      <path
+         transform="matrix(0.4,0,0,0.4,-1.8,0)"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path5007-1-9-0"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="EmptyTriangleOutM-5-3-4"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="EmptyTriangleOutM">
+      <path
+         transform="matrix(0.4,0,0,0.4,-1.8,0)"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path5007-4-7-6"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-0-3-3"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-63-3-5"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-06-8-1"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-1-0-7"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-5-5-4"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-4-6-3"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-0-6-6-1"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-63-5-4-4"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-06-6-0-6"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-1-9-0-9"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-5-3-4-4"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-4-7-6-2"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-0-3-7"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-63-3-0"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-06-8-8"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-1-0-6"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-5-5-2"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-4-6-4"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-0-6-6-7"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-63-5-4-9"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-06-6-0-3"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-1-9-0-92"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-5-3-4-8"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-4-7-6-3"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.70710678"
+     inkscape:cx="462.42753"
+     inkscape:cy="312.87382"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     fit-margin-top="10"
+     fit-margin-left="10"
+     fit-margin-right="10"
+     fit-margin-bottom="10"
+     inkscape:window-width="1920"
+     inkscape:window-height="1060"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:document-rotation="0"
+     inkscape:snap-global="false" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(57.900594,19.088886)">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93889px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="-49.326199"
+       y="13.190536"
+       id="text4524-3"><tspan
+         sodipodi:role="line"
+         id="tspan4522-6"
+         x="-49.326199"
+         y="13.190536"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:'Roboto Bold';stroke-width:0.264583">User Problem</tspan></text>
+    <g
+       transform="translate(-3.1588688,1.0068077)"
+       id="g1619">
+      <text
+         id="text4546-0"
+         y="23.809616"
+         x="-46.090157"
+         style="font-style:normal;font-weight:normal;font-size:4.93889px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="23.809616"
+           x="-46.090157"
+           id="tspan4544-9"
+           sodipodi:role="line">Design Space</tspan><tspan
+           id="tspan4616"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="30.224079"
+           x="-46.090157"
+           sodipodi:role="line">- Parameters</tspan><tspan
+           id="tspan4614"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="36.638542"
+           x="-46.090157"
+           sodipodi:role="line">- Constraints</tspan></text>
+      <text
+         id="text4546-0-3"
+         y="47.689049"
+         x="-46.090157"
+         style="font-style:normal;font-weight:normal;font-size:4.93889px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         xml:space="preserve"><tspan
+           id="tspan4647"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="47.689049"
+           x="-46.090157"
+           sodipodi:role="line">Optimization Metrics</tspan><tspan
+           id="tspan4653"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="54.103512"
+           x="-46.090157"
+           sodipodi:role="line">- Circuit Area</tspan><tspan
+           id="tspan4657"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="60.517975"
+           x="-46.090157"
+           sodipodi:role="line">- DNN Accuracy</tspan><tspan
+           id="tspan4659"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="66.932434"
+           x="-46.090157"
+           sodipodi:role="line">- Execution Time</tspan><tspan
+           id="tspan4661"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="73.346901"
+           x="-46.090157"
+           sodipodi:role="line">- ...</tspan></text>
+      <text
+         id="text4546-0-3-2"
+         y="84.163811"
+         x="-46.090157"
+         style="font-style:normal;font-weight:normal;font-size:4.93889px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         xml:space="preserve"><tspan
+           id="tspan4661-9"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="84.163811"
+           x="-46.090157"
+           sodipodi:role="line">Local measurements</tspan><tspan
+           id="tspan4735"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="90.57827"
+           x="-46.090157"
+           sodipodi:role="line">- Faster, secure</tspan><tspan
+           id="tspan4731"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="96.992737"
+           x="-46.090157"
+           sodipodi:role="line">- Initial explorations, validation</tspan></text>
+    </g>
+    <g
+       style="stroke-width:0.928902"
+       id="g7270"
+       transform="matrix(1.1589373,0,0,1,-6.2553937,-36.512502)">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4796-2"
+         d="M 118.45402,95.320897 H 25.282891"
+         style="fill:none;stroke:#000000;stroke-width:0.491544;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.983085, 1.96618;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleOutM-0)" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4796-5"
+         d="M 118.45402,100.51807 H 25.28289"
+         style="fill:none;stroke:#000000;stroke-width:0.491544;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.983085, 1.96618;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleOutM-06)" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4796-7"
+         d="M 118.45402,105.71522 H 25.282892"
+         style="fill:none;stroke:#000000;stroke-width:0.491544;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.983085, 1.96618;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleOutM-5)" />
+    </g>
+    <g
+       style="stroke-width:0.927856"
+       id="g7293"
+       transform="matrix(1.1615515,0,0,1,-2.2992957,0)">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4796-2-5"
+         d="M 21.384367,46.467463 H 114.5555"
+         style="fill:none;stroke:#000000;stroke-width:0.490991;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.98198, 1.96397;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleOutM-0-6)" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4796-5-2"
+         d="M 21.384367,41.27029 H 114.5555"
+         style="fill:none;stroke:#000000;stroke-width:0.490991;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.98198, 1.96397;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleOutM-06-6)" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4796-7-5"
+         d="M 21.384367,36.07314 H 114.5555"
+         style="fill:none;stroke:#000000;stroke-width:0.490991;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.98198, 1.96397;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleOutM-5-3)" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93889px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="33.891964"
+       y="2.2909687"
+       id="text6880"><tspan
+         sodipodi:role="line"
+         x="33.891964"
+         y="2.2909687"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         id="tspan6886">1. Design Space specification:</tspan><tspan
+         sodipodi:role="line"
+         x="33.891964"
+         y="8.7054319"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         id="tspan6892">    - Parameters, constraints, metrics</tspan><tspan
+         sodipodi:role="line"
+         x="33.891964"
+         y="15.119894"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         id="tspan6888">2. Local measurements</tspan><tspan
+         sodipodi:role="line"
+         x="33.891964"
+         y="21.534357"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         id="tspan6971">3. Code, dependencies for virtualization</tspan><tspan
+         sodipodi:role="line"
+         x="33.891964"
+         y="27.94882"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         id="tspan6973">4. Optimization method choice</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93889px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="37.052002"
+       y="80.499886"
+       id="text6880-0"><tspan
+         sodipodi:role="line"
+         x="37.052002"
+         y="80.499886"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         id="tspan6888-6">1. List of experiments to run</tspan><tspan
+         sodipodi:role="line"
+         x="37.052002"
+         y="86.914345"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         id="tspan6967">2. Best configuration</tspan><tspan
+         sodipodi:role="line"
+         x="37.052002"
+         y="93.328812"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         id="tspan6969">3. Statistical Analyses</tspan><tspan
+         sodipodi:role="line"
+         x="37.052002"
+         y="99.743271"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         id="tspan6965">4. Remote measurements</tspan><tspan
+         sodipodi:role="line"
+         x="37.052002"
+         y="106.15774"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         id="tspan6975">5. Optimization method suggestions</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93889px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="-56.330055"
+       y="142.06268"
+       id="text4524-9"
+       transform="rotate(-90)"><tspan
+         sodipodi:role="line"
+         id="tspan4522-1"
+         x="-56.330055"
+         y="142.06268"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:'Roboto Bold';stroke-width:0.264583">API</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93889px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="203.58365"
+       y="-5.9910798"
+       id="text4524"><tspan
+         sodipodi:role="line"
+         id="tspan4522"
+         x="203.58365"
+         y="-5.9910798"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:'Roboto Bold';stroke-width:0.264583">DSEaaS</tspan></text>
+    <g
+       transform="translate(12.170833)"
+       id="g1656">
+      <text
+         id="text4524-35"
+         y="32.097797"
+         x="147.15665"
+         style="font-style:normal;font-weight:normal;font-size:4.93889px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="32.097797"
+           x="147.15665"
+           id="tspan4522-62"
+           sodipodi:role="line">Statistical Learning and</tspan><tspan
+           id="tspan4745"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="38.51226"
+           x="147.15665"
+           sodipodi:role="line">Search Heuristics</tspan><tspan
+           id="tspan4749"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="44.926723"
+           x="147.15665"
+           sodipodi:role="line">- Where to explore next</tspan><tspan
+           id="tspan4759"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="51.341187"
+           x="147.15665"
+           sodipodi:role="line">- Exploit models</tspan></text>
+      <text
+         id="text4546"
+         y="6.0508862"
+         x="147.15665"
+         style="font-style:normal;font-weight:normal;font-size:4.93889px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="6.0508862"
+           x="147.15665"
+           id="tspan4544"
+           sodipodi:role="line">Experimental Design</tspan><tspan
+           id="tspan4741"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="12.465349"
+           x="147.15665"
+           sodipodi:role="line">- Initial experiments</tspan><tspan
+           id="tspan4755"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="18.879812"
+           x="147.15665"
+           sodipodi:role="line">- Cost reduction</tspan></text>
+      <text
+         id="text4550"
+         y="64.454826"
+         x="147.15665"
+         style="font-style:normal;font-weight:normal;font-size:4.93889px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="64.454826"
+           x="147.15665"
+           id="tspan4548"
+           sodipodi:role="line">Statistical Analysis</tspan><tspan
+           id="tspan4763"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="70.869286"
+           x="147.15665"
+           sodipodi:role="line">- Keep track of optimization</tspan><tspan
+           id="tspan4767"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="77.283752"
+           x="147.15665"
+           sodipodi:role="line">- Building &amp; reusing models</tspan><tspan
+           id="tspan4771"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="83.698212"
+           x="147.15665"
+           sodipodi:role="line">- Data visualization</tspan></text>
+      <text
+         id="text4546-2"
+         y="98.62925"
+         x="147.15665"
+         style="font-style:normal;font-weight:normal;font-size:4.93889px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="98.62925"
+           x="147.15665"
+           id="tspan4544-7"
+           sodipodi:role="line">Experiments Engine</tspan><tspan
+           id="tspan4669"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="105.04371"
+           x="147.15665"
+           sodipodi:role="line">- Virtualization</tspan><tspan
+           id="tspan4665"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="111.45818"
+           x="147.15665"
+           sodipodi:role="line">- Longer explorations</tspan></text>
+    </g>
+    <text
+       id="text4524-3-6"
+       y="175.15611"
+       x="-80.376411"
+       style="font-style:normal;font-weight:normal;font-size:4.93889px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:'Roboto Bold';stroke-width:0.264583"
+         y="175.15611"
+         x="-80.376411"
+         id="tspan4522-6-7"
+         sodipodi:role="line">User Problem</tspan></text>
+    <text
+       id="text4546-0-5"
+       y="185.02794"
+       x="-80.29924"
+       style="font-style:normal;font-weight:normal;font-size:4.93889px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="185.02794"
+         x="-80.29924"
+         id="tspan4544-9-6"
+         sodipodi:role="line">Design Space:</tspan><tspan
+         id="tspan4616-9"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="191.4424"
+         x="-80.29924"
+         sodipodi:role="line">- Parameters</tspan><tspan
+         id="tspan4614-8"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="197.85686"
+         x="-80.29924"
+         sodipodi:role="line">- Constraints</tspan></text>
+    <text
+       id="text4546-0-3-7"
+       y="207.72868"
+       x="-80.29924"
+       style="font-style:normal;font-weight:normal;font-size:4.93889px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       xml:space="preserve"><tspan
+         id="tspan4647-2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="207.72868"
+         x="-80.29924"
+         sodipodi:role="line">Optimization Metrics:</tspan><tspan
+         id="tspan4653-8"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="214.14314"
+         x="-80.29924"
+         sodipodi:role="line">- Circuit Area</tspan><tspan
+         id="tspan4657-2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="220.5576"
+         x="-80.29924"
+         sodipodi:role="line">- DNN Accuracy</tspan><tspan
+         id="tspan4659-9"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="226.97208"
+         x="-80.29924"
+         sodipodi:role="line">- Execution Time</tspan><tspan
+         id="tspan4661-96"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="233.38654"
+         x="-80.29924"
+         sodipodi:role="line">- ...</tspan></text>
+    <text
+       id="text4546-0-3-2-0"
+       y="243.43199"
+       x="-80.29924"
+       style="font-style:normal;font-weight:normal;font-size:4.93889px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       xml:space="preserve"><tspan
+         id="tspan4661-9-2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="243.43199"
+         x="-80.29924"
+         sodipodi:role="line">Performance measurements:</tspan><tspan
+         id="tspan4731-6"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="249.84645"
+         x="-80.29924"
+         sodipodi:role="line">- Initial explorations, validation</tspan><tspan
+         id="tspan3074"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="256.26093"
+         x="-80.29924"
+         sodipodi:role="line">- Further design restrictions</tspan></text>
+    <g
+       transform="translate(-30.536725,125.9943)"
+       id="g7270-1"
+       inkscape:export-xdpi="179.91"
+       inkscape:export-ydpi="179.91">
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833, 2.11667;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleOutM-0-3)"
+         d="M 118.91593,95.320897 H 25.7448"
+         id="path4796-2-3"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833, 2.11667;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleOutM-06-8)"
+         d="M 118.45402,100.51807 H 25.28289"
+         id="path4796-5-21"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833, 2.11667;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleOutM-5-5)"
+         d="M 118.45402,105.71522 H 25.282892"
+         id="path4796-7-59"
+         inkscape:connector-curvature="0" />
+    </g>
+    <g
+       transform="translate(-26.958037,163.36871)"
+       id="g7293-9"
+       inkscape:export-xdpi="179.91"
+       inkscape:export-ydpi="179.91">
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833, 2.11667;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleOutM-0-6-6)"
+         d="M 21.384367,46.467463 H 114.5555"
+         id="path4796-2-5-1"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833, 2.11667;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleOutM-06-6-0)"
+         d="M 21.384367,41.27029 H 114.5555"
+         id="path4796-5-2-4"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833, 2.11667;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleOutM-5-3-4)"
+         d="M 21.384367,36.07314 H 114.5555"
+         id="path4796-7-5-9"
+         inkscape:connector-curvature="0" />
+    </g>
+    <text
+       id="text6880-1"
+       y="169.01907"
+       x="2.1679726"
+       style="font-style:normal;font-weight:normal;font-size:4.9389px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       xml:space="preserve"
+       inkscape:export-xdpi="179.91"
+       inkscape:export-ydpi="179.91"><tspan
+         id="tspan6886-0"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="169.01907"
+         x="2.1679726"
+         sodipodi:role="line">1. Design Space specification:</tspan><tspan
+         id="tspan6892-7"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="175.43355"
+         x="2.1679726"
+         sodipodi:role="line">    - Parameters, constraints, metrics</tspan><tspan
+         id="tspan6971-8"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="181.84802"
+         x="2.1679726"
+         sodipodi:role="line">2. Performance measurements</tspan><tspan
+         id="tspan6973-7"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="188.2625"
+         x="2.1679726"
+         sodipodi:role="line">3. Optimization method choice</tspan></text>
+    <text
+       id="text6880-0-0"
+       y="245.64046"
+       x="1.6000444"
+       style="font-style:normal;font-weight:normal;font-size:4.9389px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       xml:space="preserve"
+       inkscape:export-xdpi="179.91"
+       inkscape:export-ydpi="179.91"><tspan
+         id="tspan6888-6-4"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="245.64046"
+         x="1.6000444"
+         sodipodi:role="line">1. List of experiments to run</tspan><tspan
+         id="tspan6967-8"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="252.05493"
+         x="1.6000444"
+         sodipodi:role="line">2. Best configuration</tspan><tspan
+         id="tspan6965-4"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="258.46942"
+         x="1.6000444"
+         sodipodi:role="line">3. Statistical Analyses</tspan><tspan
+         id="tspan6975-2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="264.88388"
+         x="1.6000444"
+         sodipodi:role="line">4. Optimization method suggestions</tspan></text>
+    <text
+       id="text4524-96"
+       y="168.96327"
+       x="102.36153"
+       style="font-style:normal;font-weight:normal;font-size:4.9389px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       xml:space="preserve"
+       inkscape:export-xdpi="179.91"
+       inkscape:export-ydpi="179.91"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:'Roboto Bold';stroke-width:0.264583"
+         y="168.96327"
+         x="102.36153"
+         id="tspan4522-10"
+         sodipodi:role="line">Autotuning Methodology</tspan></text>
+    <text
+       id="text4524-35-5"
+       y="205.41174"
+       x="102.28918"
+       style="font-style:normal;font-weight:normal;font-size:4.9389px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       xml:space="preserve"
+       inkscape:export-xdpi="179.91"
+       inkscape:export-ydpi="179.91"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="205.41174"
+         x="102.28918"
+         id="tspan4522-62-5"
+         sodipodi:role="line">Statistical Learning and</tspan><tspan
+         id="tspan4745-2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="211.82622"
+         x="102.28918"
+         sodipodi:role="line">Search Heuristics:</tspan><tspan
+         id="tspan4749-9"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="218.24069"
+         x="102.28918"
+         sodipodi:role="line">- Where to explore next</tspan><tspan
+         id="tspan4759-0"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="224.65517"
+         x="102.28918"
+         sodipodi:role="line">- Exploit models</tspan></text>
+    <text
+       id="text4546-8"
+       y="181.27585"
+       x="102.28918"
+       style="font-style:normal;font-weight:normal;font-size:4.9389px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       xml:space="preserve"
+       inkscape:export-xdpi="179.91"
+       inkscape:export-ydpi="179.91"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="181.27585"
+         x="102.28918"
+         id="tspan4544-3"
+         sodipodi:role="line">Experimental Design:</tspan><tspan
+         id="tspan4741-8"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="187.69032"
+         x="102.28918"
+         sodipodi:role="line">- Initial experiments</tspan><tspan
+         id="tspan4755-0"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="194.1048"
+         x="102.28918"
+         sodipodi:role="line">- Cost reduction</tspan></text>
+    <text
+       id="text4550-0"
+       y="236.91711"
+       x="102.28918"
+       style="font-style:normal;font-weight:normal;font-size:4.9389px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       xml:space="preserve"
+       inkscape:export-xdpi="179.91"
+       inkscape:export-ydpi="179.91"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="236.91711"
+         x="102.28918"
+         id="tspan4548-9"
+         sodipodi:role="line">Statistical Analysis:</tspan><tspan
+         id="tspan4763-1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="243.33159"
+         x="102.28918"
+         sodipodi:role="line">- Keep track of optimization</tspan><tspan
+         id="tspan4767-9"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="249.74606"
+         x="102.28918"
+         sodipodi:role="line">- Building &amp; reusing models</tspan><tspan
+         id="tspan4771-6"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         y="256.16055"
+         x="102.28918"
+         sodipodi:role="line">- Data visualization</tspan></text>
+    <path
+       d="m -8.1451852,213.42756 c -1.3658161,57.7907 4.6121127,51.94973 -41.0558778,52.02369 -45.667991,0.0739 -39.218892,6.91385 -39.84309,-50.97208 -0.624196,-57.88594 -6.500233,-52.09656 39.821604,-50.60776 46.3218383,1.48881 42.4431798,-8.23458 41.0773638,49.55615 z"
+       inkscape:transform-center-y="-0.27143875"
+       inkscape:transform-center-x="-0.27557814"
+       style="opacity:0.968;fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+       id="path4391" />
+    <path
+       d="m 173.90836,214.24388 c -0.86417,63.58111 5.27648,53.387 -41.86649,55.17519 -47.142994,1.7882 -41.300006,7.03131 -41.515181,-57.29213 -0.215185,-64.32342 -5.440104,-56.78093 41.530371,-56.43307 46.97046,0.34785 42.71548,-5.0311 41.8513,58.55001 z"
+       inkscape:transform-center-y="0.3807416"
+       inkscape:transform-center-x="-0.17847997"
+       style="opacity:0.968;fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+       id="path4398" />
+    <g
+       inkscape:export-ydpi="179.91"
+       inkscape:export-xdpi="179.91"
+       id="g7270-1-3"
+       transform="translate(-27.046684,246.4352)">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4796-2-3-3"
+         d="M 118.91593,95.320897 H 25.7448"
+         style="fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833, 2.11667;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleOutM-0-3-3)" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4796-5-21-3"
+         d="M 118.45402,100.51807 H 25.28289"
+         style="fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833, 2.11667;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleOutM-06-8-1)" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4796-7-59-8"
+         d="M 118.45402,105.71522 H 25.282892"
+         style="fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833, 2.11667;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleOutM-5-5-4)" />
+    </g>
+    <g
+       inkscape:export-ydpi="179.91"
+       inkscape:export-xdpi="179.91"
+       id="g7293-9-0"
+       transform="translate(-23.467996,287.33737)">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4796-2-5-1-4"
+         d="M 21.384367,46.467463 H 114.5555"
+         style="fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833, 2.11667;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleOutM-0-6-6-1)" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4796-5-2-4-7"
+         d="M 21.384367,41.27029 H 114.5555"
+         style="fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833, 2.11667;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleOutM-06-6-0-6)" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4796-7-5-9-6"
+         d="M 21.384367,36.07314 H 114.5555"
+         style="fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833, 2.11667;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleOutM-5-3-4-4)" />
+    </g>
+    <text
+       inkscape:export-ydpi="179.91"
+       inkscape:export-xdpi="179.91"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.9389px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="5.6580143"
+       y="296.5155"
+       id="text6880-1-8"><tspan
+         sodipodi:role="line"
+         x="5.6580143"
+         y="296.5155"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         id="tspan6886-0-9">1. Design Space specification:</tspan><tspan
+         sodipodi:role="line"
+         x="5.6580143"
+         y="302.92999"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         id="tspan6892-7-0">    - Parameters, constraints, metrics</tspan><tspan
+         sodipodi:role="line"
+         x="5.6580143"
+         y="309.34445"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         id="tspan6971-8-6">2. Performance measurements</tspan><tspan
+         sodipodi:role="line"
+         x="5.6580143"
+         y="315.75894"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         id="tspan6973-7-8">3. Optimization method choice</tspan></text>
+    <text
+       inkscape:export-ydpi="179.91"
+       inkscape:export-xdpi="179.91"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.9389px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="5.0900898"
+       y="362.55362"
+       id="text6880-0-0-7"><tspan
+         sodipodi:role="line"
+         x="5.0900898"
+         y="362.55362"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         id="tspan6888-6-4-9">1. List of experiments to run</tspan><tspan
+         sodipodi:role="line"
+         x="5.0900898"
+         y="368.96811"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         id="tspan6967-8-0">2. Best configuration</tspan><tspan
+         sodipodi:role="line"
+         x="5.0900898"
+         y="375.38257"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         id="tspan6965-4-3">3. Statistical Analyses</tspan><tspan
+         sodipodi:role="line"
+         x="5.0900898"
+         y="381.79706"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+         id="tspan6975-2-3">4. Optimization method suggestions</tspan></text>
+    <g
+       transform="translate(9.8273809,-36.285714)"
+       inkscape:export-ydpi="179.91"
+       inkscape:export-xdpi="179.91"
+       id="g6011">
+      <g
+         id="g5859"
+         transform="translate(-5.8945022,3.79874)">
+        <text
+           inkscape:export-ydpi="179.91"
+           inkscape:export-xdpi="179.91"
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:4.9389px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+           x="96.024193"
+           y="327.45377"
+           id="text4524-96-3"><tspan
+             sodipodi:role="line"
+             id="tspan4522-10-7"
+             x="96.024193"
+             y="327.45377"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:'Roboto Bold';stroke-width:0.264583">Autotuning Methodology</tspan></text>
+        <text
+           inkscape:export-ydpi="179.91"
+           inkscape:export-xdpi="179.91"
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:4.9389px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+           x="95.951851"
+           y="363.90222"
+           id="text4524-35-5-3"><tspan
+             sodipodi:role="line"
+             id="tspan4522-62-5-2"
+             x="95.951851"
+             y="363.90222"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583">Statistical Learning and</tspan><tspan
+             sodipodi:role="line"
+             x="95.951851"
+             y="370.31671"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+             id="tspan4745-2-6">Search Heuristics:</tspan><tspan
+             sodipodi:role="line"
+             x="95.951851"
+             y="376.73117"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+             id="tspan4749-9-5">- Where to explore next</tspan><tspan
+             sodipodi:role="line"
+             x="95.951851"
+             y="383.14566"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+             id="tspan4759-0-2">- Exploit models</tspan></text>
+        <text
+           inkscape:export-ydpi="179.91"
+           inkscape:export-xdpi="179.91"
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:4.9389px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+           x="95.951851"
+           y="339.76633"
+           id="text4546-8-6"><tspan
+             sodipodi:role="line"
+             id="tspan4544-3-5"
+             x="95.951851"
+             y="339.76633"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583">Experimental Design:</tspan><tspan
+             sodipodi:role="line"
+             x="95.951851"
+             y="346.18082"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+             id="tspan4741-8-8">- Initial experiments</tspan><tspan
+             sodipodi:role="line"
+             x="95.951851"
+             y="352.59528"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+             id="tspan4755-0-7">- Cost reduction</tspan></text>
+        <text
+           inkscape:export-ydpi="179.91"
+           inkscape:export-xdpi="179.91"
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:4.9389px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+           x="95.951851"
+           y="395.40759"
+           id="text4550-0-9"><tspan
+             sodipodi:role="line"
+             id="tspan4548-9-6"
+             x="95.951851"
+             y="395.40759"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583">Statistical Analysis:</tspan><tspan
+             sodipodi:role="line"
+             x="95.951851"
+             y="401.82208"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+             id="tspan4763-1-0">- Keep track of optimization</tspan><tspan
+             sodipodi:role="line"
+             x="95.951851"
+             y="408.23654"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+             id="tspan4767-9-4">- Building &amp; reusing models</tspan><tspan
+             sodipodi:role="line"
+             x="95.951851"
+             y="414.65103"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+             id="tspan4771-6-1">- Data visualization</tspan></text>
+      </g>
+      <rect
+         ry="5.6274991"
+         y="322.14737"
+         x="83.972946"
+         height="107.04324"
+         width="77.477257"
+         id="rect4603-8"
+         style="opacity:0.968;fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+         rx="0" />
+    </g>
+    <g
+       transform="translate(10.56327,-35.593989)"
+       id="g5877">
+      <text
+         id="text4524-3-6-2"
+         y="333.64661"
+         x="-86.713753"
+         style="font-style:normal;font-weight:normal;font-size:4.9389px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:'Roboto Bold';stroke-width:0.264583"
+           y="333.64661"
+           x="-86.713753"
+           id="tspan4522-6-7-6"
+           sodipodi:role="line">User Problem</tspan></text>
+      <text
+         id="text4546-0-5-4"
+         y="343.51843"
+         x="-86.636581"
+         style="font-style:normal;font-weight:normal;font-size:4.9389px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="343.51843"
+           x="-86.636581"
+           id="tspan4544-9-6-1"
+           sodipodi:role="line">Design Space:</tspan><tspan
+           id="tspan4616-9-2"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="349.93292"
+           x="-86.636581"
+           sodipodi:role="line">- Parameters</tspan><tspan
+           id="tspan4614-8-8"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="356.34738"
+           x="-86.636581"
+           sodipodi:role="line">- Constraints</tspan></text>
+      <text
+         id="text4546-0-3-7-8"
+         y="366.21918"
+         x="-86.636581"
+         style="font-style:normal;font-weight:normal;font-size:4.9389px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         xml:space="preserve"><tspan
+           id="tspan4647-2-9"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="366.21918"
+           x="-86.636581"
+           sodipodi:role="line">Optimization Metrics:</tspan><tspan
+           id="tspan4653-8-2"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="372.63367"
+           x="-86.636581"
+           sodipodi:role="line">- Circuit Area</tspan><tspan
+           id="tspan4657-2-8"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="379.04813"
+           x="-86.636581"
+           sodipodi:role="line">- DNN Accuracy</tspan><tspan
+           id="tspan4659-9-8"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="385.46262"
+           x="-86.636581"
+           sodipodi:role="line">- Execution Time</tspan><tspan
+           id="tspan4661-96-8"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="391.87708"
+           x="-86.636581"
+           sodipodi:role="line">- ...</tspan></text>
+      <text
+         id="text4546-0-3-2-0-6"
+         y="401.92249"
+         x="-86.636581"
+         style="font-style:normal;font-weight:normal;font-size:4.9389px;line-height:1.28;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         xml:space="preserve"><tspan
+           id="tspan4661-9-2-8"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="401.92249"
+           x="-86.636581"
+           sodipodi:role="line">Performance measurements:</tspan><tspan
+           id="tspan4731-6-3"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="408.33698"
+           x="-86.636581"
+           sodipodi:role="line">- Initial explorations, validation</tspan><tspan
+           id="tspan3074-8"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583"
+           y="414.75143"
+           x="-86.636581"
+           sodipodi:role="line">- Further design restrictions</tspan></text>
+    </g>
+    <rect
+       ry="5.304328"
+       y="288.93524"
+       x="-81.8144"
+       height="100.89605"
+       width="77.477257"
+       id="rect4603-8-6"
+       style="opacity:0.968;fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+       rx="0" />
+    <rect
+       rx="0"
+       style="opacity:0.968;fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+       id="rect4603-8-6-6"
+       width="77.477257"
+       height="104.60023"
+       x="-54.990177"
+       y="1.9444492"
+       ry="3.1178138" />
+    <rect
+       ry="4.3134537"
+       y="-16.178469"
+       x="131.3494"
+       height="137.40855"
+       width="97.320999"
+       id="rect4603-8-6-6-1"
+       style="opacity:0.968;fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke"
+       rx="0" />
+    <rect
+       rx="0"
+       style="opacity:0.968;fill:none;stroke:#000000;stroke-width:0.529;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:3.174, 1.058;stroke-dashoffset:0;paint-order:markers fill stroke"
+       id="rect4603-8-6-6-1-5"
+       width="10.273082"
+       height="126.56064"
+       x="135.16678"
+       y="-10.754507"
+       ry="1.361905" />
+  </g>
+</svg>

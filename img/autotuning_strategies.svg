@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="2196.375"
+   height="1081.9933"
+   viewBox="0 0 581.1242 286.2774"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
+   sodipodi:docname="autotuning_strategies.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="1155.1464"
+     inkscape:cy="505.22671"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:snap-global="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1062"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:pagecheckerboard="false"
+     fit-margin-top="25"
+     fit-margin-left="25"
+     fit-margin-right="25"
+     fit-margin-bottom="25" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-14.955967,283.96338)">
+    <rect
+       style="opacity:1;fill:#eaeaea;fill-opacity:1;fill-rule:nonzero;stroke:#808080;stroke-width:1.05833333;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect1366"
+       width="565.24921"
+       height="270.40237"
+       x="22.893467"
+       y="-276.02588" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:6.61458302px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="34.320236"
+       y="-249.25121"
+       id="text1370"><tspan
+         sodipodi:role="line"
+         id="tspan1368"
+         x="34.320236"
+         y="-249.25121"
+         style="font-size:21.16666603px;stroke-width:0.26458332px">Autotuning Strategies</tspan></text>
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#808080;stroke-width:1.05833333;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect1366-3-2"
+       width="257.57663"
+       height="217.48573"
+       x="315.33371"
+       y="-235.83217" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:6.61458349px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="324.05084"
+       y="-212.2719"
+       id="text1370-6-3-2"><tspan
+         sodipodi:role="line"
+         x="324.05084"
+         y="-212.2719"
+         style="font-size:19.40277863px;line-height:22.38375092px;stroke-width:0.26458332px"
+         id="tspan1721">Performance Models</tspan><tspan
+         sodipodi:role="line"
+         x="324.05084"
+         y="-200.40092"
+         style="font-size:21.16666603px;line-height:22.38375092px;stroke-width:0.26458332px"
+         id="tspan1745" /><tspan
+         sodipodi:role="line"
+         x="324.05084"
+         y="-193.78635"
+         style="font-size:21.16666603px;line-height:22.38375092px;stroke-width:0.26458332px"
+         id="tspan1747" /><tspan
+         sodipodi:role="line"
+         x="324.05084"
+         y="-187.17175"
+         style="font-size:17.63888931px;line-height:22.38375092px;stroke-width:0.26458332px"
+         id="tspan1749" /><tspan
+         sodipodi:role="line"
+         x="324.05084"
+         y="-170.57004"
+         style="font-size:17.63888931px;line-height:22.38375092px;stroke-width:0.26458332px"
+         id="tspan1751">- Analytical</tspan><tspan
+         sodipodi:role="line"
+         x="324.05084"
+         y="-148.18628"
+         style="font-size:17.63888931px;line-height:22.38375092px;stroke-width:0.26458332px"
+         id="tspan1709">- Built by Machine Learning</tspan></text>
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#808080;stroke-width:1.05833333;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect1366-3-2-3"
+       width="257.57663"
+       height="217.48573"
+       x="45.836685"
+       y="-235.83217" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:6.61458349px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="54.35627"
+       y="-212.2719"
+       id="text1370-6-3-2-2"><tspan
+         sodipodi:role="line"
+         x="54.35627"
+         y="-212.2719"
+         style="font-size:19.40277863px;line-height:22.38375092px;stroke-width:0.26458332px"
+         id="tspan1711">Search</tspan><tspan
+         sodipodi:role="line"
+         x="54.35627"
+         y="-200.40092"
+         style="font-size:21.16666603px;line-height:22.38375092px;stroke-width:0.26458332px"
+         id="tspan1731" /><tspan
+         sodipodi:role="line"
+         x="54.35627"
+         y="-193.78635"
+         style="font-size:21.16666603px;line-height:22.38375092px;stroke-width:0.26458332px"
+         id="tspan1733" /><tspan
+         sodipodi:role="line"
+         x="54.35627"
+         y="-187.17175"
+         style="font-size:21.16666603px;line-height:22.38375092px;stroke-width:0.26458332px"
+         id="tspan1735" /><tspan
+         sodipodi:role="line"
+         x="54.35627"
+         y="-170.57004"
+         style="font-size:17.63888931px;line-height:22.38375092px;stroke-width:0.26458332px"
+         id="tspan1737">- Stochastic Local Search</tspan><tspan
+         sodipodi:role="line"
+         x="54.35627"
+         y="-148.18628"
+         style="font-size:17.63888931px;line-height:22.38375092px;stroke-width:0.26458332px"
+         id="tspan1701">- Geometric Methods</tspan><tspan
+         sodipodi:role="line"
+         x="54.35627"
+         y="-125.80253"
+         style="font-size:17.63888931px;line-height:22.38375092px;stroke-width:0.26458332px"
+         id="tspan1703">- Genetic Algorithms</tspan><tspan
+         sodipodi:role="line"
+         x="54.35627"
+         y="-103.41878"
+         style="font-size:17.63888931px;line-height:22.38375092px;stroke-width:0.26458332px"
+         id="tspan1705">- Heuristics</tspan></text>
+    <rect
+       style="opacity:1;fill:#d4d4d4;fill-opacity:1;fill-rule:nonzero;stroke:#808080;stroke-width:1.05833333;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect1366-3-5-1-2-3"
+       width="490.40997"
+       height="53.444141"
+       x="63.223618"
+       y="-83.885773" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:6.61458349px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="246.04048"
+       y="-50.159298"
+       id="text1370-6-3-2-28-6"><tspan
+         sodipodi:role="line"
+         x="246.04048"
+         y="-50.159298"
+         style="font-size:19.40277863px;line-height:22.38375092px;stroke-width:0.26458332px"
+         id="tspan1436-0-7-1">Combinations</tspan></text>
+  </g>
+</svg>

@@ -1,0 +1,5 @@
+\beamer@endinputifotherversion {3.33pt}
+\beamer@sectionintoc {1}{Contextualização}{3}{0}{1}
+\beamer@sectionintoc {2}{Tipos e Categorias}{11}{0}{2}
+\beamer@sectionintoc {3}{Cálculo-$\varsigma $}{25}{0}{3}
+\beamer@sectionintoc {4}{Referências}{42}{0}{4}

@@ -1,0 +1,227 @@
+\documentclass[10pt, compress]{beamer}
+
+\usetheme[numbering=fraction, sectionpage=none, progressbar=frametitle]{m}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage[portuguese]{babel}
+\usepackage[scale=2]{ccicons}
+
+\usepackage{url}
+\usepackage{relsize}
+\usepackage{courier}
+\usepackage{tgcursor}
+
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\renewcommand*{\UrlFont}{\ttfamily\smaller\relax}
+\renewcommand*{\ttdefault}{qcr}
+
+\graphicspath{{./img/}}
+
+\title{Ajuste Fino Automatizado utilizando Computação em Nuvem}
+\subtitle{}
+\date{29 de Setembro de 2015}
+\author{Pedro Bruel \\ phrb@ime.usp.br}
+\institute{Departamento de Ciência da Computação do IME, USP \\ MAC5910 - Programação para Redes de Computadores}
+\titlegraphic{\hfill\includegraphics[height=2cm]{imelogo}}
+
+\begin{document}
+
+\maketitle
+
+\section{Motivações}
+
+\begin{frame}[fragile]
+  \frametitle{Motivações}
+  \begin{figure}[H]
+      \centering
+      \includegraphics[width=1\textwidth]{40years}
+  \end{figure}
+    \let\thefootnote\relax\footnotetext{\url{http://karlrupp.net/2015/06/40-years-of-microprocessor-trend-data}}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Uma Solução: \emph{Autotuning}}
+  \begin{columns}
+      \column{0.5\textwidth}
+      \centering
+      Configurações e Otimizações
+      \column{0.5\textwidth}
+      \centering
+      Espaço de Busca
+  \end{columns}
+  \begin{figure}[H]
+      \centering
+      \includegraphics[width=1\textwidth]{autotuning}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{\emph{Autotuning}: OpenTuner}
+  \begin{figure}[H]
+      \includegraphics[width=0.65\textwidth]{opentuner-measurement.png}
+  \end{figure}
+  Medições são sempre feitas \alert{localmente} e \alert{sequencialmente}
+  \footnotetext[2]{Imagem: Ansel, Jason, et al. "Opentuner: An extensible framework for program autotuning." Proceedings of the 23rd ICPAC. ACM, 2014.}
+\end{frame}
+
+\section{Objetivos}
+
+\begin{frame}[fragile]
+  \frametitle{Objetivos}
+  \alert{Modificar} o arcabouço OpenTuner para que seja possível
+  realizar medições \alert{distribuídas} na nuvem
+
+  \alert{RQ1}: Como normalizar medições de desempenho feitas na nuvem?
+
+  \alert{RQ2}: Para que tipo de problema é vantajoso utilizar os recursos da nuvem?
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Objetivos: Lista}
+  \alert{DONE}:
+  \begin{itemize}
+      \item \alert{MeasurementClient}
+      \item \alert{MeasurementServer}
+      \item \alert{Interface} com a Google Compute Engine
+      \item \alert{Protocolo} de Aplicação
+      \item Correção de um \alert{bug} no OpenTuner: 
+          \url{https://github.com/jansel/opentuner/pull/73}
+  \end{itemize}
+  \alert{TODO}:
+  \begin{itemize}
+      \item \alert{Normalização} de Resultados
+      \item Composição do \alert{benchmark}
+      \item Avaliação de \alert{desempenho}
+  \end{itemize}
+\end{frame}
+
+\section{Implementação}
+
+\begin{frame}[fragile]
+  \frametitle{Cliente e Servidor}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=.62]{high-level-implementation}
+        \end{figure}%
+        \column{0.5\textwidth}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=.62]{low-level-implementation}
+        \end{figure}%
+    \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{OpenTuner: Fluxo de Execução}
+  \begin{figure}[H]
+      \centering
+      \includegraphics[width=.8\textwidth]{opentunerflow_simple}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Esforço de Implementação}
+  \begin{figure}[H]
+      \centering
+      \includegraphics[width=1\textwidth]{loc_comparison}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Servidor}
+    Disponível sob GPL em:
+    \url{https://github.com/phrb/measurement-server}
+    \begin{itemize}
+        \item Executado nas \alert{máquinas virtuais}
+        \item Espera por uma \alert{conexão} TCP na porta 8080
+        \item Espera por \alert{comandos}
+        \item \alert{Obtém} o projeto do usuário à partir
+            de um \alert{repositório git}
+        \item \alert{Importa a classe} do usuário no servidor
+        \item \alert{Executa medições} utilizando o método
+            \texttt{run} do usuário
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Protocolo: Mensagens}
+  \include{table-messages}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Protocolo: Respostas}
+  \include{table-responses}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Interface}
+    Disponível sob GPL em:
+    \url{https://github.com/phrb/gce_interface}
+    \begin{itemize}
+        \item \alert{Encapsula} a comunicação com o servidor
+        \item \alert{Serializa e deserializa} os resultados e requisições
+        \item \alert{Coordena} a inicialização e término das máquinas
+            virtuais
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Cliente}
+    Disponível sob GPL em:
+    \url{https://github.com/phrb/measurement_client}
+    \begin{itemize}
+        \item \alert{Processa} requisições de 
+            resultados do OpenTuner
+        \item \alert{Executa} código do Usuário
+        \item Faz \alert{requisições} de resultados à interface
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Fluxo de Execução}
+  \begin{figure}[H]
+      \centering
+      \includegraphics[width=.5\textwidth]{interfaceflow_simple}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Experimentos: Travelling Salesperson Problem}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=.33\textwidth]{hamiltonianpath}
+    \end{figure}%
+    \alert{Avaliação do desempenho} de um resolvedor de
+    instâncias do TSP implementados com o OpenTuner. 
+
+    Medições com números diferentes de \alert{máquinas virtuais} e de
+    \alert{requisições simultâneas}.
+
+    As soluções são representadas como \alert{permutações} de cidades.
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Normalização de Resultados}
+  \textbf{RQ1}: Como aplicar os resultados obtidos em máquinas virtuais
+  \alert{diferentes da máquina local}?
+
+  \begin{itemize}
+      \item Autotuning do \alert{modelo de desempenho}
+      \item \alert{Combinar} resultados diferentes
+      \item \alert{Simular} a máquina local
+      \item Executar o autotuner na \alert{nuvem}
+  \end{itemize}
+\end{frame}
+
+\plain{Obrigado! Perguntas?}
+
+\maketitle
+
+\end{document}

@@ -1,0 +1,44 @@
+\newcolumntype{K}{>{\centering\arraybackslash}m{5cm}}
+\newcommand{\specialcell}[2][c]{%
+  \begin{tabular}[#1]{@{}K@{}}#2\end{tabular}}
+
+\newcolumntype{T}{>{\centering\arraybackslash}m{1.5cm}}
+\newcolumntype{L}{>{\centering\arraybackslash}m{2.4cm}}
+
+\begin{table}[htpb]
+    \centering
+    \tiny
+    \begin{tabular}{@{}TLK@{}}
+        \toprule
+        {\bf Command} & {\bf Function} & {\bf Message} \\ \midrule
+        {\tiny \bf START} & 
+        {\tiny Sets the server's status to AVAILABLE} & 
+        {\tiny \tt ``START''} \\ \midrule
+        {\tiny \bf STOP} & 
+        {\tiny Sets the server's status to STOPPED} & 
+        {\tiny \tt ``STOP''} \\ \midrule
+        {\tiny \bf STATUS} & 
+        {\tiny Requests the server current status} & 
+        {\tiny \tt ``STATUS''} \\ \midrule
+        {\tiny \bf DISCONNECT} & 
+        {\tiny Disconnects from the server} & 
+        {\tiny \tt ``DISCONNECT''} \\ \midrule
+        {\tiny \bf SHUTDOWN} & 
+        {\tiny Disconnects and shuts the server down} & 
+        {\tiny \tt ``SHUTDOWN''} \\ \midrule
+        {\tiny \bf CLONE} & 
+        {\tiny Clones a git repository to the virtual machine} & 
+        {\tiny \tt ``CLONE REPO\_URL DIST\_DIR''} \\ \midrule
+        {\tiny \bf LOAD} & 
+        {\tiny Imports the user's MeasurementInterface into the server} & 
+        {\tiny \tt ``LOAD TUNER\_PATH INTERFACE\_NAME''} \\ \midrule
+        {\tiny \bf MEASURE} & 
+        {\tiny Computes the measurement for a given configuration} & 
+        {\tiny \tt ``MEASURE CONFIG INPUT LIMIT''} \\ \midrule
+        {\tiny \bf GET} & 
+        {\tiny Requests a configuration's result} & 
+        {\tiny \tt ``GET RESULT\_ID''} \\ \bottomrule
+    \end{tabular}
+    \caption{Server messages.}
+    \label{tab:protocol-messages}
+\end{table}

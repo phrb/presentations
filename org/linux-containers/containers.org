@@ -1,0 +1,633 @@
+#+STARTUP: beamer overview indent inlineimages logdrawer
+#+TITLE: @@latex: Introduction to OS-Level Virtualization on Linux@@
+#+AUTHOR:    @@latex: \vspace{-2em}@@ \footnotesize Pedro Bruel \newline \scriptsize \emph{phrb@ime.usp.br}
+#+EMAIL:     phrb@ime.usp.br
+#+DATE:      \scriptsize May 25th, 2020
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:2 num:t toc:nil @:t \n:nil ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   tex:t latex:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+EXPORT_FILE_NAME: os-level-virtualization-linux.pdf
+#+LINK_UP:
+#+LINK_HOME:
+
+#+STARTUP: beamer
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]
+#+LATEX_HEADER: \mode<beamer>{\usetheme[numbering=fraction, progressbar=none, titleformat=smallcaps, sectionpage=none]{metropolis}}
+
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+#+LATEX_HEADER: \usepackage{sourcecodepro}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+LATEX_HEADER: \usepackage{array}
+#+LATEX_HEADER: \usepackage{listings}
+#+LATEX_HEADER: \usepackage{multirow}
+#+LATEX_HEADER: \usepackage{caption}
+#+LATEX_HEADER: \usepackage{xeCJK}
+#+LATEX_HEADER: \usepackage{graphicx}
+#+LATEX_HEADER: \usepackage[english]{babel}
+#+LATEX_HEADER: \usepackage[scale=2]{ccicons}
+#+LATEX_HEADER: \usepackage{hyperref}
+# #+LATEX_HEADER: \usepackage{url}
+#+LATEX_HEADER: \usepackage{relsize}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{bm}
+#+LATEX_HEADER: \usepackage{wasysym}
+#+LATEX_HEADER: \usepackage{ragged2e}
+#+LATEX_HEADER: \usepackage{textcomp}
+#+LATEX_HEADER: \usepackage{pgfplots}
+#+LATEX_HEADER: \usepgfplotslibrary{dateplot}
+#+LATEX_HEADER: \definecolor{Base}{HTML}{191F26}
+# #+LATEX_HEADER: \definecolor{Accent}{HTML}{157FFF}
+#+LATEX_HEADER: \definecolor{Accent}{HTML}{bb0300}
+#+LATEX_HEADER: \setbeamercolor{alerted text}{fg=Accent}
+#+LATEX_HEADER: \setbeamercolor{frametitle}{fg=Base,bg=White}
+#+LATEX_HEADER: \setbeamercolor{normal text}{bg=black!2,fg=Base}
+#+LATEX_HEADER: \setsansfont[BoldFont={Source Sans Pro Semibold},Numbers={OldStyle}]{Source Sans Pro}
+#+LATEX_HEADER: \lstdefinelanguage{Julia}%
+#+LATEX_HEADER:   {morekeywords={abstract,struct,break,case,catch,const,continue,do,else,elseif,%
+#+LATEX_HEADER:       end,export,false,for,function,immutable,mutable,using,import,importall,if,in,%
+#+LATEX_HEADER:       macro,module,quote,return,switch,true,try,catch,type,typealias,%
+#+LATEX_HEADER:       while,<:,+,-,::,/},%
+#+LATEX_HEADER:    sensitive=true,%
+#+LATEX_HEADER:    alsoother={$},%
+#+LATEX_HEADER:    morecomment=[l]\#,%
+#+LATEX_HEADER:    morecomment=[n]{\#=}{=\#},%
+#+LATEX_HEADER:    morestring=[s]{"}{"},%
+#+LATEX_HEADER:    morestring=[m]{'}{'},%
+#+LATEX_HEADER: }[keywords,comments,strings]%
+#+LATEX_HEADER: \lstdefinelanguage{dockerfile}{
+#+LATEX_HEADER:   keywords={FROM, RUN, COPY, ADD, ENTRYPOINT, CMD,  ENV, ARG, WORKDIR, EXPOSE, LABEL, USER, VOLUME, STOPSIGNAL, ONBUILD, MAINTAINER},
+#+LATEX_HEADER:   sensitive=false,
+#+LATEX_HEADER:   comment=[l]{\#},
+#+LATEX_HEADER:   morestring=[b]',
+#+LATEX_HEADER:   morestring=[b]"
+#+LATEX_HEADER: }
+#+LATEX_HEADER: \lstdefinelanguage{yaml}{
+#+LATEX_HEADER:   keywords={true,false,null,y,n},
+#+LATEX_HEADER:   ndkeywords={},
+#+LATEX_HEADER:   sensitive=false,
+#+LATEX_HEADER:   comment=[l]{\#},
+#+LATEX_HEADER:   morecomment=[s]{/*}{*/},
+#+LATEX_HEADER:   morestring=[b]',
+#+LATEX_HEADER:   morestring=[b]"
+#+LATEX_HEADER: }
+#+LATEX_HEADER: \lstset{ %
+#+LATEX_HEADER:   backgroundcolor={},
+#+LATEX_HEADER:   basicstyle=\ttfamily\scriptsize,
+#+LATEX_HEADER:   breakatwhitespace=true,
+#+LATEX_HEADER:   breaklines=true,
+#+LATEX_HEADER:   captionpos=n,
+#+LATEX_HEADER:   commentstyle=\color{Accent},
+# #+LATEX_HEADER:   escapeinside={\%*}{*)},
+#+LATEX_HEADER:   extendedchars=true,
+#+LATEX_HEADER:   frame=n,
+#+LATEX_HEADER:   keywordstyle=\color{Accent},
+#+LATEX_HEADER:   rulecolor=\color{black},
+#+LATEX_HEADER:   showspaces=false,
+#+LATEX_HEADER:   showstringspaces=false,
+#+LATEX_HEADER:   showtabs=false,
+#+LATEX_HEADER:   stepnumber=2,
+#+LATEX_HEADER:   stringstyle=\color{gray},
+#+LATEX_HEADER:   tabsize=2,
+#+LATEX_HEADER: }
+#+LATEX_HEADER: \renewcommand*{\UrlFont}{\ttfamily\smaller\relax}
+#+LATEX_HEADER: \graphicspath{{../../img/}}
+#+LATEX_HEADER: \addtobeamertemplate{block begin}{}{\justifying}
+
+#+LATEX_HEADER: \captionsetup[figure]{labelformat=empty}
+
+# #+LATEX_HEADER: \titlegraphic{\hspace*{\fill}\includegraphics[height=.85\textheight]{../../imgs_comuns/computador_grego.jpg}}
+
+* Setup                                            :B_ignoreheading:noexport:
+  :PROPERTIES:
+  :BEAMER_env: ignoreheading
+  :END:
+  #+HEADER: :results output :exports none
+  #+BEGIN_SRC emacs-lisp
+  (setq-local org-latex-pdf-process (list "latexmk -xelatex %f"))
+  #+END_SRC
+
+  #+RESULTS:
+
+
+* Resources                                        :B_ignoreheading:noexport:
+  :PROPERTIES:
+  :BEAMER_env: ignoreheading
+  :EXPORT_FILE_NAME: README
+  :END:
+** Introduction to OS-Level Virtualization on Linux
+   This is  the repository of  a talk on  OS-Level Virtualization on  Linux, with
+   examples using Linux tools and also Docker. Check the =src= directory for all the
+   code shown on the slides, and more!
+
+   Below is a list of interesting related links.
+
+*** Containers from Scratch
+**** Getting Files from Docker Images
+     #+begin_SRC shell :results output :session *Shell* :eval no-export :exports results
+     sudo docker pull debian:latest
+     sudo docker save debian:latest | gzip > data/debian_latest.tar.gz
+     #+end_SRC
+**** Talks
+     - [[https://www.youtube.com/watch?v=8fi7uSYlOdc][Liz Rice, GOTO 2018]]
+     - [[https://www.youtube.com/watch?v=_TsSmSu57Zo][Liz Rice, Container Camp]]
+     - [[https://www.youtube.com/watch?v=I326bpbdvJo][Antony Shaw, Pycon]]
+**** Images
+     - [[https://pbs.twimg.com/media/ERP973GXYAAaD9d?format=jpg&name=large][Julia Evans, Containers aren't magic]]
+     - [[https://pbs.twimg.com/media/ESZIbtfXQAIPwNs?format=jpg&name=large][Julia Evans, containers = processes]]
+**** Code
+     - [[https://github.com/lizrice/containers-from-scratch][lizrice, containers from scratch in Go]]
+     - [[https://github.com/p8952/bocker][Bocker, docker in bash]]
+     - [[https://github.com/tonybaloney/mocker][Mocker, docker in python]]
+**** Tutorials
+     - [[https://btholt.github.io/complete-intro-to-containers/][btholt, Complete Intro to Containers]]
+**** Useful Links
+     - [[https://en.wikipedia.org/wiki/Cgroups][Cgroups]]
+     - [[https://en.wikipedia.org/wiki/Linux_namespaces][Namespaces]]
+     - [[https://en.wikipedia.org/wiki/List_of_Linux_containers][List of Linux Containers]]
+     - [[https://en.wikipedia.org/wiki/Operating_system-level_virtualization][OS-level virtualization]]
+     - [[https://github.com/opencontainers/][OpenContainers Initiative]]
+* Introduction
+** What are Simulation, Emulation, Virtualization?
+*** Images                                                            :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.75
+    :END:
+    #+latex: \only<1-2>{
+    #+ATTR_LATEX: :width 0.7\columnwidth
+    [[file:../../img/pilotwings64.jpg]]
+    #+latex: }
+    #+latex: \only<3>{
+    #+ATTR_LATEX: :width 0.9\columnwidth
+    [[file:../../img/wii_n64.png]]
+    #+latex: }
+    #+latex: \only<4>{
+    #+ATTR_LATEX: :width 0.9\columnwidth
+    [[file:../../img/wii_n64_win7.png]]
+    #+latex: }
+    #+latex: \only<5-6>{
+    #+ATTR_LATEX: :width 0.9\columnwidth
+    [[file:../../img/wii_n64_win7_debian.png]]
+    #+latex: }
+
+*** Progression                                                       :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.25
+    :END:
+    #+latex: \only<1>{
+    #+ATTR_LATEX: :width .7\columnwidth
+    [[file:../../img/pw64_flight.pdf]]
+    #+latex: }
+    #+latex: \only<2>{
+    #+ATTR_LATEX: :width .7\columnwidth
+    [[file:../../img/n64_pw64_flight.pdf]]
+    #+latex: }
+    #+latex: \only<3>{
+    #+ATTR_LATEX: :width .7\columnwidth
+    [[file:../../img/wii_n64_pw64_flight.pdf]]
+    #+latex: }
+    #+latex: \only<4>{
+    #+ATTR_LATEX: :width .7\columnwidth
+    [[file:../../img/win7_wii_n64_pw64_flight.pdf]]
+    #+latex: }
+    #+latex: \only<5>{
+    #+ATTR_LATEX: :width .7\columnwidth
+    [[file:../../img/debian_win7_wii_n64_pw64_flight.pdf]]
+    #+latex: }
+    #+latex: \only<6>{
+    #+ATTR_LATEX: :width .7\columnwidth
+    [[file:../../img/arch_debian_win7_wii_n64_pw64_flight.pdf]]
+    #+latex: }
+** OS-Level Virtualization
+   #+latex: \only<1>{
+   #+ATTR_LATEX: :width .7\columnwidth
+   [[file:../../img/virtualization_concept.pdf]]
+   #+latex: }
+   #+latex: \only<2>{
+   #+ATTR_LATEX: :width .7\columnwidth
+   [[file:../../img/virtualization_concept_1.pdf]]
+   #+latex: }
+** OS-Level Virtualization: Scope of this Talk
+*** Scope of this Talk                                        :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.4
+    :BEAMER_env: block
+    :END:
+    - Why should you *use containers*?
+      - Environment versioning
+      - Reproducible builds
+      - It can be *easier*
+    - How do containers *work*?
+    - What *tools* are available?
+
+    #+ATTR_LATEX: :width .8\columnwidth
+    [[file:../../img/containers.jpg]]
+
+*** Figures                                                           :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :END:
+    #+latex: \only<1>{
+    #+ATTR_LATEX: :width .9\columnwidth
+    [[file:../../img/project_no_containers.pdf]]
+    #+latex: }
+    #+latex: \only<2>{
+    #+ATTR_LATEX: :width .9\columnwidth
+    [[file:../../img/project_with_containers.pdf]]
+    #+latex: }
+** OS-Level Virtualization on Linux
+   #+ATTR_LATEX: :width \columnwidth
+   [[file:../../img/virtualization_normal_kernel.pdf]]
+** OS-Level Virtualization on Linux
+   #+ATTR_LATEX: :width \columnwidth
+   [[file:../../img/virtualization_kernel.pdf]]
+* Containers on Linux
+** How do Containers Work?
+   #+ATTR_LATEX: :width .81\columnwidth
+   [[file:../../img/how-containers-work_pg0.pdf]]
+** How do Containers Work?
+   Images used *with permission*:
+   #+ATTR_LATEX: :width .72\columnwidth
+   [[file:../../img/hcw_permission_twitter.png]]
+** Containers on Linux are Just Processes
+   #+ATTR_LATEX: :width .86\columnwidth
+   [[file:../../img/how-containers-work_pg7.pdf]]
+** Containers on Linux use Some Kernel Features
+   #+ATTR_LATEX: :width .86\columnwidth
+   [[file:../../img/how-containers-work_pg8.pdf]]
+* Containers from Scratch
+** Containers from Scratch: Obtaing an Image
+*** Left                                                              :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    An *image* usually means:
+
+    - A *root* file system, and
+    - Some *metadata*
+*** Right                                                             :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+ATTR_LATEX: :width .5\columnwidth
+    [[file:../../img/alpine_linux.png]]
+
+    We will use the *Alpine* distribution:
+    - It's root FS has only *2.4MB*
+    - No need for metadata
+
+*** Bash Script
+#+begin_SRC bash :results output :session *Shell* :eval no-export :exports code :tangle "src/virtualization_cgroups/launch_alpine_container.sh"
+#!/usr/bin/bash
+
+IMG_DIR="alpine_img"
+IMG_REPO="https://us.images.linuxcontainers.org/images"
+IMG_URL="$IMG_REPO/alpine/3.11/amd64/default/20200525_15:29/rootfs.tar.xz"
+[ ! -d $IMG_DIR ] && \
+    mkdir -p $IMG_DIR && \
+    curl $IMG_URL | tar xJ -C $IMG_DIR
+#+end_SRC
+
+#+RESULTS:
+:
+: !/usr/bin/bash   [30m#[30m![30m/[30mu[30ms[30mr[30m/[30mb[30mi[30mn[30m/[30mb[30ma[30ms[30mh[39m[?2004l
+: I% [?2004hI% [?2004l
+: I% [?2004hI% IMG_DIR="alpine_img"   IMG_DIR=[33m"[33ma[33ml[33mp[33mi[33mn[33me[33m_[33mi[33mm[33mg[33m"[39m[?2004l
+: I% [?2004hI% IMG_REPO="https://us.images.linuxcontainers.org/images"   IMG_REPO=[33m"[33mh[33mt[33mt[33mp[33ms[33m:[33m/[33m/[33mu[33ms[33m.[33mi[33mm[33ma[33mg[33me[33ms[33m.[33ml[33mi[33mn[33mu[33mx[33mc[33mo[33mn[33mt[33ma[33mi[33mn[33me[33mr[33ms[33m.[33mo[33mr[33mg[33m/[33mi[33mm[33ma[33mg[33me[33ms[33m"[39m[?2004l
+: I% [?2004hI% IMG_URL="$IMG_REPO/alpine/3.11/amd64/default/20200521_13:00/rootfs.tar.xz"   IMG_URL=[33m"[33m$[33mI[33mM[33mG[33m_[33mR[33mE[33mP[33mO[39m[33m/[33ma[33ml[33mp[33mi[33mn[33me[33m/[33m3[33m.[33m1[33m1[33m/[33ma[33mm[33md[33m6[33m4[33m/[33md[33me[33mf[33ma[33mu[33ml[33mt[33m/[33m2[33m0[33m2[33m0[33m0[33m5[33m2[33m1[33m_[33m1[33m3[33m:[33m0[33m0[33m/[33mr[33mo[33mo[33mt[33mf[33ms[33m.[33mt[33ma[33mr[33m.[33mx[33mz[33m"[39m[?2004l
+: I% [?2004hI% [ ! -d $IMG_DIR ] && \   [32m[[39m ! -d $IMG_DIR [32m][39m && [31m\[39m[?2004l
+: [?2004h>     mkdir -p $IMG_DIR && \      [32mm[32mk[32md[32mi[32mr[39m -p $IMG_DIR && [31m\[39m[?2004l
+: [?2004h>     curl $IMG_URL | tar xJ -C $IMG_DIR      [32mc[32mu[32mr[32ml[39m $IMG_URL | [32mt[32ma[32mr[39m xJ -C $IMG_DIR[?2004l
+
+** Containers from Scratch: Creating cgroups and Setting Limits
+We will create a *cgroup* allowing up to:
+- *50%* CPU usage: 512/1024 *shares*
+- *10GB* of RAM
+
+*** Script
+#+begin_SRC bash :results output :session *Shell* :eval no-export :exports code :tangle "src/virtualization_cgroups/launch_alpine_container.sh"
+    CGROUP_ID="MAC0475-145"
+    sudo cgcreate -g "cpu,cpuacct,memory:$CGROUP_ID"
+    sudo cgset -r cpu.shares=512 "$CGROUP_ID"
+    sudo cgset -r memory.limit_in_bytes=10000000000 "$CGROUP_ID"
+#+end_SRC
+
+#+RESULTS:
+: CGROUP_ID="MAC0475-145"   CGROUP_ID=[33m"[33mM[33mA[33mC[33m0[33m4[33m7[33m5[33m-[33m1[33m4[33m5[33m"[39m[?2004l
+: I% [?2004hI% sudo cgcreate -g "cpu,cpuacct,memory:$CGROUP_ID"   [32ms[32mu[32md[32mo[39m [32mc[32mg[32mc[32mr[32me[32ma[32mt[32me[39m -g [33m"[33mc[33mp[33mu[33m,[33mc[33mp[33mu[33ma[33mc[33mc[33mt[33m,[33mm[33me[33mm[33mo[33mr[33my[33m:[33m$[33mC[33mG[33mR[33mO[33mU[33mP[33m_[33mI[33mD[39m[33m"[39m[?2004l
+: [sudo] password for phrb:
+: CGROUP_ID"
+: I% [?2004hI% sudo cgset -r cpu.shares=512 "$CGROUP_ID"   [32ms[32mu[32md[32mo[39m [32mc[32mg[32ms[32me[32mt[39m -r cpu.shares=512 [33m"[33m$[33mC[33mG[33mR[33mO[33mU[33mP[33m_[33mI[33mD[39m[33m"[39m[?2004l
+: CGROUP_ID"
+: I% [?2004hI% sudo cgset -r memory.limit_in_bytes=10000000000 "$CGROUP_ID"   [32ms[32mu[32md[32mo[39m [32mc[32mg[32ms[32me[32mt[39m -r memory.limit_in_bytes=10000000000 [33m"[33m$[33mC[33mG[33mR[33mO[33mU[33mP[33m_[33mI[33mD[39m[33m"[39m[?2004l
+
+** Containers from Scratch: Launching our Alpine Container
+*** Left                                                              :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+- *cgexec*: Runs using a cgroup
+- *unshare*: Runs with new *namespaces*
+- *chroot*: Changes *root* of the file system
+*** Right                                                             :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+- *mount*: Here, mounts a new *proc* directory
+- *sh*: Starts a shell on the *container*
+- We could install *depencies* now
+
+*** Script                                                          :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+#+begin_SRC bash :results output :session *Shell* :eval no-export :exports code :tangle "src/virtualization_cgroups/launch_alpine_container.sh"
+    HOSTNAME="alpine-container"
+    sudo cgexec -g "cpu,cpuacct,memory:$CGROUP_ID" \
+         unshare -fmuipn --mount-proc \
+         chroot "$IMG_DIR/" \
+         /bin/sh -c "PATH=/bin && mount -t proc proc /proc && hostname $HOSTNAME && sh"
+
+#+end_SRC
+
+#+RESULTS:
+: HOSTNAME="alpine-container"   HOSTNAME=[33m"[33ma[33ml[33mp[33mi[33mn[33me[33m-[33mc[33mo[33mn[33mt[33ma[33mi[33mn[33me[33mr[33m"[39m[?2004l
+: I% [?2004hI% sudo cgexec -g "cpu,cpuacct,memory:$CGROUP_ID" \   [32ms[32mu[32md[32mo[39m [32mc[32mg[32me[32mx[32me[32mc[39m -g [33m"[33mc[33mp[33mu[33m,[33mc[33mp[33mu[33ma[33mc[33mc[33mt[33m,[33mm[33me[33mm[33mo[33mr[33my[33m:[33m$[33mC[33mG[33mR[33mO[33mU[33mP[33m_[33mI[33mD[39m[33m"[39m \[?2004l
+: [?2004h>      unshare -fmuipn --mount-proc \[?2004l
+: [?2004h>      chroot "$IMG_DIR/" \[33m"[33m$[33mI[33mM[33mG[33m_[33mD[33mI[33mR[39m[33m/[33m"[39m \[?2004l
+: [?2004h>      /bin/sh -c "PATH=/bin && mount -t proc proc /proc && hostname $HOSTNAME && sh"       /bin/sh -c [33m"[33mP[33mA[33mT[33mH[33m=[33m/[33mb[33mi[33mn[33m [33m&[33m&[33m [33mm[33mo[33mu[33mn[33mt[33m [33m-[33mt[33m [33mp[33mr[33mo[33mc[33m [33mp[33mr[33mo[33mc[33m [33m/[33mp[33mr[33mo[33mc[33m [33m&[33m&[33m [33mh[33mo[33ms[33mt[33mn[33ma[33mm[33me[33m [33m$[33mH[33mO[33mS[33mT[33mN[33mA[33mM[33mE[39m[33m [33m&[33m&[33m [33ms[33mh[33m"[39m[?2004l
+
+And some *cleanup* after:
+
+#+begin_SRC bash :results output :session *Shell* :eval no-export :exports code :tangle "src/virtualization_cgroups/launch_alpine_container.sh"
+    sudo cgdelete cpu,cpuacct,memory:/$CGROUP_ID
+#+end_SRC
+
+#+RESULTS:
+:
+: CGROUP_ID[?2004l
+: cgdelete: cannot remove group '/MAC0475-145': No such file or directory
+
+
+** Containers from Scratch: Resources
+*** Talks                                                     :B_block:BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:BEAMER_env: block
+:END:
+- [[https://www.youtube.com/watch?v=8fi7uSYlOdc][Liz Rice, GOTO 2018]]
+- [[https://www.youtube.com/watch?v=_TsSmSu57Zo][Liz Rice, Container Camp]]
+- [[https://www.youtube.com/watch?v=I326bpbdvJo][Antony Shaw, Pycon]]
+**** Code
+- [[https://github.com/lizrice/containers-from-scratch][lizrice, containers from scratch in Go]]
+- [[https://github.com/p8952/bocker][Bocker, docker in bash]]
+- [[https://github.com/tonybaloney/mocker][Mocker, docker in python]]
+*** Tutorials                                                 :B_block:BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:BEAMER_env: block
+:END:
+- [[https://btholt.github.io/complete-intro-to-containers/][btholt, Complete Intro to Containers]]
+
+  #+ATTR_LATEX: :width .99\columnwidth
+  [[file:../../img/lizrice_goto2018.jpg]]
+* Docker Containers
+** The Docker API for Containers
+   #+latex: \only<1>{
+   #+ATTR_LATEX: :width .6\columnwidth
+   [[file:../../img/virt_no_docker.pdf]]
+   #+latex: }
+   #+latex: \only<2-3>{
+   #+ATTR_LATEX: :width .7\columnwidth
+   [[file:../../img/virt_with_docker.pdf]]
+   #+latex: }
+
+*** Reproducing our Alpine Container                                :B_block:
+    :PROPERTIES:
+    :BEAMER_act: <3>
+    :BEAMER_env: block
+    :END:
+    #+begin_SRC bash :results output :session *Shell* :eval no-export :exports code :tangle ./src/docker_alpine/docker_alpine.sh
+    #! /bin/bash
+
+    sudo docker image pull alpine
+    sudo docker container run -it --memory=10g --cpu-shares=512 alpine
+    #+end_SRC
+
+    #+RESULTS:
+    : sudo docker image pull alpine   [32ms[32mu[32md[32mo[39m [32md[32mo[32mc[32mk[32me[32mr[39m image pull alpine[?2004l
+    : [sudo] password for phrb:
+    : Using default tag: latest
+    : latest: Pulling from library/alpine
+    : Digest: sha256:9a839e63dad54c3a6d1834e29692c8492d93f90c59c978c1ed79109ea4fb9a54
+    : Status: Image is up to date for alpine:latest
+    : docker.io/library/alpine:latest
+    : ]0;~/cloud/presentations/org/linux-containersI% [?2004hI% sudo docker container run -it --memory=10g --cpu-shares=512 alpine   [32ms[32mu[32md[32mo[39m [32md[32mo[32mc[32mk[32me[32mr[39m container run -it --memory=10g --cpu-shares=512 alpine[?2004l
+
+** The Docker API for Containers
+   Some *API functions*:
+   #+latex: \footnotesize
+   #+ATTR_LATEX: :booktabs t :align p{0.1\columnwidth}p{0.1\columnwidth}p{0.06\columnwidth}p{0.22\columnwidth}p{0.28\columnwidth}
+   |---------------------------------------------+------------------------------------------------+--------+---------------------------+-----------------------------------------------------------|
+   | \textbf{Docker API}                         |                                                |        | \textbf{Description}      | \textbf{In Our Script}                                    |
+   |---------------------------------------------+------------------------------------------------+--------+---------------------------+-----------------------------------------------------------|
+   | @@latex: \multirow{9}{*}{\texttt{docker}}@@ | @@latex: \multirow{4}{*}{\texttt{image}}@@     | =pull=   | Downloads images          | =mkdir=, =curl=, =tar=                                          |
+   |                                             |                                                | =ls=     | Lists downloaded images   |                                                           |
+   |                                             |                                                | =save=   | Writes image to a =.tar=    |                                                           |
+   |                                             |                                                | =build=  | Builds an image           |                                                           |
+   |                                             |                                                |        |                           |                                                           |
+   |                                             | @@latex: \multirow{4}{*}{\texttt{container}}@@ | =run=    | Runs containers in images | =cgcreate=, =cgset=, =cgexec=, =unshare=, =chroot=, =hostname=, =mount= |
+   |                                             |                                                | =ls=     | Lists running containers  |                                                           |
+   |                                             |                                                | =attach= | Attaches to a container   |                                                           |
+   |                                             |                                                | =commit= | Saves container to image  |                                                           |
+   |---------------------------------------------+------------------------------------------------+--------+---------------------------+-----------------------------------------------------------|
+   #+latex: \normalsize
+   - Check the examples and [[https://docs.docker.com/engine/reference/commandline/cli/][the docs]] for more
+* Dockerfiles
+** Environment Versioning with Dockerfiles
+   #+latex: \only<1>{
+   #+ATTR_LATEX: :width .64\columnwidth
+   [[file:../../img/virt_with_docker.pdf]]
+   #+latex: }
+   #+latex: \only<2>{
+   #+ATTR_LATEX: :width .78\columnwidth
+   [[file:../../img/virt_with_dockerfile.pdf]]
+   #+latex: }
+*** Dockerfiles                                                     :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+    - Similar to *makefiles*
+    - Define container *properties*:
+      - Versions of images from [[https://hub.docker.com/search?q=&type=image][dockerhub]]
+      - Environment variables
+      - Dependencies
+** Dockerfiles: A Simple Bulletin Board
+*** Cloning the Repository                                          :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+
+    #+begin_SRC bash :results output :session *Shell* :eval no-export :exports code :tangle ./src/bulletin_dockerfile/clone.sh
+    git clone https://github.com/dockersamples/node-bulletin-board
+    #+end_SRC
+*** Dockerfile
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+
+    #+begin_SRC dockerfile :results output :eval no-export :exports code
+    FROM node:current-slim
+    WORKDIR /usr/src/app
+    COPY package.json .
+    RUN npm install
+    EXPOSE 8080
+    CMD [ "npm", "start" ]
+    COPY . .
+    #+end_SRC
+** Dockerfiles: Building and Running
+*** Building the Image                                              :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+    #+begin_SRC bash :results output :session *Shell* :eval no-export :exports code :tangle ./src/bulletin_dockerfile/build_run.sh
+    cd node-bulletin-board/bulletin-board-app
+    sudo docker image build --tag bulletinboard:1.0 .
+    sudo docker container run --publish 8000:8080 --detach --name bb bulletinboard:1.0
+    #+end_SRC
+
+*** Cleaning up                                                     :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+    #+begin_SRC bash :results output :session *Shell* :eval no-export :exports code :tangle ./src/bulletin_dockerfile/cleanup.sh
+    cd node-bulletin-board/bulletin-board-app
+    sudo docker container rm --force bb
+    #+end_SRC
+
+    - Check the [[https://docs.docker.com/get-started/part2/][complete tutorial]]
+* Docker Compose
+** Combining Services with Docker Compose
+   #+latex: \only<1>{
+   #+ATTR_LATEX: :width .81\columnwidth
+   [[file:../../img/virt_with_dockerfile.pdf]]
+   #+latex: }
+   #+latex: \only<2>{
+   #+ATTR_LATEX: :width .94\columnwidth
+   [[file:../../img/virt_with_docker_compose.pdf]]
+   #+latex: }
+*** Docker-compose                                                  :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+    - Uses *Dockerfiles* too
+    - Defines *services* on *separate containers*:
+      - Configure service *communication*
+      - Maintain separate service *projects*
+** Combining Services with Docker Compose: Flask + Redis
+   #+begin_SRC python :results output :session *Python* :eval no-export :exports code :tangle ./src/flask_redis/app.py
+   import time, redis
+   from flask import Flask
+
+   app = Flask(__name__)
+   cache = redis.Redis(host = 'redis', port = 6379)
+
+   def get_hit_count():
+       retries = 5
+       while True:
+           try:
+               return cache.incr('hits')
+           except redis.exceptions.ConnectionError as exc:
+               if retries == 0:
+                   raise exc
+               retries -= 1
+               time.sleep(0.5)
+
+   @app.route('/')
+   def hello():
+       count = get_hit_count()
+       return 'Hello World! I have been seen {} times.\n'.format(count)
+   #+end_SRC
+
+   #+begin_SRC python :results output :session *Python* :eval no-export :exports none :tangle ./src/flask_redis/requirements.txt
+   flask
+   redis
+   #+end_SRC
+
+** Combining Services with Docker Compose: Flask + Redis
+*** Flask Dockerfile                                                :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+
+    - Use an Alpine image, with Python 3.7
+    - Configure and install *Flask* dependencies
+    - Define a default *container command*
+
+    #+begin_SRC dockerfile :results output :eval no-export :exports code :tangle ./src/flask_redis/Dockerfile
+    FROM python:3.7-alpine
+    WORKDIR /code
+    ENV FLASK_APP app.py
+    ENV FLASK_RUN_HOST 0.0.0.0
+    RUN apk add --no-cache gcc musl-dev linux-headers
+    COPY requirements.txt requirements.txt
+    RUN pip install -r requirements.txt
+    COPY . .
+    CMD ["flask", "run"]
+    #+end_src
+
+** Combining Services with Docker Compose: Flask + Redis
+*** Docker Compose Configuration                                    :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+
+    - Define *service architecture*
+    - Use the *default* Redis Alpine image
+
+    #+begin_SRC yaml :results output :eval no-export :exports code :tangle ./src/flask_redis/docker-compose.yml
+    version: '3'
+    services:
+      web:
+        build: .
+        ports:
+          - "5000:5000"
+        volumes:
+          - .:/code
+        environment:
+          FLASK_ENV: development
+      redis:
+        image: "redis:alpine"
+    #+end_src
+
+    - Check the [[https://docs.docker.com/compose/gettingstarted/][complete tutorial]]
+* Conclusion
+** OS-Level Virtualization: Conclusion
+*** Take-away                                                 :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.4
+    :BEAMER_env: block
+    :END:
+    - You should *use containers*!
+      - Environment versioning
+      - Reproducible builds
+      - It's *easy*
+    - Containers are *processes*
+    - Many *tools* are available:
+
+    #+ATTR_LATEX: :width .8\columnwidth
+    [[file:../../img/containers.jpg]]
+
+*** Figures                                                           :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :END:
+    #+latex: \only<1>{
+    #+ATTR_LATEX: :width .9\columnwidth
+    [[file:../../img/project_with_containers.pdf]]
+    #+latex: }
